@@ -1,0 +1,12 @@
+diff -Naur gnupg-2.0.21.old/g10/card-util.c gnupg-2.0.21/g10/card-util.c
+--- gnupg-2.0.21.old/g10/card-util.c	2013-08-19 10:55:29.000000000 +0200
++++ gnupg-2.0.21/g10/card-util.c	2013-10-24 08:19:11.982024127 +0200
+@@ -208,6 +208,8 @@
+ 
+     case 0x002A: return "Magrathea";
+ 
++    case 0x7975: return "Yubico";
++
+     case 0xF517: return "FSIJ";
+ 
+       /* 0x00000 and 0xFFFF are defined as test cards per spec,
