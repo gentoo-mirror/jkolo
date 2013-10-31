@@ -1,0 +1,16 @@
+<repositories version="1.0">
+<repo quality="experimental" status="unofficial">
+<name>jkolo</name>
+<description lang="en">Jerzy Kolosowski's Gentoo overlay</description>
+<longdescription lang="en">
+Ebuilds for stuff I use that is missing from portage
+</longdescription>
+<homepage>https://git.kolosowscy.pl/jurek/gentoo-overlay</homepage>
+<owner type="person">
+<email>jerzy@kolosowscy.pl</email>
+<name>Jerzy Kolosowski</name>
+</owner>
+<source type="git">https://git.kolosowscy.pl/jurek/gentoo-overlay</source>
+<source type="git">git@git.kolosowscy.pl:jurek/gentoo-overlay.git</source>
+</repo>
+</repositories>
