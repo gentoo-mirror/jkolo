@@ -29,8 +29,6 @@ ruby_add_rdepend "virtual/ruby-ssl
 	>=dev-ruby/rails-3.2.13:3.2
 	>=dev-ruby/jquery-rails-2.0.2
 	dev-ruby/i18n:0.6
-	dev-ruby/rack:1.4
-	!dev-ruby/rack:1.5
 	>=dev-ruby/coderay-1.0.9
 	dev-ruby/builder:3
 	dev-ruby/rake
