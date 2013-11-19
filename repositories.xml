@@ -11,6 +11,5 @@ Ebuilds for stuff I use that is missing from portage
 <name>Jerzy Kolosowski</name>
 </owner>
 <source type="git">https://git.kolosowscy.pl/jurek/gentoo-overlay</source>
-<source type="git">git@git.kolosowscy.pl:jurek/gentoo-overlay.git</source>
 </repo>
 </repositories>
