@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-base/gnome-control-center/gnome-control-center-3.8.5-r1.ebuild,v 1.1 2013/10/08 15:24:51 tetromino Exp $
+# $Header: $
 
 EAPI="5"
 GCONF_DEBUG="yes"
@@ -14,7 +14,7 @@ HOMEPAGE="https://git.gnome.org/browse/gnome-control-center/"
 LICENSE="GPL-2+"
 SLOT="2"
 
-IUSE="+bluetooth +colord +cups +gnome-online-accounts +i18n input_devices_wacom kerberos modemmanager +socialweb v4l"
+IUSE="+colord +cups +gnome-online-accounts +i18n input_devices_wacom kerberos +socialweb v4l"
 KEYWORDS="~alpha ~amd64 ~arm ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd ~x86-freebsd ~amd64-linux ~x86-linux ~x86-solaris"
 
 # False positives caused by nested configure scripts
@@ -28,28 +28,29 @@ QA_CONFIGURE_OPTIONS=".*"
 #
 # kerberos unfortunately means mit-krb5; build fails with heimdal
 COMMON_DEPEND="
-	>=dev-libs/glib-2.35.1:2
+	>=dev-libs/glib-2.37.7:2
 	>=x11-libs/gdk-pixbuf-2.23.0:2
-	>=x11-libs/gtk+-3.7.10:3
-	>=gnome-base/gsettings-desktop-schemas-3.7.2.2
-	>=gnome-base/gnome-desktop-3.7.5:3=
-	>=gnome-base/gnome-settings-daemon-3.8.3[colord?,policykit]
+	>=x11-libs/gtk+-3.9.12:3
+	>=gnome-base/gsettings-desktop-schemas-3.9.91
+	>=gnome-base/gnome-desktop-3.9.90:3=
+	>=gnome-base/gnome-settings-daemon-3.8.3[policykit]
 	>=gnome-base/libgnomekbd-2.91.91
 
-	dev-libs/libpwquality
+	>=dev-libs/libpwquality-1.2.2
 	dev-libs/libxml2:2
 	gnome-base/gnome-menus:3
 	gnome-base/libgtop:2
 	media-libs/fontconfig
+	media-libs/clutter
 
 	>=media-libs/libcanberra-0.13[gtk3]
 	>=media-sound/pulseaudio-2[glib]
-	>=sys-auth/polkit-0.97
+	>=sys-auth/polkit-0.103
 	>=sys-power/upower-0.9.1
 	>=x11-libs/libnotify-0.7.3:0=
 
 	>=gnome-extra/nm-applet-0.9.7.995
-	>=net-misc/networkmanager-0.9.8[modemmanager?]
+	>=net-misc/networkmanager-0.9.8[modemmanager]
 
 	virtual/opengl
 	x11-apps/xmodmap
@@ -57,15 +58,15 @@ COMMON_DEPEND="
 	x11-libs/libXxf86misc
 	>=x11-libs/libXi-1.2
 
-	bluetooth? ( >=net-wireless/gnome-bluetooth-3.5.5:= )
+	>=net-wireless/gnome-bluetooth-3.5.5:=
 	colord? ( >=x11-misc/colord-0.1.29 )
 	cups? (
 		>=net-print/cups-1.4[dbus]
 		( || ( <net-fs/samba-4.0.0_alpha1[smbclient] >=net-fs/samba-4.0.0_alpha1[client] ) ) )
-	gnome-online-accounts? ( >=net-libs/gnome-online-accounts-3.8.1 )
+	gnome-online-accounts? ( >=net-libs/gnome-online-accounts-3.9.90 )
 	i18n? ( >=app-i18n/ibus-1.4.99 )
 	kerberos? ( app-crypt/mit-krb5 )
-	modemmanager? ( >=net-misc/modemmanager-0.7.990 )
+	>=net-misc/modemmanager-0.7.990
 	socialweb? ( net-libs/libsocialweb )
 	v4l? (
 		media-libs/gstreamer:1.0
@@ -82,7 +83,7 @@ RDEPEND="${COMMON_DEPEND}
 	x11-themes/gnome-icon-theme-symbolic
 	colord? (
 		>=gnome-extra/gnome-color-manager-3
-		>=x11-misc/colord-0.1.29
+		>=x11-misc/colord-0.1.34
 		>=x11-libs/colord-gtk-0.1.24 )
 	cups? (
 		>=app-admin/system-config-printer-gnome-1.3.5
@@ -121,24 +122,16 @@ src_prepare() {
 	sed -i "s|^completiondir =.*|completiondir = $(get_bashcompdir)|" \
 		shell/Makefile.am || die "sed completiondir failed"
 
-	# Make some panels and dependencies optional; requires eautoreconf
-	# https://bugzilla.gnome.org/686840, 697478, 700145
-	epatch "${FILESDIR}/${PN}-3.8.5-optional.patch"
+	# https://bugzilla.gnome.org/686840
+	epatch "${FILESDIR}/${PN}-3.8.4-optional-kerberos.patch"
 
 	# Fix some absolute paths to be appropriate for Gentoo
 	epatch "${FILESDIR}/${PN}-3.8.0-paths-makefiles.patch"
 	epatch "${FILESDIR}/${PN}-3.8.0-paths.patch"
+	epatch "${FILESDIR}/${P}-fixbuild.patch"
 
-	# top-level configure.ac does not use AC_CONFIG_SUBDIRS, so we need this to
-	# avoid libtoolize "We've already been run in this tree" warning, bug #484988
-	local d
-	for d in . egg-list-box; do
-		pushd "${d}" > /dev/null
-		AT_NOELIBTOOLIZE=yes eautoreconf
-		popd > /dev/null
-	done
-	elibtoolize --force
 	epatch_user
+	eautoreconf
 
 	# panels/datetime/Makefile.am gets touched as a result of something in our
 	# src_prepare(). We need to touch timedated{c,h} to prevent them from being
@@ -154,13 +147,11 @@ src_configure() {
 		--disable-update-mimedb \
 		--disable-static \
 		--enable-documentation \
-		$(use_enable bluetooth) \
 		$(use_enable colord color) \
 		$(use_enable cups) \
 		$(use_enable gnome-online-accounts goa) \
 		$(use_enable i18n ibus) \
 		$(use_enable kerberos) \
-		$(use_enable modemmanager) \
 		$(use_with socialweb libsocialweb) \
 		$(use_with v4l cheese) \
 		$(use_enable input_devices_wacom wacom)

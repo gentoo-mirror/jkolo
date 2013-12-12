@@ -1,6 +1,6 @@
 # Copyright 1999-2013 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/gnome-base/gvfs/gvfs-1.16.3-r1.ebuild,v 1.1 2013/10/14 19:26:28 pacho Exp $
+# $Header: $
 
 EAPI="5"
 GCONF_DEBUG="no"
@@ -20,7 +20,7 @@ IUSE="afp archive avahi bluetooth bluray cdda fuse gdu gnome-keyring gnome-onlin
 
 # Can use libgphoto-2.5.0 as well. Automagic detection.
 RDEPEND="
-	>=dev-libs/glib-2.35:2
+	>=dev-libs/glib-2.37:2
 	sys-apps/dbus
 	dev-libs/libxml2:2
 	net-misc/openssh
@@ -41,7 +41,7 @@ RDEPEND="
 	gnome-keyring? ( app-crypt/libsecret )
 	gphoto2? ( >=media-libs/libgphoto2-2.4.7:= )
 	gtk? ( >=x11-libs/gtk+-3.0:3 )
-	http? ( >=net-libs/libsoup-gnome-2.34.0:2.4 )
+	http? ( >=net-libs/libsoup-2.43.0:2.4 )
 	ios? (
 		>=app-pda/libimobiledevice-1.1.0:=
 		>=app-pda/libplist-1:= )
@@ -72,17 +72,12 @@ DEPEND="${RDEPEND}
 # https://bugzilla.gnome.org/700162
 RESTRICT="test"
 
-REQUIRED_USE="
-	cdda? ( udev )
+REQUIRED_USE="cdda? ( udev )
 	udisks? ( udev )
-	systemd? ( udisks )
-"
+	systemd? ( udisks )"
 
 src_prepare() {
 	DOCS="AUTHORS ChangeLog NEWS MAINTAINERS README TODO" # ChangeLog.pre-1.2 README.commits
-
-	# Emit signal before returning dbus value, bug #488024 (from 'master')
-	epatch "${FILESDIR}/${PN}-1.16.3-emit-signal.patch"
 
 	if ! use udev; then
 		sed -e 's/gvfsd-burn/ /' \
