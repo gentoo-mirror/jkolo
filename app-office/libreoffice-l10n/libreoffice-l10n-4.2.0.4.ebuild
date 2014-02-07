@@ -10,7 +10,7 @@ MY_PV=$(get_version_component_range 1-3)
 
 DESCRIPTION="Translations for the Libreoffice suite."
 HOMEPAGE="http://www.libreoffice.org"
-BASE_SRC_URI="http://download.documentfoundation.org/${PN/-l10n/}/testing/${MY_PV}/rpm"
+BASE_SRC_URI="http://download.documentfoundation.org/${PN/-l10n/}/stable/${MY_PV}/rpm"
 
 LICENSE="|| ( LGPL-3 MPL-1.1 )"
 SLOT="0"
@@ -20,23 +20,23 @@ IUSE="offlinehelp"
 #
 # when changing the language lists, please be careful to preserve the spaces (bug 491728)
 #
-LANGUAGES_HELP=" am ast bg bn_IN bn bo bs ca cs da de dz el en_GB en en_ZA
-eo es et eu fi fr gl gu he hi hr hu id is it ja ka km ko mk nb ne nl nn om pl
-pt_BR pt ru si sk sl sq sv tg tr ug uk vi zh_CN zh_TW "
-LANGUAGES="${LANGUAGES_HELP}af ar as be br brx cy dgo fa ga gd kk kn kok ks
-lb lo lt lv mai ml mn mni mr my nr nso oc or pa_IN ro rw sa_IN sat sd sr
-ss st sw_TZ ta te th tn ts tt uz ve xh zu "
+LANGUAGES_HELP=" am ast bg bn bn_IN bo bs ca cs da de dz el en en_GB en_ZA 
+eo es et eu fi fr gl gu he hi hr hu id is it ja ka km ko mk nb ne nl nn om pl 
+pt pt_BR ru si sk sl sq sv tg tr ug uk vi zh_CN zh_TW "
+LANGUAGES="${LANGUAGES_HELP}af ar as be br brx cy dgo fa ga gd kk kn kok 
+ks lb lo lt lv mai ml mn mni mr my nr nso oc or pa_IN ro rw sa_IN sat sd sid 
+sr ss st sw_TZ ta te th tn ts tt uz ve xh zu "
 
 for lang in ${LANGUAGES_HELP}; do
 	helppack=""
 	[[ ${lang} == en ]] && lang2=${lang/en/en_US} || lang2=${lang}
-	helppack="offlinehelp? ( ${BASE_SRC_URI}/x86/LibreOffice_${PV}_Linux_x86_rpm_helppack_${lang2/_/-}.tar.gz )"
+	helppack="offlinehelp? ( ${BASE_SRC_URI}/x86/LibreOffice_${MY_PV}_Linux_x86_rpm_helppack_${lang2/_/-}.tar.gz )"
 	SRC_URI+=" linguas_${lang}? ( ${helppack} )"
 done
 for lang in ${LANGUAGES}; do
 	langpack=""
 	[[ ${lang} == en ]] \
-		|| langpack="${BASE_SRC_URI}/x86/LibreOffice_${PV}_Linux_x86_rpm_langpack_${lang/_/-}.tar.gz"
+		|| langpack="${BASE_SRC_URI}/x86/LibreOffice_${MY_PV}_Linux_x86_rpm_langpack_${lang/_/-}.tar.gz"
 	[[ -z ${langpack} ]] || SRC_URI+=" linguas_${lang}? ( ${langpack} )"
 	IUSE+=" linguas_${lang}"
 done
