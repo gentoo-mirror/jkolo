@@ -8,7 +8,7 @@ MY_P="ZoneMinder-${PV}"
 
 DESCRIPTION="ZoneMinder allows you to capture, analyse, record and monitor any cameras attached to your system."
 HOMEPAGE="http://www.zoneminder.com/"
-SRC_URI="https://github.com/ZoneMinder/ZoneMinder/archive/v1.26-beta.1.tar.gz"
+SRC_URI="https://github.com/ZoneMinder/ZoneMinder/archive/v1.26.5.tar.gz"
 LICENSE="GPL-2"
 KEYWORDS="~amd64 ~x86"
 IUSE="debug ffmpeg mmap"
@@ -44,7 +44,7 @@ RDEPEND="dev-perl/DBD-mysql
 need_apache
 need_php_httpd
 
-S=${WORKDIR}/ZoneMinder-1.26-beta.1
+S=${WORKDIR}/ZoneMinder-1.26.5
 
 pkg_setup() {
 	require_php_with_use mysql sockets apache2
@@ -53,9 +53,6 @@ pkg_setup() {
 src_unpack() {
 	unpack ${A}
 	cd "${S}"
-
-	epatch "${FILESDIR}"/${PV}/Makefile.am.patch
-	epatch "${FILESDIR}"/${PV}/db_upgrade_script_location.patch
 
 	eautoreconf
 }
