@@ -1,12 +1,14 @@
-diff -Naur /root/gpa-0.9.4.old/src/cm-openpgp.c /root/gpa-0.9.4/src/cm-openpgp.c
---- /root/gpa-0.9.4.old/src/cm-openpgp.c	2012-08-16 11:26:42.000000000 +0200
-+++ /root/gpa-0.9.4/src/cm-openpgp.c	2013-10-25 18:15:27.052150034 +0200
-@@ -136,6 +136,8 @@
+diff -Naur gpa-0.9.4.old/src/cm-openpgp.c gpa-0.9.4/src/cm-openpgp.c
+--- gpa-0.9.4.old/src/cm-openpgp.c	2012-08-16 11:26:42.000000000 +0200
++++ gpa-0.9.4/src/cm-openpgp.c	2014-04-28 00:08:40.770504055 +0200
+@@ -134,8 +134,10 @@
+     case 0x0003: return "OpenFortress";
+     case 0x0004: return "Wewid AB";
      case 0x0005: return "ZeitControl";
++    case 0x0006: return "Yubico";
  
      case 0x002A: return "Magrathea";
 +
-+    case 0x7975: return "Yubico";
        /* 0x00000 and 0xFFFF are defined as test cards per spec,
           0xFFF00 to 0xFFFE are assigned for use with randomly created
           serial numbers.  */
