@@ -13,7 +13,7 @@ EHG_REPO_URI="https://bitbucket.org/jpclizbe/sks-keyserver"
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="optimize test"
 DOC_CONTENTS="To get sks running, first build the database,
 start the databse, import atleast one key, then
