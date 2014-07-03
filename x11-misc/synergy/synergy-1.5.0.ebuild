@@ -8,7 +8,7 @@ inherit eutils flag-o-matic gnome2-utils cmake-utils qt4-r2
 
 DESCRIPTION="Lets you easily share a single mouse and keyboard between multiple computers."
 HOMEPAGE="http://synergy-foss.org/"
-SRC_URI="http://${PN}.googlecode.com/files/${P}-Source.tar.gz
+SRC_URI="http://synergy-project.org/files/packages/${P}-r2278-Source.tar.gz
 	http://dev.gentoo.org/~hasufell/distfiles/${PN}.png"
 
 LICENSE="GPL-2"
@@ -32,8 +32,9 @@ DEPEND="${RDEPEND}
 S=${WORKDIR}/${P}-Source
 
 src_prepare() {
-	unzip -q ${S}/tools/cryptopp562.zip -d ${S}/tools/cryptopp562
-	epatch "${FILESDIR}/synergy-1.4.14-drag-drop-fix.patch"
+	unzip -q ${S}/ext/cryptopp562.zip -d ${S}/ext/cryptopp562
+	unzip -q ${S}/ext/gmock-1.6.0.zip -d ${S}/ext/gmock-1.6.0
+	unzip -q ${S}/ext/gtest-1.6.0.zip -d ${S}/ext/gtest-1.6.0
 }
 
 src_configure() {
