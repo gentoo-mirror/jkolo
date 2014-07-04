@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 EAPI=5
 
-inherit eutils versionator
+inherit eutils versionator user
 
 MAJOR_PV="$(get_version_component_range 1-2)"
 REL_PV="$(get_version_component_range 3)"
@@ -24,6 +24,15 @@ src_install() {
         dodir /opt
         mv "${S}" "${D}/opt/${PN}"
         chown -R ${PN}:${PN} "${D}/opt/${PN}"
+
+	dodir /var/log/yacy
+	chown yacy:yacy "${D}/var/log/yacy"
+	sed -i "s:DATA/LOG/:/var/log/yacy/:g" "${D}/opt/yacy/defaults/yacy.logging"
+
+	exeinto /etc/init.d
+	newexe "${FILESDIR}/yacy.rc" yacy
+	insinto /etc/conf.d
+	newins "${FILESDIR}/yacy.confd" yacy
 }
 
 pkg_setup() {
@@ -32,10 +41,7 @@ pkg_setup() {
 }
 
 pkg_postinst() {
-        einfo "This is the plain install without initscripts."
-        einfo "Keep in mind, YaCy works in /opt/yacy/DATA"
-        einfo "so its a good idea to move it to /var und symlink it."
-        einfo "Logfiles are in /opt/yacy/DATA/LOG instead of /var/log"
-        einfo "For details (in german) about YaCy on Gentoo look at:"
-        einfo " http://yacy-websuche.de/wiki/index.php/De:GentooInstall"
+	einfo "yacy.logging will write logfiles into /var/log/yacy/"
+	einfo "To setup YaCy, open http://localhost:8090 in your browser."
 }
+
