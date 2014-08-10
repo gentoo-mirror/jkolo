@@ -1,8 +1,0 @@
-diff -Naur grive.old/bgrive/CMakeLists.txt grive/bgrive/CMakeLists.txt
---- grive.old/bgrive/CMakeLists.txt	2013-07-26 09:44:09.852928185 +0200
-+++ grive/bgrive/CMakeLists.txt	2013-07-26 09:44:23.944752013 +0200
-@@ -40,4 +40,3 @@
- )
- 
- install(TARGETS bgrive_executable RUNTIME DESTINATION bin)
--install(FILES doc/grive.1 DESTINATION share/man/man1 )
