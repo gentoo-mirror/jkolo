@@ -8,7 +8,7 @@ inherit eutils webapp depend.php
 
 DESCRIPTION="Web-based storage application where all your data is under your own control"
 HOMEPAGE="http://owncloud.org"
-SRC_URI="http://download.owncloud.org/community/testing/${P/_/}.tar.bz2 -> ${PF}.tar.bz2"
+SRC_URI="http://download.owncloud.org/community/testing/${P/_rc/RC}.tar.bz2 -> ${PF}.tar.bz2"
 LICENSE="AGPL-3"
 
 KEYWORDS="~amd64 ~arm ~x86"
