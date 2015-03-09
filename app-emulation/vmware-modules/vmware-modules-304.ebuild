@@ -24,6 +24,8 @@ DEPEND="${RDEPEND} =app-emulation/vmware-workstation-11.0.0.2305329"
 
 S=${WORKDIR}
 
+MAKEOPTS="${MAKEOPTS} -j1"
+
 pkg_setup() {
 	CONFIG_CHECK="~HIGH_RES_TIMERS"
 	if kernel_is ge 2 6 37 && kernel_is lt 2 6 39; then
