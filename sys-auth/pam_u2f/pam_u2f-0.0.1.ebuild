@@ -3,7 +3,7 @@
 
 EAPI=5
 
-inherit autotools-multilib
+inherit multilib autotools-multilib
 
 DESCRIPTION="Library for authenticating against PAM with a Yubikey"
 HOMEPAGE="https://github.com/Yubico/pam-u2f"
@@ -27,6 +27,16 @@ src_prepare() {
 
 src_configure() {
 	autotools-multilib_src_configure
+}
+
+multilib_src_configure() {
+        [[ ${AUTOTOOLS_IN_SOURCE_BUILD} ]] && local ECONF_SOURCE=${BUILD_DIR}
+
+	local myeconfargs=(
+		--with-pam-dir=/$(get_libdir)/security
+	)
+
+        autotools-utils_src_configure "${_at_args[@]}"
 }
 
 src_install() {
