@@ -20,7 +20,7 @@ KEYWORDS="~amd64"
 IUSE="pax_kernel +vmci +vsock"
 
 RDEPEND=""
-DEPEND="${RDEPEND} =app-emulation/vmware-workstation-11.0.0.2305329"
+DEPEND="${RDEPEND} =app-emulation/vmware-workstation-11.1.0.2496824"
 
 S=${WORKDIR}
 
@@ -86,6 +86,7 @@ src_prepare() {
 	kernel_is ge 3 14 0 && epatch "${FILESDIR}/${PV_MAJOR}-vmblock-3.14.patch"
 	kernel_is ge 3 15 0 && epatch "${FILESDIR}/${PV_MAJOR}-kernel-3.15.patch"
 	kernel_is ge 3 19 0 && epatch "${FILESDIR}/${PV_MAJOR}-kernel-3.19.patch"
+	kernel_is ge 4 0 0 && epatch "${FILESDIR}/${PV_MAJOR}-kernel-4.0.patch"
 
 	epatch_user
 }
