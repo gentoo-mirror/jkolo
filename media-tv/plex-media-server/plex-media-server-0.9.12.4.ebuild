@@ -5,9 +5,10 @@
 EAPI="2"
 
 inherit eutils user systemd
-MAGIC1="803"
-MAGIC2="87d0708"
-URI="http://downloads.plexapp.com/plex-media-server/"
+
+MAGIC1="1192"
+MAGIC2="9a47d21"
+URI="http://downloads.plexapp.com/plex-media-server"
 DESCRIPTION="Plex Media Server is a free media library that is intended for use with a plex client available for OS X, iOS and Android systems. It is a standalone product which can be used in conjunction with every program, that knows the API. For managing the library a web based interface is provided."
 HOMEPAGE="http://www.plex.tv/"
 KEYWORDS="-* ~x86 ~amd64"
