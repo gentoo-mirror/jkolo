@@ -9,7 +9,7 @@ inherit git-r3
 DESCRIPTION="Napiprojekt.pl subtitle downloader in bash"
 HOMEPAGE="https://github.com/dagon666/napi"
 EGIT_REPO_URI="https://github.com/dagon666/napi"
-EGIT_COMMIT="v1.3.4"
+EGIT_COMMIT="v${PV}"
 
 LICENSE="GPL-3"
 SLOT="0"

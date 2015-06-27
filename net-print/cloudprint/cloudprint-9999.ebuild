@@ -7,12 +7,16 @@ inherit git-2 eutils
 DESCRIPTION="Google cloud print server"
 HOMEPAGE="https://github.com/armooo/cloudprint"
 EGIT_REPO_URI="git://github.com/armooo/cloudprint"
+
 LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
+
 IUSE=""
+
 DEPEND=">=dev-lang/python-2.6
-dev-python/pycups"
+	dev-python/pycups"
+
 S=${WORKDIR}/${P}
 
 src_unpack() {
