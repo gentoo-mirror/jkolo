@@ -1,6 +1,5 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/net-fs/samba/samba-4.1.17.ebuild,v 1.2 2015/03/03 09:24:11 dlan Exp $
 
 EAPI=5
 PYTHON_COMPAT=( python2_7 )
@@ -39,7 +38,7 @@ CDEPEND="${PYTHON_DEPS}
 	>=sys-libs/ntdb-1.0[python,${PYTHON_USEDEP}]
 	>=sys-libs/ldb-1.1.17
 	>=sys-libs/tdb-1.2.12[python,${PYTHON_USEDEP}]
-	>=sys-libs/talloc-2.0.8[python,${PYTHON_USEDEP}]
+	>=sys-libs/talloc-2.1.2[python,${PYTHON_USEDEP}]
 	>=sys-libs/tevent-0.9.18
 	sys-libs/zlib
 	virtual/pam
@@ -140,7 +139,7 @@ src_configure() {
 
 	use "ads" && myconf+=" --with-shared-modules=idmap_ad"
 
-	CPPFLAGS="-I/usr/include/et ${CPPFLAGS}" \
+	CPPFLAGS="-I${SYSROOT}/usr/include/et ${CPPFLAGS}" \
 		waf-utils_src_configure ${myconf}
 }
 
