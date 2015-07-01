@@ -27,7 +27,7 @@ ldap quota selinux syslog system-krb5 systemd test winbind"
 CDEPEND="${PYTHON_DEPS}
 	system-krb5? ( virtual/krb5
 		|| ( app-crypt/mit-krb5
-			>=app-crypt/heimdal-1.5[-ssl] ) )
+			>=app-crypt/heimdal-1.5[-ssl,-threads] ) )
 	dev-libs/iniparser
 	dev-libs/popt
 	sys-libs/readline:=
