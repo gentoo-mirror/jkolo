@@ -1,0 +1,11 @@
+_eclasses_=git-2	e28f0d8a9b321431b1e699782851b827	toolchain-funcs	42408102d713fbad60ca21349865edb4	multilib	62927b3db3a589b0806255f3a002d5d3	eutils	9fb270e417e0e83d64ca52586c4a79de
+_md5_=684bc4174563b990c6b30a2551ccbf4
+SLOT=0
+DEFINED_PHASES=install postinst unpack
+EAPI=0
+DEPEND=>=dev-lang/python-2.6 dev-python/pycups dev-vcs/git
+DESCRIPTION=Google cloud print server
+LICENSE=GPL-3
+KEYWORDS=~x86 ~amd64
+HOMEPAGE=https://github.com/armooo/cloudprint
+RDEPEND=>=dev-lang/python-2.6 dev-python/pycups

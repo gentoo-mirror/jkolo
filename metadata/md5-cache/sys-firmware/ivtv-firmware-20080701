@@ -1,0 +1,10 @@
+_eclasses_=
+_md5_=dafc11fd0f802e34ef8974a12c0057a3
+SLOT=0
+DEFINED_PHASES=install
+EAPI=0
+DESCRIPTION=firmware for Hauppauge PVR-x50 and Conexant 2341x based cards
+LICENSE=Hauppauge-Firmware
+SRC_URI=mirror://gentoo/ivtv-firmware-20080701.tar.gz
+KEYWORDS=amd64 ppc x86
+HOMEPAGE=http://www.ivtvdriver.org/index.php/Firmware

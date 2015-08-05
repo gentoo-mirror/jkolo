@@ -1,0 +1,12 @@
+_eclasses_=toolchain-funcs	42408102d713fbad60ca21349865edb4	versionator	cd0bcdb170807e4a1984115e9d53a26f	multilib	62927b3db3a589b0806255f3a002d5d3	eutils	9fb270e417e0e83d64ca52586c4a79de
+_md5_=e2a6a3f9ba3304b3a3ae81f70115bfd7
+SLOT=0
+DEFINED_PHASES=compile install
+EAPI=4
+DESCRIPTION=Visual Paradigm for UML
+LICENSE=as-is
+RESTRICT=mirror
+SRC_URI=http://eu1.visual-paradigm.com/visual-paradigm/vpce12.1/20150702/Visual_Paradigm_CE_12_1_20150702_Linux64_InstallFree.tar.gz http://eu2.visual-paradigm.com/visual-paradigm/vpce12.1/20150702/Visual_Paradigm_CE_12_1_20150702_Linux64_InstallFree.tar.gz http://eu3.visual-paradigm.com/visual-paradigm/vpce12.1/20150702/Visual_Paradigm_CE_12_1_20150702_Linux64_InstallFree.tar.gz http://eu4.visual-paradigm.com/visual-paradigm/vpce12.1/20150702/Visual_Paradigm_CE_12_1_20150702_Linux64_InstallFree.tar.gz http://usa5.visual-paradigm.com/visual-paradigm/vpce12.1/20150702/Visual_Paradigm_CE_12_1_20150702_Linux64_InstallFree.tar.gz http://usa6.visual-paradigm.com/visual-paradigm/vpce12.1/20150702/Visual_Paradigm_CE_12_1_20150702_Linux64_InstallFree.tar.gz
+KEYWORDS=~amd64
+HOMEPAGE=http://www.visual-paradigm.com
+RDEPEND=>=virtual/jre-1.5 x11-misc/xdg-utils sys-auth/polkit

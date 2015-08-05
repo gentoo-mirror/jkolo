@@ -1,0 +1,15 @@
+_eclasses_=systemd	90342761f573a8280dd5aa6b0345f3b	toolchain-funcs	42408102d713fbad60ca21349865edb4	flag-o-matic	c9602887773166fe300444712fc7ff98	versionator	cd0bcdb170807e4a1984115e9d53a26f	multilib	62927b3db3a589b0806255f3a002d5d3	vmware-bundle	23c070352c2722510704dae8063293e0	gnome2-utils	5cdfd22a2163c9d3a891648bd19453a7	fdo-mime	acfe1a88fd8751a1d5dc671168219fa	pam	aa1ebb3ab720ea04dbbdd6eaaf9554ed	eutils	9fb270e417e0e83d64ca52586c4a79de
+_md5_=8c99b7adf76d2d3fe5aaca73f4371000
+SLOT=0
+DEFINED_PHASES=install postinst postrm preinst prepare prerm unpack
+EAPI=4
+DEPEND=virtual/pkgconfig >=sys-apps/sed-4 dev-libs/libxslt
+DESCRIPTION=Emulate a complete PC on your PC without the usual performance overhead of most emulators
+LICENSE=vmware GPL-2
+IUSE=cups doc ovftool server vix vmware-tools
+RESTRICT=mirror strip
+PDEPEND==app-emulation/vmware-modules-304 vmware-tools? ( app-emulation/vmware-tools )
+SRC_URI=amd64? ( http://softwareupdate.vmware.com/cds/vmw-desktop/ws/11.0.0/2305329/linux/core/VMware-Workstation-11.0.0-2305329.x86_64.bundle.tar ) https://github.com/akhuettel/systemd-vmware/archive/gentoo-01.tar.gz
+KEYWORDS=-* ~amd64
+HOMEPAGE=http://www.vmware.com/products/workstation/
+RDEPEND=dev-cpp/cairomm dev-cpp/glibmm:2 dev-cpp/gtkmm:2.4 dev-cpp/libgnomecanvasmm dev-cpp/pangomm dev-libs/atk dev-libs/glib:2 dev-libs/icu dev-libs/expat dev-libs/libaio dev-libs/libgcrypt:11 dev-libs/libsigc++ dev-libs/libxml2 =dev-libs/openssl-0.9.8* dev-libs/xmlrpc-c gnome-base/libgnomecanvas gnome-base/libgtop-compat gnome-base/librsvg:2 gnome-base/orbit media-libs/fontconfig media-libs/freetype media-libs/libart_lgpl =media-libs/libpng-1.2* media-libs/libpng net-misc/curl cups? ( net-print/cups ) sys-devel/gcc sys-fs/fuse sys-libs/glibc sys-libs/zlib x11-libs/cairo x11-libs/gtk+:2 x11-libs/libgksu x11-libs/libICE x11-libs/libSM x11-libs/libX11 x11-libs/libXau x11-libs/libxcb x11-libs/libXcomposite x11-libs/libXcursor x11-libs/libXdamage x11-libs/libXdmcp x11-libs/libXext x11-libs/libXfixes x11-libs/libXft x11-libs/libXi x11-libs/libXinerama x11-libs/libXrandr x11-libs/libXrender x11-libs/libXtst x11-libs/pango x11-libs/pangox-compat x11-libs/startup-notification x11-themes/hicolor-icon-theme !app-emulation/vmware-player

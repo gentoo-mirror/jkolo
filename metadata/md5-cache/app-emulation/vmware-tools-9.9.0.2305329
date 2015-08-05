@@ -1,0 +1,13 @@
+_eclasses_=vmware-bundle	23c070352c2722510704dae8063293e0	toolchain-funcs	42408102d713fbad60ca21349865edb4	versionator	cd0bcdb170807e4a1984115e9d53a26f	multilib	62927b3db3a589b0806255f3a002d5d3	eutils	9fb270e417e0e83d64ca52586c4a79de
+_md5_=2ccad5457f1d563356af2aa4f442da73
+SLOT=0
+DEFINED_PHASES=install unpack
+EAPI=0
+DEPEND=dev-libs/libxslt
+DESCRIPTION=VMware Tools for guest operating systems
+LICENSE=vmware
+IUSE=vmware_guest_freebsd vmware_guest_linux vmware_guest_netware vmware_guest_solaris vmware_guest_windows vmware_guest_winPre2k
+RESTRICT=mirror
+SRC_URI=vmware_guest_freebsd? ( amd64? ( http://softwareupdate.vmware.com/cds/vmw-desktop/player/7.0.0/2305329/linux/packages/vmware-tools-freebsd-9.9.0-2305329.x86_64.component.tar ) ) vmware_guest_linux? ( amd64? ( http://softwareupdate.vmware.com/cds/vmw-desktop/player/7.0.0/2305329/linux/packages/vmware-tools-linux-9.9.0-2305329.x86_64.component.tar ) ) vmware_guest_netware? ( amd64? ( http://softwareupdate.vmware.com/cds/vmw-desktop/player/7.0.0/2305329/linux/packages/vmware-tools-netware-9.9.0-2305329.x86_64.component.tar ) ) vmware_guest_solaris? ( amd64? ( http://softwareupdate.vmware.com/cds/vmw-desktop/player/7.0.0/2305329/linux/packages/vmware-tools-solaris-9.9.0-2305329.x86_64.component.tar ) ) vmware_guest_windows? ( amd64? ( http://softwareupdate.vmware.com/cds/vmw-desktop/player/7.0.0/2305329/linux/packages/vmware-tools-windows-9.9.0-2305329.x86_64.component.tar ) ) vmware_guest_winPre2k? ( amd64? ( http://softwareupdate.vmware.com/cds/vmw-desktop/player/7.0.0/2305329/linux/packages/vmware-tools-winPre2k-9.9.0-2305329.x86_64.component.tar ) )
+KEYWORDS=-* ~amd64 ~x86
+HOMEPAGE=http://www.vmware.com/products/player/

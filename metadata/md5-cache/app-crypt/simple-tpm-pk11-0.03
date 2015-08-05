@@ -1,0 +1,12 @@
+_eclasses_=toolchain-funcs	42408102d713fbad60ca21349865edb4	multilib	62927b3db3a589b0806255f3a002d5d3	autotools	2264f05fbbbaaf83d34ec81e72b38ffd	libtool	52d0e17251d04645ffaa61bfdd858944
+_md5_=e2c4d977fadeff0a72a33848c09b0214
+SLOT=0
+DEFINED_PHASES=prepare
+EAPI=5
+DEPEND=!<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.15:1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
+DESCRIPTION=A simple library for using the TPM chip to secure SSH keys.
+LICENSE=APACHE-2
+RESTRICT=mirror
+SRC_URI=https://github.com/ThomasHabets/simple-tpm-pk11/archive/0.03.tar.gz
+KEYWORDS=~x86 ~amd64
+HOMEPAGE=https://github.com/ThomasHabets/simple-tpm-pk11
