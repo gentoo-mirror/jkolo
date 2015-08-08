@@ -5,13 +5,17 @@ EAPI=5
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE='threads(+)'
 
-inherit python-single-r1 waf-utils multilib linux-info systemd base
+inherit python-single-r1 waf-utils multilib linux-info systemd
 
 MY_PV="${PV/_rc/rc}"
 MY_P="${PN}-${MY_PV}"
 
-SRC_URI="mirror://samba/stable/${MY_P}.tar.gz"
-KEYWORDS="~amd64 ~arm64 ~hppa ~x86"
+SRC_PATH="stable"
+[[ ${PV} = *_rc* ]] && SRC_PATH="rc"
+
+SRC_URI="mirror://samba/${SRC_PATH}/${MY_P}.tar.gz"
+KEYWORDS="~amd64 ~hppa ~x86"
+[[ ${PV} = *_rc* ]] && KEYWORDS=""
 
 DESCRIPTION="Samba Suite Version 4"
 HOMEPAGE="http://www.samba.org/"
@@ -25,19 +29,23 @@ ldap mit-krb5 quota selinux syslog systemd test winbind"
 # sys-apps/attr is an automagic dependency (see bug #489748)
 # sys-libs/pam is an automagic dependency (see bug #489770)
 CDEPEND="${PYTHON_DEPS}
-	>=app-crypt/heimdal-1.5[-ssl,-threads]
+	mit-krb5? ( app-crypt/mit-krb5 )
+	heimdal? ( >=app-crypt/heimdal-1.5[-ssl] )
 	dev-libs/iniparser
 	dev-libs/popt
 	sys-libs/readline:=
 	virtual/libiconv
 	dev-python/subunit[${PYTHON_USEDEP}]
+	>=net-libs/socket_wrapper-1.1.2
 	sys-apps/attr
 	sys-libs/libcap
+	>=sys-libs/ldb-1.1.20
+	>=sys-libs/nss_wrapper-1.0.2
 	>=sys-libs/ntdb-1.0[python,${PYTHON_USEDEP}]
-	>=sys-libs/ldb-1.1.17
-	>=sys-libs/tdb-1.2.12[python,${PYTHON_USEDEP}]
-	>=sys-libs/talloc-2.1.2[python,${PYTHON_USEDEP}]
-	>=sys-libs/tevent-0.9.18
+	>=sys-libs/talloc-2.1.1[python,${PYTHON_USEDEP}]
+	>=sys-libs/tdb-1.3.4[python,${PYTHON_USEDEP}]
+	>=sys-libs/tevent-0.9.24
+	>=sys-libs/uid_wrapper-1.0.1
 	sys-libs/zlib
 	virtual/pam
 	acl? ( virtual/acl )
@@ -68,13 +76,6 @@ RESTRICT="mirror"
 S="${WORKDIR}/${MY_P}"
 
 CONFDIR="${FILESDIR}/$(get_version_component_range 1-2)"
-
-PATCHES=(
-	"${FILESDIR}/${PN}-4.1.14-named.conf.dlz.patch"
-	"${FILESDIR}/${PN}-4.0.19-automagic_aio_fix.patch"
-	# support libsystemd (instead of libsystemd-daemon), bug #526362
-	"${FILESDIR}/${PN}-4.1.14-libsystemd.patch"
-)
 
 WAF_BINARY="${S}/buildtools/bin/waf"
 
