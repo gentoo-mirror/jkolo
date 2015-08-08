@@ -23,15 +23,14 @@ LICENSE="GPL-3"
 
 SLOT="0"
 
-IUSE="acl addns ads aio avahi client cluster cups dmapi fam gnutls iprint
-ldap quota selinux syslog system-krb5 systemd test winbind"
+IUSE="acl addns ads aio avahi client cluster cups dmapi fam gnutls +heimdal iprint
+ldap mit-krb5 quota selinux syslog systemd test winbind"
 
 # sys-apps/attr is an automagic dependency (see bug #489748)
 # sys-libs/pam is an automagic dependency (see bug #489770)
 CDEPEND="${PYTHON_DEPS}
-	system-krb5? ( virtual/krb5
-	               || ( app-crypt/mit-krb5
-	                    >=app-crypt/heimdal-1.5[-ssl,-threads] ) )
+	mit-krb5? ( app-crypt/mit-krb5 )
+	heimdal? ( >=app-crypt/heimdal-1.5[-ssl] )
 	dev-libs/iniparser
 	dev-libs/popt
 	sys-libs/readline:=
@@ -68,6 +67,8 @@ RDEPEND="${CDEPEND}
 "
 
 REQUIRED_USE="ads? ( acl ldap )
+	heimdal? ( !mit-krb5 )
+	mit-krb5? ( !heimdal )
 	${PYTHON_REQUIRED_USE}"
 
 RESTRICT="mirror"
@@ -131,9 +132,9 @@ src_configure() {
 		$(use_with winbind)
 		"
 
-	if use "system-krb5"; then
-		has_version "app-crypt/mit-krb5" && myconf+=" --with-system-mitkrb5"
-	else
+	if use "mit-krb5"; then
+		myconf+=" --with-system-mitkrb5"
+	elif !use "heimdal"; then
 		myconf+=" --bundled-libraries=heimdal"
 	fi
 
