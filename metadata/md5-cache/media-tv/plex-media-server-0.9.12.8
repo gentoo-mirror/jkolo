@@ -1,0 +1,12 @@
+_eclasses_=toolchain-funcs	42408102d713fbad60ca21349865edb4	systemd	90342761f573a8280dd5aa6b0345f3b	multilib	62927b3db3a589b0806255f3a002d5d3	user	f54e098dd38ba1c0847a13e685b87747	eutils	9fb270e417e0e83d64ca52586c4a79de
+_md5_=2cf80dcb5e3e11dd72eace922a3ac0fd
+SLOT=0
+DEFINED_PHASES=install postinst preinst prerm setup
+EAPI=2
+DEPEND=net-dns/avahi virtual/pkgconfig
+DESCRIPTION=Plex Media Server is a free media library that is intended for use with a plex client available for OS X, iOS and Android systems. It is a standalone product which can be used in conjunction with every program, that knows the API. For managing the library a web based interface is provided.
+LICENSE=PMS-License
+SRC_URI=x86? ( http://downloads.plexapp.com/plex-media-server/0.9.12.8.1362-4601e39/plexmediaserver_0.9.12.8.1362-4601e39_i386.deb ) amd64? ( http://downloads.plexapp.com/plex-media-server/0.9.12.8.1362-4601e39/plexmediaserver_0.9.12.8.1362-4601e39_amd64.deb )
+KEYWORDS=-* ~x86 ~amd64
+HOMEPAGE=http://www.plex.tv/
+RDEPEND=net-dns/avahi
