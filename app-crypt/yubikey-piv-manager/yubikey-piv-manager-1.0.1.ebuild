@@ -3,10 +3,13 @@
 # $Header: $
 
 EAPI=5
+PYTHON_COMPAT=( python{2_6,2_7} )
 
 DESCRIPTION="The YubiKey PIV Manager enables you to configure a PIV-enabled YubiKey through a graphical user interface."
 HOMEPAGE="https://developers.yubico.com/yubikey-piv-manager/"
 SRC_URI="https://developers.yubico.com/yubikey-piv-manager/Releases/yubikey-piv-manager-${PV}.tar.gz"
+
+inherit distutils-r1
 
 LICENSE="GPL-3"
 SLOT="0"
@@ -16,13 +19,9 @@ DEPEND="dev-python/pyside
         dev-python/pycrypto
         app-crypt/yubico-piv-tool"
 
-#inherit autotools
-#flag-o-matic
-
-src_compile() {
-    python setup.py build
-}
-
-src_install() {
-    python setup.py install --root=${D}
+src_install()
+{
+        distutils-r1_src_install || die
+        domenu resources/pivman.desktop || die
+        doicon resources/pivman.xpm || die
 }
