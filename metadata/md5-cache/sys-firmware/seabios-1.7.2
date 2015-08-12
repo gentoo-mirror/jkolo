@@ -1,0 +1,14 @@
+DEFINED_PHASES=compile configure install prepare setup
+DEPEND=!binary? ( sys-power/iasl ) =dev-lang/python-2*
+DESCRIPTION=Open Source implementation of a 16-bit x86 BIOS
+EAPI=5
+HOMEPAGE=http://www.seabios.org
+IUSE=+binary
+KEYWORDS=~amd64 ~ppc ~ppc64 ~x86 ~amd64-fbsd ~x86-fbsd
+LICENSE=LGPL-3 GPL-3
+RDEPEND==dev-lang/python-2*
+REQUIRED_USE=ppc? ( binary ) ppc64? ( binary )
+SLOT=0
+SRC_URI=http://code.coreboot.org/p/seabios/downloads/get/seabios-1.7.2.tar.gz http://code.coreboot.org/p/seabios/downloads/get/bios.bin-1.7.2.gz
+_eclasses_=multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	python	06d7be3e54573292f012e3cc433d8297	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361
+_md5_=711561a4228f6ac21ee6ff2ad1ccbd08

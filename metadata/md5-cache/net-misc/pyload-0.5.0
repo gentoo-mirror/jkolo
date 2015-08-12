@@ -1,0 +1,12 @@
+DEFINED_PHASES=install setup unpack
+DEPEND=dev-vcs/git
+DESCRIPTION=Download manager for many One-Click-Hoster, container formats like DLC, video sites or just plain http/ftp links.
+EAPI=2
+HOMEPAGE=http://www.pyload.org/
+IUSE=crypt +curl +captcha javascript ssl webinterface
+KEYWORDS=~x86 ~amd64
+LICENSE=GPL-2
+RDEPEND=>=dev-lang/python-2.5[sqlite] crypt? ( dev-python/pycrypto ) curl? ( dev-python/pycurl ) captcha? ( app-text/tesseract dev-python/imaging javascript? ( dev-lang/spidermonkey ) ) javascript? ( net-misc/pyload[captcha] ) ssl? ( dev-python/pyopenssl ) webinterface? ( dev-python/bottle )
+SLOT=0
+_eclasses_=eutils	351a78113be5b393c09a2c948701ad36	git-2	1bb87192831f668cd20d93ffb1689c94	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361
+_md5_=9502ed558036a447de19d6527a0bcf54

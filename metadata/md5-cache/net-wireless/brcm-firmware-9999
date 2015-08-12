@@ -1,0 +1,10 @@
+DEFINED_PHASES=install unpack
+DEPEND=dev-vcs/git
+DESCRIPTION=Firmware for open source host brcmsmac and brcmfmac drivers
+EAPI=4
+HOMEPAGE=http://linuxwireless.org/en/users/Drivers/brcm80211
+LICENSE=GPL-2
+RDEPEND=|| ( virtual/udev sys-apps/hotplug )
+SLOT=0
+_eclasses_=git-2	1bb87192831f668cd20d93ffb1689c94
+_md5_=3d4d4ecdcd3247aac50f4d78dbd1f051
