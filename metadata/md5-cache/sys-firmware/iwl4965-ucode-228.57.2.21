@@ -1,5 +1,6 @@
 DEFINED_PHASES=compile install postinst
 DESCRIPTION=Intel (R) Wireless WiFi Link 4965AGN ucode
+EAPI=0
 HOMEPAGE=http://intellinuxwireless.org/?p=iwlwifi
 KEYWORDS=amd64 x86
 LICENSE=ipw3945

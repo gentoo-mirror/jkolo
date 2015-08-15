@@ -1,5 +1,6 @@
 DEFINED_PHASES=install
 DESCRIPTION=firmware for Hauppauge PVR-x50 and Conexant 2341x based cards
+EAPI=0
 HOMEPAGE=http://www.ivtvdriver.org/index.php/Firmware
 KEYWORDS=amd64 ppc x86
 LICENSE=Hauppauge-Firmware

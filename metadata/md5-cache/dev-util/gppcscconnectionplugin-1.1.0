@@ -1,6 +1,7 @@
 DEFINED_PHASES=install
 DEPEND=>=dev-libs/globalplatform-4.3.2 >=sys-libs/zlib-1.2.3 >=dev-libs/openssl-0.9.7e sys-apps/pcsc-lite virtual/pkgconfig !<sys-devel/gettext-0.18.1.1-r3 || ( >=sys-devel/automake-1.15 ) >=sys-devel/autoconf-2.69 >=sys-devel/libtool-2.4
 DESCRIPTION=gppcscconnectionplugin is something, not sure what but i need it
+EAPI=0
 HOMEPAGE=http://sourceforge.net/projects/globalplatform/
 KEYWORDS=~x86 ~amd64
 LICENSE=LGPL

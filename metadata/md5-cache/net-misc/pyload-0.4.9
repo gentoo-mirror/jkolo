@@ -1,12 +1,12 @@
-DEFINED_PHASES=install setup unpack
-DESCRIPTION=Download manager for many One-Click-Hoster, container formats like DLC, video sites or just plain http/ftp links.
+DEFINED_PHASES=configure install
+DEPEND=>=net-misc/networkmanager-0.9 >=net-misc/strongswan-5.1.0[networkmanager] dev-util/intltool dev-util/pkgconfig
+DESCRIPTION=NetworkManager StrongSwan plugin.
 EAPI=2
-HOMEPAGE=http://www.pyload.org/
-IUSE=crypt +curl +captcha javascript qt4 ssl webinterface
-KEYWORDS=~x86 ~amd64
+HOMEPAGE=http://www.strongswan.org/
+KEYWORDS=~arm ~amd64 ~ppc ~x86
 LICENSE=GPL-2
-RDEPEND=>=dev-lang/python-2.5[sqlite] crypt? ( dev-python/pycrypto ) curl? ( dev-python/pycurl ) captcha? ( app-text/tesseract dev-python/imaging javascript? ( dev-lang/spidermonkey ) ) javascript? ( net-misc/pyload[captcha] ) qt4? ( dev-python/PyQt4 ) ssl? ( dev-python/pyopenssl ) webinterface? ( dev-python/bottle )
+RDEPEND=>=net-misc/networkmanager-0.9 >=net-misc/strongswan-5.1.0[networkmanager]
 SLOT=0
-SRC_URI=http://download.pyload.org//pyload-src-v0.4.9.zip
-_eclasses_=eutils	351a78113be5b393c09a2c948701ad36	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361
+SRC_URI=http://download.strongswan.org/NetworkManager/NetworkManager-strongswan-1.3.0.tar.bz2
+_eclasses_=eutils	351a78113be5b393c09a2c948701ad36	multilib	df4e4d5cfd3d137d0c248e1991c0e4d6	toolchain-funcs	4b8d3388c0a6e798504e20ba30b49361	versionator	99ae9d758cbe7cfed19170e7d48f5a9c
 _md5_=bb75cbf78b130deff0025a95a6c963b5

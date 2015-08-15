@@ -1,6 +1,7 @@
 DEFINED_PHASES=install postinst unpack
 DEPEND=>=dev-lang/python-2.6 dev-python/pycups dev-vcs/git
 DESCRIPTION=Google cloud print server
+EAPI=0
 HOMEPAGE=https://github.com/armooo/cloudprint
 KEYWORDS=~x86 ~amd64
 LICENSE=GPL-3
