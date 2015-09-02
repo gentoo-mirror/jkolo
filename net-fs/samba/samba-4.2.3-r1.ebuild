@@ -149,8 +149,6 @@ src_configure() {
 
 	use "ads" && myconf+=" --with-shared-modules=idmap_ad"
 
-	epatch "${FILESDIR}"/kdc_init.patch
-
 	CPPFLAGS="-I${SYSROOT}/usr/include/et ${CPPFLAGS}" \
 		waf-utils_src_configure ${myconf}
 }
