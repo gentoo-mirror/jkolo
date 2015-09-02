@@ -5,7 +5,7 @@ EAPI=5
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE='threads(+)'
 
-inherit python-single-r1 waf-utils multilib linux-info systemd
+inherit python-single-r1 waf-utils multilib linux-info systemd eutils
 
 MY_PV="${PV/_rc/rc}"
 MY_P="${PN}-${MY_PV}"
@@ -23,15 +23,15 @@ LICENSE="GPL-3"
 
 SLOT="0"
 
-IUSE="acl addns ads aio avahi client cluster cups dmapi fam gnutls +heimdal iprint
-ldap mit-krb5 quota selinux syslog systemd test winbind"
+IUSE="acl addns ads aio avahi client cluster cups dmapi fam gnutls +system-heimdal iprint
+ldap system-mit-krb5 quota selinux syslog systemd test winbind"
 
 # sys-apps/attr is an automagic dependency (see bug #489748)
 # sys-libs/pam is an automagic dependency (see bug #489770)
 CDEPEND="${PYTHON_DEPS}
-	mit-krb5? ( app-crypt/mit-krb5 )
-	heimdal? ( >=app-crypt/heimdal-1.5[-ssl] )
-	dev-libs/iniparser
+	system-mit-krb5? ( app-crypt/mit-krb5 )
+	system-heimdal? ( >=app-crypt/heimdal-1.5[-ssl] )
+	dev-libs/iniparser:0
 	dev-libs/popt
 	sys-libs/readline:=
 	virtual/libiconv
@@ -40,11 +40,12 @@ CDEPEND="${PYTHON_DEPS}
 	sys-apps/attr
 	sys-libs/libcap
 	>=sys-libs/ldb-1.1.20
+	sys-libs/ncurses:0=
 	>=sys-libs/nss_wrapper-1.0.2
 	>=sys-libs/ntdb-1.0[python,${PYTHON_USEDEP}]
-	>=sys-libs/talloc-2.1.1[python,${PYTHON_USEDEP}]
-	>=sys-libs/tdb-1.3.4[python,${PYTHON_USEDEP}]
-	>=sys-libs/tevent-0.9.24
+	>=sys-libs/talloc-2.1.2[python,${PYTHON_USEDEP}]
+	>=sys-libs/tdb-1.3.6[python,${PYTHON_USEDEP}]
+	>=sys-libs/tevent-0.9.25
 	>=sys-libs/uid_wrapper-1.0.1
 	sys-libs/zlib
 	virtual/pam
@@ -66,14 +67,16 @@ RDEPEND="${CDEPEND}
 	selinux? ( sec-policy/selinux-samba )
 "
 
-REQUIRED_USE="ads? ( acl ldap )
-	heimdal? ( !mit-krb5 )
-	mit-krb5? ( !heimdal )
+REQUIRED_USE="ads? ( acl gnutls ldap )
+	system-heimdal? ( !system-mit-krb5 )
+	system-mit-krb5? ( !system-heimdal )
 	${PYTHON_REQUIRED_USE}"
 
 RESTRICT="mirror"
 
 S="${WORKDIR}/${MY_P}"
+
+PATCHES=( "${FILESDIR}/${PN}-4.2.3-heimdal_compilefix.patch" )
 
 CONFDIR="${FILESDIR}/$(get_version_component_range 1-2)"
 
@@ -93,6 +96,12 @@ pkg_setup() {
 				ewarn "and recompile your kernel..."
 		fi
 	fi
+}
+
+src_prepare() {
+	epatch ${PATCHES[@]}
+
+	epatch_user
 }
 
 src_configure() {
@@ -132,9 +141,9 @@ src_configure() {
 		$(use_with winbind)
 		"
 
-	if use "mit-krb5"; then
+	if use "system-mit-krb5"; then
 		myconf+=" --with-system-mitkrb5"
-	elif !use "heimdal"; then
+	elif !use "system-heimdal"; then
 		myconf+=" --bundled-libraries=heimdal"
 	fi
 
@@ -157,6 +166,10 @@ src_install() {
 
 	# Make all .so files executable
 	find "${D}" -type f -name "*.so" -exec chmod +x {} +
+
+	# install example config file
+	insinto /etc/samba
+	doins examples/smb.conf.default
 
 	# Install init script and conf.d file
 	newinitd "${CONFDIR}/samba4.initd-r1" samba
@@ -182,6 +195,6 @@ pkg_postinst() {
 
 	elog "For further information and migration steps make sure to read "
 	elog "http://samba.org/samba/history/${P}.html "
-	elog "http://samba.org/samba/history/${PN}-4.0.0.html and"
+	elog "http://samba.org/samba/history/${PN}-4.2.0.html and"
 	elog "http://wiki.samba.org/index.php/Samba4/HOWTO "
 }

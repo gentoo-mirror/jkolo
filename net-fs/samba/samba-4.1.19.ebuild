@@ -19,14 +19,15 @@ LICENSE="GPL-3"
 
 SLOT="0"
 
-IUSE="acl addns ads aio avahi client cluster cups dmapi fam gnutls +heimdal iprint
-ldap mit-krb5 quota selinux syslog systemd test winbind"
+IUSE="acl addns ads aio avahi client cluster cups dmapi fam gnutls +system-heimdal iprint
+ldap system-mit-krb5 quota selinux syslog systemd test winbind"
 
 # sys-apps/attr is an automagic dependency (see bug #489748)
 # sys-libs/pam is an automagic dependency (see bug #489770)
 CDEPEND="${PYTHON_DEPS}
-	>=app-crypt/heimdal-1.5[-ssl,-threads]
-	dev-libs/iniparser
+	system-mit-krb5? ( app-crypt/mit-krb5 )
+	system-heimdal? ( >=app-crypt/heimdal-1.5[-ssl,-threads] )
+	dev-libs/iniparser:0
 	dev-libs/popt
 	sys-libs/readline:=
 	virtual/libiconv
@@ -35,6 +36,7 @@ CDEPEND="${PYTHON_DEPS}
 	sys-libs/libcap
 	>=sys-libs/ntdb-1.0[python,${PYTHON_USEDEP}]
 	>=sys-libs/ldb-1.1.17
+	sys-libs/ncurses:0=
 	>=sys-libs/tdb-1.2.12[python,${PYTHON_USEDEP}]
 	>=sys-libs/talloc-2.1.2[python,${PYTHON_USEDEP}]
 	>=sys-libs/tevent-0.9.18
@@ -59,8 +61,8 @@ RDEPEND="${CDEPEND}
 "
 
 REQUIRED_USE="ads? ( acl ldap )
-	heimdal? ( !mit-krb5 )
-	mit-krb5? ( !heimdal )
+	system-heimdal? ( !system-mit-krb5 )
+	system-mit-krb5? ( !system-heimdal )
 	${PYTHON_REQUIRED_USE}"
 
 RESTRICT="mirror"
@@ -131,9 +133,9 @@ src_configure() {
 		$(use_with winbind)
 		"
 
-	if use "mit-krb5"; then
+	if use "system-mit-krb5"; then
 		myconf+=" --with-system-mitkrb5"
-	elif !use "heimdal"; then
+	elif !use "system-heimdal"; then
 		myconf+=" --bundled-libraries=heimdal"
 	fi
 
