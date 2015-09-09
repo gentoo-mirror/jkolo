@@ -150,7 +150,7 @@ src_configure() {
 		$(usex test '--enable-selftest' '')
 	)
 
-	if use "system-mit-krb5"; then
+	if use "system-mitkrb5"; then
 		myconf+=( --with-system-mitkrb5 )
 	elif !use "system-heimdal"; then
 		myconf+=( --bundled-libraries=heimdal )
