@@ -14,7 +14,7 @@ SRC_PATH="stable"
 [[ ${PV} = *_rc* ]] && SRC_PATH="rc"
 
 SRC_URI="mirror://samba/${SRC_PATH}/${MY_P}.tar.gz"
-KEYWORDS="~amd64 ~hppa ~x86"
+KEYWORDS="~amd64 ~x86"
 [[ ${PV} = *_rc* ]] && KEYWORDS=""
 
 DESCRIPTION="Samba Suite Version 4"
@@ -23,14 +23,12 @@ LICENSE="GPL-3"
 
 SLOT="0"
 
-IUSE="acl addns ads aio avahi client cluster cups dmapi fam gnutls +system-heimdal iprint
-ldap system-mit-krb5 quota selinux syslog systemd test winbind"
+IUSE="acl addc addns ads aio avahi client cluster cups dmapi fam gnutls iprint
+ldap pam quota selinux syslog system-heimdal +system-mitkrb5 systemd test winbind"
 
 # sys-apps/attr is an automagic dependency (see bug #489748)
 # sys-libs/pam is an automagic dependency (see bug #489770)
 CDEPEND="${PYTHON_DEPS}
-	system-mit-krb5? ( app-crypt/mit-krb5 )
-	system-heimdal? ( >=app-crypt/heimdal-1.5[-ssl] )
 	dev-libs/iniparser:0
 	dev-libs/popt
 	sys-libs/readline:=
@@ -59,6 +57,8 @@ CDEPEND="${PYTHON_DEPS}
 	gnutls? ( dev-libs/libgcrypt:0
 		>=net-libs/gnutls-1.4.0 )
 	ldap? ( net-nds/openldap )
+	system-mitkrb5? ( app-crypt/mit-krb5 )
+	system-heimdal? ( >=app-crypt/heimdal-1.5[-ssl] )
 	systemd? ( sys-apps/systemd:0= )"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
@@ -67,12 +67,11 @@ RDEPEND="${CDEPEND}
 	selinux? ( sec-policy/selinux-samba )
 "
 
-REQUIRED_USE="ads? ( acl gnutls ldap )
-	system-heimdal? ( !system-mit-krb5 )
-	system-mit-krb5? ( !system-heimdal )
+REQUIRED_USE="addc? ( gnutls )
+	ads? ( acl gnutls ldap )
+	system-heimdal? ( !system-mitkrb5 )
+	system-mitkrb5? ( !system-heimdal )
 	${PYTHON_REQUIRED_USE}"
-
-RESTRICT="mirror"
 
 S="${WORKDIR}/${MY_P}"
 
@@ -84,7 +83,7 @@ WAF_BINARY="${S}/buildtools/bin/waf"
 
 pkg_setup() {
 	python-single-r1_pkg_setup
-	if use aio; then
+	if use aio ; then
 		if ! linux_config_exists || ! linux_chkconfig_present AIO; then
 				ewarn "You must enable AIO support in your kernel config, "
 				ewarn "to be able to support asynchronous I/O. "
@@ -96,6 +95,14 @@ pkg_setup() {
 				ewarn "and recompile your kernel..."
 		fi
 	fi
+	if ! use pam ; then
+		ewarn "You have pam USE flag disabled!"
+		ewarn "Unfortunately we still have to hard depend on virtual/pam as samba upstream"
+		ewarn "still unconditionally links libauth4-samba4.so library to libpam.so once being"
+		ewarn "found on the sytem."
+		ewarn "Disabling the pam USE flag only disables installation of samba's pam authenti-"
+		ewarn "cation modules."
+	fi
 }
 
 src_prepare() {
@@ -105,52 +112,52 @@ src_prepare() {
 }
 
 src_configure() {
-	local myconf=''
-	use "cluster" && myconf+=" --with-ctdb-dir=/usr"
-	use "test" && myconf+=" --enable-selftest"
-	myconf="${myconf} \
-		--enable-fhs \
-		--sysconfdir=/etc \
-		--localstatedir=/var \
-		--with-modulesdir=/usr/$(get_libdir)/samba \
-		--with-pammodulesdir=/$(get_libdir)/security \
-		--with-piddir=/var/run/${PN} \
-		--disable-rpath \
-		--disable-rpath-install \
-		--nopyc \
-		--nopyo \
-		--bundled-libraries=NONE \
-		--builtin-libraries=NONE \
-		$(use_with addns dnsupdate) \
-		$(use_with acl acl-support) \
-		$(use_with ads) \
-		$(use_with aio aio-support) \
-		$(use_enable avahi) \
-		$(use_with cluster cluster-support) \
-		$(use_enable cups) \
-		$(use_with dmapi) \
-		$(use_with fam) \
-		$(use_enable gnutls) \
-		$(use_enable iprint) \
-		$(use_with ldap) \
-		--with-pam \
-		--with-pam_smbpass \
-		$(use_with quota quotas) \
-		$(use_with syslog) \
-		$(use_with systemd) \
+	local myconf=()
+	myconf=(
+		--enable-fhs
+		--sysconfdir=/etc
+		--localstatedir=/var
+		--with-modulesdir=/usr/$(get_libdir)/samba
+		--with-piddir=/var/run/${PN}
+		--bundled-libraries=NONE
+		--builtin-libraries=NONE
+		--disable-rpath
+		--disable-rpath-install
+		--nopyc
+		--nopyo
+		$(use_with acl acl-support)
+		$(usex addc '' '--without-ad-dc')
+		$(use_with addns dnsupdate)
+		$(use_with ads)
+		$(usex ads '--with-shared-modules=idmap_ad' '')
+		$(use_with aio aio-support)
+		$(usex cluster '--with-ctdb-dir=/usr' '')
+		$(use_enable avahi)
+		$(use_with cluster cluster-support)
+		$(use_enable cups)
+		$(use_with dmapi)
+		$(use_with fam)
+		$(use_enable gnutls)
+		$(use_enable iprint)
+		$(use_with ldap)
+		$(use_with pam)
+		$(use_with pam pam_smbpass)
+		$(usex pam "--with-pammodulesdir=/$(get_libdir)/security" '')
+		$(use_with quota quotas)
+		$(use_with syslog)
+		$(use_with systemd)
 		$(use_with winbind)
-		"
+		$(usex test '--enable-selftest' '')
+	)
 
 	if use "system-mit-krb5"; then
-		myconf+=" --with-system-mitkrb5"
+		myconf+=( --with-system-mitkrb5 )
 	elif !use "system-heimdal"; then
-		myconf+=" --bundled-libraries=heimdal"
+		myconf+=( --bundled-libraries=heimdal )
 	fi
 
-	use "ads" && myconf+=" --with-shared-modules=idmap_ad"
-
 	CPPFLAGS="-I${SYSROOT}/usr/include/et ${CPPFLAGS}" \
-		waf-utils_src_configure ${myconf}
+		waf-utils_src_configure ${myconf[@]}
 }
 
 src_install() {
