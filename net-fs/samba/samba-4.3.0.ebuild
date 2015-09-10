@@ -145,15 +145,11 @@ src_configure() {
 		$(use_with quota quotas)
 		$(use_with syslog)
 		$(use_with systemd)
+		$(use system-mitkrb5 && echo '--with-system-mitkrb5')
+		$(use system-mitkrb5 || use system-heimdal || echo '--bundled-libraries=heimdal')
 		$(use_with winbind)
 		$(usex test '--enable-selftest' '')
 	)
-
-	if use "system-mitkrb5"; then
-		myconf+=( --with-system-mitkrb5 )
-	elif !use "system-heimdal"; then
-		myconf+=( --bundled-libraries=heimdal )
-	fi
 
 	CPPFLAGS="-I${SYSROOT}/usr/include/et ${CPPFLAGS}" \
 		waf-utils_src_configure ${myconf[@]}
