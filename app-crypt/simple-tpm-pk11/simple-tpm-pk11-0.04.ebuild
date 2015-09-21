@@ -1,32 +1,36 @@
-# Copyright 1999-2012 Gentoo Foundation
+# Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: $
+# $Id$
 
 EAPI=5
 
-DESCRIPTION="A simple library for using the TPM chip to secure SSH keys."
+inherit autotools eutils
+
+DESCRIPTION="Simple PKCS11 provider for TPM chips"
 HOMEPAGE="https://github.com/ThomasHabets/simple-tpm-pk11"
-SRC_URI="https://github.com/ThomasHabets/simple-tpm-pk11/archive/${PV}.tar.gz"
 
-LICENSE="APACHE-2"
+LICENSE="Apache-2.0"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
-RESTRICT="mirror"
-#DEPEND="dev-util/gtk-doc"
+if [[ ${PV} == "9999" ]]; then
+	EGIT_REPO_URI="https://github.com/ThomasHabets/${PN}.git"
+	inherit git-r3
+	KEYWORDS=""
+else
+	SRC_URI="https://github.com/ThomasHabets/${PN}/archive/${PV}.tar.gz -> ${P}.tar.gz"
+	KEYWORDS="~amd64"
+fi
 
-inherit autotools
-#flag-o-matic
+IUSE=""
+RESTRICT="test" # needs to communicate with the TPM and gtest is all broken
+
+DEPEND="app-crypt/tpm-tools[pkcs11]
+	dev-libs/opencryptoki[tpm]
+	app-crypt/trousers
+	dev-libs/openssl:0="
+RDEPEND="${DEPEND}
+	net-misc/openssh[-X509]"
 
 src_prepare() {
-    # Remove problematic LDFLAGS declaration
-    # sed -i -e 's/ -Werror//g' src/Makefile.am || die
-    #filter-flags -Wall
-    #strip-flags
-    #append-flags -Wno-error
-    eautoreconf
+	epatch_user
+	eautoreconf
 }
-
-#src_unpack() {
-    #unpack ${A}
-    #mv "simple-tpm-${P}" "${P}"
-#}
