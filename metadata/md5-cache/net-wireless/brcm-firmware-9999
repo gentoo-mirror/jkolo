@@ -6,5 +6,6 @@ HOMEPAGE=http://linuxwireless.org/en/users/Drivers/brcm80211
 LICENSE=GPL-2
 RDEPEND=|| ( virtual/udev sys-apps/hotplug )
 SLOT=0
+_eclass_exported_funcs=src_unpack:- src_install:-
 _eclasses_=git-2	df00117322129fb906bb0a53c3d6a020
 _md5_=3d4d4ecdcd3247aac50f4d78dbd1f051

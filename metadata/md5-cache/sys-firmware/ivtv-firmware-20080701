@@ -6,4 +6,5 @@ KEYWORDS=amd64 ppc x86
 LICENSE=Hauppauge-Firmware
 SLOT=0
 SRC_URI=mirror://gentoo/ivtv-firmware-20080701.tar.gz
+_eclass_exported_funcs=src_install:-
 _md5_=dafc11fd0f802e34ef8974a12c0057a3
