@@ -23,6 +23,8 @@ DEPEND="${RDEPEND}"
 
 src_prepare() {
 	autotools-multilib_src_prepare
+	
+	epatch "${FILESDIR}/Makefile.patch"
 }
 
 src_configure() {
