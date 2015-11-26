@@ -11,7 +11,7 @@ if [[ ${PV} == 99999999* ]]; then
 	EGIT_REPO_URI="git://git.kernel.org/pub/scm/linux/kernel/git/firmware/${PN}.git"
 	KEYWORDS=""
 else
-	SRC_URI="mirror://gentoo/${P}.tar.xz"
+	SRC_URI="https://kolosowscy.pl/${P}.tar.xz mirror://gentoo/${P}.tar.xz"
 	KEYWORDS="~alpha ~amd64 ~arm ~arm64 ~hppa ~ia64 ~mips ~ppc ~ppc64 ~s390 ~sh ~sparc ~x86"
 fi
 
