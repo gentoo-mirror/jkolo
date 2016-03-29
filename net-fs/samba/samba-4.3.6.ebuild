@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 PYTHON_COMPAT=( python2_7 )
 PYTHON_REQ_USE='threads(+),xml(+)'
 
@@ -15,7 +15,7 @@ SRC_PATH="stable"
 [[ ${PV} = *_rc* ]] && SRC_PATH="rc"
 
 SRC_URI="mirror://samba/${SRC_PATH}/${MY_P}.tar.gz
-	https://dev.gentoo.org/~axs/distfiles/samba-disable-python-patches-4.2.7.tar.xz"
+	https://dev.gentoo.org/~polynomial-c/samba-disable-python-patches-4.3.6.tar.xz"
 KEYWORDS="~amd64 ~hppa ~x86"
 [[ ${PV} = *_rc* ]] && KEYWORDS="~hppa"
 
@@ -48,17 +48,13 @@ CDEPEND="${PYTHON_DEPS}
 	sys-libs/readline:=
 	virtual/libiconv
 	dev-python/subunit[${PYTHON_USEDEP},${MULTILIB_USEDEP}]
-	>=net-libs/socket_wrapper-1.1.2[${MULTILIB_USEDEP}]
 	sys-apps/attr[${MULTILIB_USEDEP}]
 	sys-libs/libcap
 	>=sys-libs/ldb-1.1.24[${MULTILIB_USEDEP}]
 	sys-libs/ncurses:0=[${MULTILIB_USEDEP}]
-	>=sys-libs/nss_wrapper-1.0.2[${MULTILIB_USEDEP}]
-	>=sys-libs/ntdb-1.0[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
-	>=sys-libs/talloc-2.1.2[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
-	>=sys-libs/tdb-1.3.6[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
+	>=sys-libs/talloc-2.1.3[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
+	>=sys-libs/tdb-1.3.7[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
 	>=sys-libs/tevent-0.9.25[${MULTILIB_USEDEP}]
-	>=sys-libs/uid_wrapper-1.0.1[${MULTILIB_USEDEP}]
 	sys-libs/zlib[${MULTILIB_USEDEP}]
 	virtual/pam
 	acl? ( virtual/acl )
@@ -72,7 +68,7 @@ CDEPEND="${PYTHON_DEPS}
 		>=net-libs/gnutls-1.4.0 )
 	ldap? ( net-nds/openldap[${MULTILIB_USEDEP}] )
 	system-mitkrb5? ( app-crypt/mit-krb5[${MULTILIB_USEDEP}] )
-	system-heimdal? ( >=app-crypt/heimdal-1.5[-ssl,${MULTILIB_USEDEP}] )
+	!system-mitkrb5? ( >=app-crypt/heimdal-1.5[-ssl,${MULTILIB_USEDEP}] )
 	systemd? ( sys-apps/systemd:0= )"
 DEPEND="${CDEPEND}
 	virtual/pkgconfig"
@@ -120,15 +116,11 @@ pkg_setup() {
 }
 
 src_prepare() {
-	epatch ${PATCHES[@]}
+	default
 
 	# install the patches from tarball(s)
-	EPATCH_SUFFIX="patch" \
-	EPATCH_FORCE="yes" \
-	epatch "${WORKDIR}/patches"
+	eapply "${WORKDIR}/patches/"
 
-	# Allow user patches
-	epatch_user
 	multilib_copy_sources
 }
 
