@@ -1,6 +1,6 @@
-diff -Naur spnego-http-auth-nginx-module-c85a38c595c6f45609f9984c3254a33996ed587d.old/config spnego-http-auth-nginx-module-c85a38c595c6f45609f9984c3254a33996ed587d/config
---- spnego-http-auth-nginx-module-c85a38c595c6f45609f9984c3254a33996ed587d.old/config	2015-07-20 14:21:32.000000000 +0200
-+++ spnego-http-auth-nginx-module-c85a38c595c6f45609f9984c3254a33996ed587d/config	2015-10-11 04:58:04.079542766 +0200
+diff -Naur spnego-http-auth-nginx-module.old/config spnego-http-auth-nginx-module/config
+--- spnego-http-auth-nginx-module.old/config	2016-03-29 19:03:37.533771393 +0200
++++ spnego-http-auth-nginx-module/config	2016-03-29 19:03:51.323418794 +0200
 @@ -1,7 +1,4 @@
  ngx_addon_name=ngx_http_auth_spnego_module
  HTTP_MODULES="$HTTP_MODULES ngx_http_auth_spnego_module"
