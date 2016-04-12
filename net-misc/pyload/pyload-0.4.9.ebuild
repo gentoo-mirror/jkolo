@@ -20,7 +20,7 @@ RDEPEND=">=dev-lang/python-2.5[sqlite]
         crypt? ( dev-python/pycrypto )
         curl? ( dev-python/pycurl )
         captcha? ( app-text/tesseract
-                   dev-python/imaging
+                   dev-python/pillow
                    javascript? ( dev-lang/spidermonkey ) )
         javascript? ( net-misc/pyload[captcha] )
         qt4? ( dev-python/PyQt4 )
