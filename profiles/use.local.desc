@@ -1,0 +1,38 @@
+# This file is deprecated as per GLEP 56 in favor of metadata.xml.
+# Please add your descriptions to your package's metadata.xml ONLY.
+# * generated automatically using pmaint *
+
+app-crypt/libu2f-host:systemd - Use user ACLs rather than plugdev group to give user access to the HIDRAW device.
+app-crypt/libu2f-server:systemd - Use user ACLs rather than plugdev group to give user access to the HIDRAW device.
+dev-java/jdbc-mysql:c3p0 - Enable c3p0 support
+dev-java/jdbc-mysql:log4j - Enable log4 support
+net-fs/samba:addns - Enable AD DNS integration
+net-fs/samba:ads - Enable Active Directory support
+net-fs/samba:aio - Enable asynchronous IO support
+net-fs/samba:client - Enables the client part
+net-fs/samba:cluster - Enable support for clustering
+net-fs/samba:dmapi - Enable support for DMAPI. This currently works only in combination with XFS.
+net-fs/samba:iprint - Enabling iPrint technology by Novell
+net-fs/samba:ldb - Enable the ldb tools
+net-fs/samba:netapi - Enable building of netapi bits
+net-fs/samba:quota - Enables support for user quotas
+net-fs/samba:server - Enables the server part
+net-fs/samba:smbclient - Enable smbclient tool
+net-fs/samba:smbsharemodes - Enable special smb share modes (?)
+net-fs/samba:smbtav2 - Enable Samba Traffic Analyzer version 2
+net-fs/samba:swat - Enables support for swat configuration gui
+net-fs/samba:winbind - Enables support for the winbind auth daemon
+sys-firmware/ipxe:iso - Build a bootable ISO for using PXE
+sys-firmware/ipxe:qemu - Build the required PXE ROM images for app-emulation/qemu and app-emulation/qemu-kvm
+sys-firmware/ipxe:undi - Build a Universal Network Device Interface driver chainloading your existing PXE NIC into iPXE
+sys-firmware/ipxe:usb - Build a bootable USB image for using PXE
+sys-firmware/ipxe:vmware - Build the PXE ROM images that VMWare uses
+sys-firmware/seabios:binary - Use official upstream pre-built binaries
+www-servers/nginx:aio - Enables file AIO support
+www-servers/nginx:http - Enable HTTP core support
+www-servers/nginx:http-cache - Enable HTTP cache support
+www-servers/nginx:libatomic - Use libatomic instead of builtin atomic operations
+www-servers/nginx:luajit - Use dev-lang/luajit instead of dev-lang/lua for lua support when building the lua http module.
+www-servers/nginx:pcre-jit - Enable JIT for pcre
+www-servers/nginx:rtmp - NGINX-based Media Streaming Server
+www-servers/nginx:ssl - Enable HTTPS module for http. Enable SSL/TLS support for POP3/IMAP/SMTP for mail.
