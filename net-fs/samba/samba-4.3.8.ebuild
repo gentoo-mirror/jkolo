@@ -86,7 +86,6 @@ REQUIRED_USE="addc? ( gnutls !system-mitkrb5 )
 S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
-	"${FILESDIR}/${PN}-4.2.3-heimdal_compilefix.patch"
 	"${FILESDIR}/${PN}-4.2.7-pam.patch"
 )
 
@@ -117,6 +116,8 @@ pkg_setup() {
 
 src_prepare() {
 	default
+
+	use system-heimdal && epatch "${FILESDIR}/${PN}-4.2.3-heimdal_compilefix.patch"
 
 	# install the patches from tarball(s)
 	eapply "${WORKDIR}/patches/"
