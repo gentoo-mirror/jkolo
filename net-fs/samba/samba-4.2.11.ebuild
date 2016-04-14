@@ -16,7 +16,7 @@ SRC_PATH="stable"
 
 SRC_URI="mirror://samba/${SRC_PATH}/${MY_P}.tar.gz
 	https://dev.gentoo.org/~polynomial-c/samba-disable-python-patches-4.2.9.tar.xz"
-KEYWORDS="~amd64 ~hppa ~x86"
+KEYWORDS="amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sparc x86"
 [[ ${PV} = *_rc* ]] && KEYWORDS="~hppa"
 
 DESCRIPTION="Samba Suite Version 4"
@@ -60,7 +60,6 @@ CDEPEND="${PYTHON_DEPS}
 	>=sys-libs/tevent-0.9.25[${MULTILIB_USEDEP}]
 	>=sys-libs/uid_wrapper-1.0.1[${MULTILIB_USEDEP}]
 	sys-libs/zlib[${MULTILIB_USEDEP}]
-	virtual/pam
 	acl? ( virtual/acl )
 	addns? ( net-dns/bind-tools[gssapi] )
 	aio? ( dev-libs/libaio )
@@ -71,6 +70,7 @@ CDEPEND="${PYTHON_DEPS}
 	gnutls? ( dev-libs/libgcrypt:0
 		>=net-libs/gnutls-1.4.0 )
 	ldap? ( net-nds/openldap[${MULTILIB_USEDEP}] )
+	pam? ( virtual/pam )
 	system-mitkrb5? ( app-crypt/mit-krb5[${MULTILIB_USEDEP}] )
 	system-heimdal? ( >=app-crypt/heimdal-1.5[-ssl,${MULTILIB_USEDEP}] )
 	systemd? ( sys-apps/systemd:0= )"
@@ -139,7 +139,7 @@ multilib_src_configure() {
 		--sysconfdir=/etc
 		--localstatedir=/var
 		--with-modulesdir=/usr/$(get_libdir)/samba
-		--with-piddir=/var/run/${PN}
+		--with-piddir=/run/${PN}
 		--bundled-libraries=NONE
 		--builtin-libraries=NONE
 		--disable-rpath
@@ -217,6 +217,11 @@ multilib_src_install() {
 		if use ldap ; then
 			insinto /etc/openldap/schema
 			doins examples/LDAP/samba.schema
+		fi
+
+		# create symlink for cups (bug #552310)
+		if use cups ; then
+			dosym /usr/bin/smbspool /usr/libexec/cups/backend/smb
 		fi
 
 		# install example config file
