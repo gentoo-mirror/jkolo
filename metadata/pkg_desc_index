@@ -13,7 +13,7 @@ dev-util/visual-paradigm 11.1.20140801 12.1.20150702: Visual Paradigm for UML
 media-tv/plex-media-server 0.9.16.6: Plex Media Server is a free media library that is intended for use with a plex client available for OS X, iOS and Android systems. It is a standalone product which can be used in conjunction with every program, that knows the API. For managing the library a web based interface is provided.
 media-video/bashnapi 1.3.5: Napiprojekt.pl subtitle downloader in bash
 net-analyzer/ntopng 2.2: Network traffic analyzer with web interface
-net-fs/samba 4.2.11 4.3.8 4.4.3: Samba Suite Version 4
+net-fs/samba 4.2.12 4.3.9 4.4.3: Samba Suite Version 4
 net-misc/networkmanager-strongswan 1.3.0: NetworkManager StrongSwan plugin.
 net-misc/pyload 0.4.9: Download manager for many One-Click-Hoster, container formats like DLC, video sites or just plain http/ftp links.
 net-misc/yacy 1.82.20150121.9000: p2p based distributed web-search engine - latest stable binary
