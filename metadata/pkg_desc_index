@@ -46,4 +46,4 @@ sys-firmware/vgabios 0.6c-r1 0.7a: VGA BIOS implementation
 sys-firmware/zd1201-firmware 0.14: Firmware for ZyDAS 1201 based USB 802.11b Network WiFi devices
 sys-firmware/zd1211-firmware 1.4: Firmware for ZyDAS ZD1211 USB-WLAN devices supported by the zd1211rw driver
 sys-fs/libldm 0.2.3: Tool for managing windows's LDM partitions
-www-servers/nginx 1.9.15: Robust, small and high performance http and reverse proxy server
+www-servers/nginx 1.11.1: Robust, small and high performance http and reverse proxy server
