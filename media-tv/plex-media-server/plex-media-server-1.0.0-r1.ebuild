@@ -9,11 +9,11 @@ inherit eutils systemd unpacker user
 DESCRIPTION="Plex Media Server is an organizer for your media and provides streaming over the web and to devices"
 HOMEPAGE="http://plex.tv/"
 
-SLOT="public"
+SLOT="plexpass"
 
 MY_PN="plexmediaserver"
-BUILD="1993"
-COMMIT="5089475"
+BUILD="2261"
+COMMIT="a17e99e"
 MY_PV="${PV}.${BUILD}-${COMMIT}"
 MY_P="${MY_PN}_${MY_PV}"
 
