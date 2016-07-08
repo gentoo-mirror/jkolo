@@ -13,7 +13,7 @@ dev-util/visual-paradigm 11.1.20140801 12.1.20150702: Visual Paradigm for UML
 media-tv/plex-media-server 1.0.0 1.0.0-r1: Plex Media Server is an organizer for your media and provides streaming over the web and to devices
 media-video/bashnapi 1.3.5: Napiprojekt.pl subtitle downloader in bash
 net-analyzer/ntopng 2.2: Network traffic analyzer with web interface
-net-fs/samba 4.2.12 4.3.9 4.4.4: Samba Suite Version 4
+net-fs/samba 4.2.14 4.3.11 4.4.5: Samba Suite Version 4
 net-misc/networkmanager-strongswan 1.3.0: NetworkManager StrongSwan plugin.
 net-misc/pyload 0.4.9: Download manager for many One-Click-Hoster, container formats like DLC, video sites or just plain http/ftp links.
 net-misc/yacy 1.82.20150121.9000: p2p based distributed web-search engine - latest stable binary
