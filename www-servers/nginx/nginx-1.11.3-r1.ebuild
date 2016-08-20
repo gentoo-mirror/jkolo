@@ -84,7 +84,7 @@ HTTP_NAXSI_MODULE_URI="https://github.com/nbs-system/naxsi/archive/${HTTP_NAXSI_
 HTTP_NAXSI_MODULE_WD="${WORKDIR}/naxsi-${HTTP_NAXSI_MODULE_PV}/naxsi_src"
 
 # nginx-rtmp-module (https://github.com/arut/nginx-rtmp-module, BSD license)
-RTMP_MODULE_PV="1.1.7"
+RTMP_MODULE_PV="1.1.8"
 RTMP_MODULE_P="ngx_rtmp-${RTMP_MODULE_PV}"
 RTMP_MODULE_URI="https://github.com/arut/nginx-rtmp-module/archive/v${RTMP_MODULE_PV}.tar.gz"
 RTMP_MODULE_WD="${WORKDIR}/nginx-rtmp-module-${RTMP_MODULE_PV}"
@@ -190,11 +190,14 @@ KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 
 NGINX_MODULES_STD="access auth_basic autoindex browser charset empty_gif
 	fastcgi geo gzip limit_req limit_conn map memcached proxy referer
-	rewrite scgi ssi split_clients upstream_ip_hash userid uwsgi"
+	rewrite scgi ssi split_clients upstream_hash upstream_ip_hash
+	upstream_keepalive upstream_least_conn upstream_zone userid uwsgi"
 NGINX_MODULES_OPT="addition auth_request dav degradation flv geoip gunzip
 	gzip_static image_filter mp4 perl random_index realip secure_link
 	slice stub_status sub xslt"
-NGINX_MODULES_STREAM="access limit_conn upstream"
+NGINX_MODULES_STREAM_STD="access geo limit_conn map return split_clients
+	upstream_hash upstream_least_conn upstream_zone"
+NGINX_MODULES_STREAM_OPT="geoip"
 NGINX_MODULES_MAIL="imap pop3 smtp"
 NGINX_MODULES_3RD="
 	http_upload_progress
@@ -229,7 +232,11 @@ for mod in $NGINX_MODULES_OPT; do
 	IUSE="${IUSE} nginx_modules_http_${mod}"
 done
 
-for mod in $NGINX_MODULES_STREAM; do
+for mod in $NGINX_MODULES_STREAM_STD; do
+	IUSE="${IUSE} nginx_modules_stream_${mod}"
+done
+
+for mod in $NGINX_MODULES_STREAM_OPT; do
 	IUSE="${IUSE} nginx_modules_stream_${mod}"
 done
 
@@ -335,6 +342,14 @@ pkg_setup() {
 
 src_prepare() {
 	eapply "${FILESDIR}/${PN}-1.4.1-fix-perl-install-path.patch"
+	eapply "${FILESDIR}/${PN}-httpoxy-mitigation-r1.patch"
+	eapply "${FILESDIR}/${PN}-1.11.3-fix-build-without-stream_ssl_module.patch"
+
+	if use nginx_modules_http_sticky; then
+		cd "${HTTP_STICKY_MODULE_WD}" || die
+		eapply "${FILESDIR}"/http-sticky-nginx-1.11.2.patch
+		cd "${S}" || die
+	fi
 
 	if use nginx_modules_http_upstream_check; then
 		eapply -p0 "${HTTP_UPSTREAM_CHECK_MODULE_WD}/check_1.9.2+".patch
@@ -370,7 +385,7 @@ src_prepare() {
 src_configure() {
 	# mod_security needs to generate nginx/modsecurity/config before including it
 	if use nginx_modules_http_security; then
-		cd "${HTTP_SECURITY_MODULE_WD}"
+		cd "${HTTP_SECURITY_MODULE_WD}" || die
 		if use luajit ; then
 			sed -i \
 				-e 's|^\(LUA_PKGNAMES\)=.*|\1="luajit"|' \
@@ -382,7 +397,7 @@ src_configure() {
 			$(use_with nginx_modules_http_lua lua) || die "configure failed for mod_security"
 	fi
 
-	cd "${S}"
+	cd "${S}" || die
 
 	local myconf=() http_enabled= mail_enabled= stream_enabled=
 
@@ -541,18 +556,18 @@ src_configure() {
 	fi
 
 	# Stream modules
-	for mod in $NGINX_MODULES_STREAM; do
+	for mod in $NGINX_MODULES_STREAM_STD; do
 		if use nginx_modules_stream_${mod}; then
 			stream_enabled=1
 		else
-			# Treat stream upstream slightly differently
-			if ! use nginx_modules_stream_upstream; then
-				myconf+=( --without-stream_upstream_hash_module )
-				myconf+=( --without-stream_upstream_least_conn_module )
-				myconf+=( --without-stream_upstream_zone_module )
-			else
-				myconf+=( --without-stream_${mod}_module )
-			fi
+			myconf+=( --without-stream_${mod}_module )
+		fi
+	done
+
+	for mod in $NGINX_MODULES_STREAM_OPT; do
+		if use nginx_modules_stream_${mod}; then
+			stream_enabled=1
+			myconf+=( --with-stream_${mod}_module )
 		fi
 	done
 
@@ -585,7 +600,8 @@ src_configure() {
 	tc-export CC
 
 	if ! use prefix; then
-		myconf+=( --user=${PN}" "--group=${PN} )
+		myconf+=( --user=${PN} )
+		myconf+=( --group=${PN} )
 	fi
 
 	./configure \
@@ -656,9 +672,10 @@ src_install() {
 	newins "${FILESDIR}"/nginx.logrotate-r1 nginx
 
 	if use nginx_modules_http_perl; then
-		cd "${S}"/objs/src/http/modules/perl/
+		cd "${S}"/objs/src/http/modules/perl/ || die
 		emake DESTDIR="${D}" INSTALLDIRS=vendor
 		perl_delete_localpod
+		cd "${S}" || die
 	fi
 
 	if use nginx_modules_http_cache_purge; then
@@ -749,7 +766,7 @@ src_install() {
 
 pkg_postinst() {
 	if use ssl; then
-		if [ ! -f "${EROOT}"etc/ssl/${PN}/${PN}.key ]; then
+		if [[ ! -f "${EROOT}"etc/ssl/${PN}/${PN}.key ]]; then
 			install_cert /etc/ssl/${PN}/${PN}
 			use prefix || chown ${PN}:${PN} "${EROOT}"etc/ssl/${PN}/${PN}.{crt,csr,key,pem}
 		fi
@@ -769,7 +786,7 @@ pkg_postinst() {
 	# existing installations
 	local fix_perms=0
 
-	for rv in ${REPLACING_VERSIONS} ; do
+	for rv in ${REPLACING_VERSIONS}; do
 		version_compare ${rv} 1.4.1-r2
 		[[ $? -eq 1 ]] && fix_perms=1
 	done
@@ -793,4 +810,16 @@ pkg_postinst() {
 		ewarn "'rx' permissions on /var/log/nginx (default on a fresh install)"
 		ewarn "Otherwise you end up with empty log files after a logrotate."
 	fi
+
+	# HTTPoxy mitigation
+	ewarn ""
+	ewarn "This nginx installation comes with a mitigation for the HTTPoxy"
+	ewarn "vulnerability for FastCGI applications by setting the HTTP_PROXY FastCGI"
+	ewarn "parameter to an empty string per default when you are sourcing the default"
+	ewarn "'fastcgi_params' or 'fastcgi.conf' in your server block(s)."
+	ewarn ""
+	ewarn "If this is causing any problems for you make sure that you are sourcing the"
+	ewarn "default parameters _before_ you set your own values."
+	ewarn "If you are relying on user-supplied proxy values you have to remove the"
+	ewarn "correlating lines from 'fastcgi_params' and or 'fastcgi.conf'."
 }

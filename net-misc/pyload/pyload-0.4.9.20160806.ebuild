@@ -3,13 +3,14 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI="2"
+EAPI="6"
 
-inherit eutils
+inherit eutils user git-r3
 
 DESCRIPTION="Download manager for many One-Click-Hoster, container formats like DLC, video sites or just plain http/ftp links."
 HOMEPAGE="http://www.pyload.org/"
-SRC_URI="http://download.pyload.org//pyload-src-v0.4.9.zip"
+EGIT_REPO_URI="https://github.com/pyload/pyload.git"
+EGIT_COMMIT="d6147cd43ef9f54166b5d095f28527a36ab7abfa"
 
 LICENSE="GPL-2"
 SLOT="0"
@@ -36,15 +37,17 @@ pkg_setup() {
 }
 
 
-src_unpack() {
-        unpack ${A}
-}
+#src_unpack() {
+#        unpack ${A}
+#}
 
 src_install() {
-        dodir /usr/share/${PN}/
-        rm "${WORKDIR}/${PN}/module/lib/bottle.py"
-        cp -R "${WORKDIR}/${PN}" "${D}/usr/share/" || die "Install failed"
-        fowners -R pyload:pyload go-rwx "/usr/share/${PN}"
+	dodir "/usr/share"
+        rm "${WORKDIR}/${P}/module/lib/bottle.py"
+        cp -R "${WORKDIR}/${P}" "${D}/usr/share" || die "Install failed"
+	mv "${D}/usr/share/${P}" "${D}/usr/share/${PN}" || die "Install failed"
+	fowners -R pyload:pyload "/usr/share/${PN}"
+        fperms -R go-rwx "/usr/share/${PN}"
         make_wrapper pyload /usr/share/${PN}/pyLoadCore.py
         make_wrapper pyloadCli /usr/share/${PN}/pyLoadCli.py
         if use qt4 ; then
