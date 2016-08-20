@@ -12,8 +12,8 @@ HOMEPAGE="http://plex.tv/"
 SLOT="public"
 
 MY_PN="plexmediaserver"
-BUILD="2261"
-COMMIT="a17e99e"
+BUILD="2461"
+COMMIT="35f0caa"
 MY_PV="${PV}.${BUILD}-${COMMIT}"
 MY_P="${MY_PN}_${MY_PV}"
 
