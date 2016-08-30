@@ -12,8 +12,8 @@ HOMEPAGE="http://plex.tv/"
 SLOT="plexpass"
 
 MY_PN="plexmediaserver"
-BUILD="2611"
-COMMIT="ba905d2"
+BUILD="2680"
+COMMIT="09e98fb"
 MY_PV="${PV}.${BUILD}-${COMMIT}"
 MY_P="${MY_PN}_${MY_PV}"
 
