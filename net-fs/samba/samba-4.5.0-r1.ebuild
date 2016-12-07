@@ -25,8 +25,8 @@ LICENSE="GPL-3"
 
 SLOT="0"
 
-IUSE="acl addc addns ads avahi client cluster cups dmapi fam gnutls iprint
-ldap pam quota selinux syslog system-mitkrb5 +system-heimdal systemd test winbind"
+IUSE="acl addc addns ads client cluster cups dmapi fam gnutls iprint
+ldap pam quota selinux syslog system-mitkrb5 +system-heimdal systemd test winbind zeroconf"
 
 MULTILIB_WRAPPED_HEADERS=(
 	/usr/include/samba-4.0/policy.h
@@ -43,6 +43,7 @@ MULTILIB_WRAPPED_HEADERS=(
 CDEPEND="${PYTHON_DEPS}
 	>=app-arch/libarchive-3.1.2[${MULTILIB_USEDEP}]
 	dev-lang/perl:=
+	dev-libs/libaio[${MULTILIB_USEDEP}]
 	dev-libs/libbsd[${MULTILIB_USEDEP}]
 	dev-libs/iniparser:0
 	dev-libs/popt[${MULTILIB_USEDEP}]
@@ -138,7 +139,6 @@ multilib_src_configure() {
 			$(use_with addns dnsupdate)
 			$(use_with ads)
 			$(usex ads '--with-shared-modules=idmap_ad' '')
-			$(use_enable avahi)
 			$(use_with cluster cluster-support)
 			$(use_enable cups)
 			$(use_with dmapi)
@@ -155,6 +155,7 @@ multilib_src_configure() {
 			$(use system-mitkrb5 || use system-heimdal || echo '--bundled-libraries=heimdal')
 			$(use_with winbind)
 			$(usex test '--enable-selftest' '')
+			$(use_enable zeroconf avahi)
 			--with-shared-modules=${SHAREDMODS}
 		)
 	else

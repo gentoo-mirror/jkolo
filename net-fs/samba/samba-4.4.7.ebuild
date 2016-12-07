@@ -15,7 +15,7 @@ SRC_PATH="stable"
 [[ ${PV} = *_rc* ]] && SRC_PATH="rc"
 
 SRC_URI="mirror://samba/${SRC_PATH}/${MY_P}.tar.gz
-	https://dev.gentoo.org/~polynomial-c/samba-disable-python-patches-4.5.0_rc1.tar.xz"
+	https://dev.gentoo.org/~polynomial-c/samba-disable-python-patches-4.4.6.tar.xz"
 [[ ${PV} = *_rc* ]] || \
 KEYWORDS="~amd64 ~hppa ~x86"
 
@@ -43,6 +43,7 @@ MULTILIB_WRAPPED_HEADERS=(
 CDEPEND="${PYTHON_DEPS}
 	>=app-arch/libarchive-3.1.2[${MULTILIB_USEDEP}]
 	dev-lang/perl:=
+	dev-libs/libaio[${MULTILIB_USEDEP}]
 	dev-libs/libbsd[${MULTILIB_USEDEP}]
 	dev-libs/iniparser:0
 	dev-libs/popt[${MULTILIB_USEDEP}]
@@ -51,11 +52,11 @@ CDEPEND="${PYTHON_DEPS}
 	dev-python/subunit[${PYTHON_USEDEP},${MULTILIB_USEDEP}]
 	sys-apps/attr[${MULTILIB_USEDEP}]
 	sys-libs/libcap
-	>=sys-libs/ldb-1.1.27[ldap(+)?,${MULTILIB_USEDEP}]
+	>=sys-libs/ldb-1.1.26[ldap(+)?,${MULTILIB_USEDEP}]
 	sys-libs/ncurses:0=[${MULTILIB_USEDEP}]
-	>=sys-libs/talloc-2.1.8[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
-	>=sys-libs/tdb-1.3.10[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
-	>=sys-libs/tevent-0.9.29[${MULTILIB_USEDEP}]
+	>=sys-libs/talloc-2.1.6[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
+	>=sys-libs/tdb-1.3.8[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
+	>=sys-libs/tevent-0.9.28[${MULTILIB_USEDEP}]
 	sys-libs/zlib[${MULTILIB_USEDEP}]
 	pam? ( virtual/pam )
 	acl? ( virtual/acl )
@@ -90,8 +91,7 @@ PATCHES=(
 	"${FILESDIR}/${PN}-4.4.0-pam.patch"
 )
 
-#CONFDIR="${FILESDIR}/$(get_version_component_range 1-2)"
-CONFDIR="${FILESDIR}/4.4"
+CONFDIR="${FILESDIR}/$(get_version_component_range 1-2)"
 
 WAF_BINARY="${S}/buildtools/bin/waf"
 
@@ -106,6 +106,8 @@ pkg_setup() {
 
 src_prepare() {
 	default
+
+	use system-heimdal && epatch "${FILESDIR}/${PN}-4.2.3-heimdal_compilefix.patch"
 
 	# install the patches from tarball(s)
 	eapply "${WORKDIR}/patches/"

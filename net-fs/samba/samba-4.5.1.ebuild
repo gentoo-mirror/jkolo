@@ -15,7 +15,7 @@ SRC_PATH="stable"
 [[ ${PV} = *_rc* ]] && SRC_PATH="rc"
 
 SRC_URI="mirror://samba/${SRC_PATH}/${MY_P}.tar.gz
-	https://dev.gentoo.org/~axs/distfiles/samba-disable-python-patches-4.4.2.tar.xz"
+	https://dev.gentoo.org/~polynomial-c/samba-disable-python-patches-4.5.0_rc1.tar.xz"
 [[ ${PV} = *_rc* ]] || \
 KEYWORDS="~amd64 ~hppa ~x86"
 
@@ -25,8 +25,8 @@ LICENSE="GPL-3"
 
 SLOT="0"
 
-IUSE="acl addc addns ads avahi client cluster cups dmapi fam gnutls iprint
-ldap pam quota selinux syslog system-mitkrb5 +system-heimdal systemd test winbind"
+IUSE="acl addc addns ads client cluster cups dmapi fam gnutls iprint
+ldap pam quota selinux syslog system-mitkrb5 +system-heimdal systemd test winbind zeroconf"
 
 MULTILIB_WRAPPED_HEADERS=(
 	/usr/include/samba-4.0/policy.h
@@ -43,6 +43,7 @@ MULTILIB_WRAPPED_HEADERS=(
 CDEPEND="${PYTHON_DEPS}
 	>=app-arch/libarchive-3.1.2[${MULTILIB_USEDEP}]
 	dev-lang/perl:=
+	dev-libs/libaio[${MULTILIB_USEDEP}]
 	dev-libs/libbsd[${MULTILIB_USEDEP}]
 	dev-libs/iniparser:0
 	dev-libs/popt[${MULTILIB_USEDEP}]
@@ -51,11 +52,11 @@ CDEPEND="${PYTHON_DEPS}
 	dev-python/subunit[${PYTHON_USEDEP},${MULTILIB_USEDEP}]
 	sys-apps/attr[${MULTILIB_USEDEP}]
 	sys-libs/libcap
-	>=sys-libs/ldb-1.1.26[ldap(+)?,${MULTILIB_USEDEP}]
+	>=sys-libs/ldb-1.1.27[ldap(+)?,${MULTILIB_USEDEP}]
 	sys-libs/ncurses:0=[${MULTILIB_USEDEP}]
-	>=sys-libs/talloc-2.1.6[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
-	>=sys-libs/tdb-1.3.8[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
-	>=sys-libs/tevent-0.9.28[${MULTILIB_USEDEP}]
+	>=sys-libs/talloc-2.1.8[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
+	>=sys-libs/tdb-1.3.10[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
+	>=sys-libs/tevent-0.9.31-r1[${MULTILIB_USEDEP}]
 	sys-libs/zlib[${MULTILIB_USEDEP}]
 	pam? ( virtual/pam )
 	acl? ( virtual/acl )
@@ -90,7 +91,8 @@ PATCHES=(
 	"${FILESDIR}/${PN}-4.4.0-pam.patch"
 )
 
-CONFDIR="${FILESDIR}/$(get_version_component_range 1-2)"
+#CONFDIR="${FILESDIR}/$(get_version_component_range 1-2)"
+CONFDIR="${FILESDIR}/4.4"
 
 WAF_BINARY="${S}/buildtools/bin/waf"
 
@@ -106,10 +108,11 @@ pkg_setup() {
 src_prepare() {
 	default
 
-	use system-heimdal && epatch "${FILESDIR}/${PN}-4.2.3-heimdal_compilefix.patch"
-
 	# install the patches from tarball(s)
 	eapply "${WORKDIR}/patches/"
+
+	# ugly hackaround for bug #592502
+	cp /usr/include/tevent_internal.h "${S}"/lib/tevent/ || die
 
 	multilib_copy_sources
 }
@@ -136,7 +139,6 @@ multilib_src_configure() {
 			$(use_with addns dnsupdate)
 			$(use_with ads)
 			$(usex ads '--with-shared-modules=idmap_ad' '')
-			$(use_enable avahi)
 			$(use_with cluster cluster-support)
 			$(use_enable cups)
 			$(use_with dmapi)
@@ -153,6 +155,7 @@ multilib_src_configure() {
 			$(use system-mitkrb5 || use system-heimdal || echo '--bundled-libraries=heimdal')
 			$(use_with winbind)
 			$(usex test '--enable-selftest' '')
+			$(use_enable zeroconf avahi)
 			--with-shared-modules=${SHAREDMODS}
 		)
 	else
