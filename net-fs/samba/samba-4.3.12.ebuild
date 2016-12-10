@@ -15,7 +15,7 @@ SRC_PATH="stable"
 [[ ${PV} = *_rc* ]] && SRC_PATH="rc"
 
 SRC_URI="mirror://samba/${SRC_PATH}/${MY_P}.tar.gz
-	https://dev.gentoo.org/~polynomial-c/samba-disable-python-patches-4.4.6.tar.xz"
+	https://dev.gentoo.org/~polynomial-c/samba-disable-python-patches-4.3.12.tar.xz"
 [[ ${PV} = *_rc* ]] || \
 KEYWORDS="~amd64 ~hppa ~x86"
 
@@ -25,7 +25,7 @@ LICENSE="GPL-3"
 
 SLOT="0"
 
-IUSE="acl addc addns ads avahi client cluster cups dmapi fam gnutls iprint
+IUSE="acl addc addns ads aio avahi client cluster cups dmapi fam gnutls iprint
 ldap pam quota selinux syslog system-mitkrb5 +system-heimdal systemd test winbind"
 
 MULTILIB_WRAPPED_HEADERS=(
@@ -43,7 +43,6 @@ MULTILIB_WRAPPED_HEADERS=(
 CDEPEND="${PYTHON_DEPS}
 	>=app-arch/libarchive-3.1.2[${MULTILIB_USEDEP}]
 	dev-lang/perl:=
-	dev-libs/libaio[${MULTILIB_USEDEP}]
 	dev-libs/libbsd[${MULTILIB_USEDEP}]
 	dev-libs/iniparser:0
 	dev-libs/popt[${MULTILIB_USEDEP}]
@@ -52,15 +51,16 @@ CDEPEND="${PYTHON_DEPS}
 	dev-python/subunit[${PYTHON_USEDEP},${MULTILIB_USEDEP}]
 	sys-apps/attr[${MULTILIB_USEDEP}]
 	sys-libs/libcap
-	>=sys-libs/ldb-1.1.26[ldap(+)?,${MULTILIB_USEDEP}]
+	>=sys-libs/ldb-1.1.24[ldap(+)?,${MULTILIB_USEDEP}]
 	sys-libs/ncurses:0=[${MULTILIB_USEDEP}]
-	>=sys-libs/talloc-2.1.6[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
-	>=sys-libs/tdb-1.3.8[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
+	>=sys-libs/talloc-2.1.3[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
+	>=sys-libs/tdb-1.3.7[python,${PYTHON_USEDEP},${MULTILIB_USEDEP}]
 	>=sys-libs/tevent-0.9.28[${MULTILIB_USEDEP}]
 	sys-libs/zlib[${MULTILIB_USEDEP}]
-	pam? ( virtual/pam )
+	virtual/pam
 	acl? ( virtual/acl )
 	addns? ( net-dns/bind-tools[gssapi] )
+	aio? ( dev-libs/libaio )
 	cluster? ( !dev-db/ctdb )
 	cups? ( net-print/cups )
 	dmapi? ( sys-apps/dmapi )
@@ -88,7 +88,7 @@ REQUIRED_USE="addc? ( gnutls !system-mitkrb5 )
 S="${WORKDIR}/${MY_P}"
 
 PATCHES=(
-	"${FILESDIR}/${PN}-4.4.0-pam.patch"
+	"${FILESDIR}/${PN}-4.2.7-pam.patch"
 )
 
 CONFDIR="${FILESDIR}/$(get_version_component_range 1-2)"
@@ -99,6 +99,18 @@ SHAREDMODS=""
 
 pkg_setup() {
 	python-single-r1_pkg_setup
+	if use aio ; then
+		if ! linux_config_exists || ! linux_chkconfig_present AIO; then
+			ewarn "You must enable AIO support in your kernel config, "
+			ewarn "to be able to support asynchronous I/O. "
+			ewarn "You can find it at"
+			ewarn
+			ewarn "General Support"
+			ewarn " Enable AIO support "
+			ewarn
+			ewarn "and recompile your kernel..."
+		fi
+	fi
 	if use cluster ; then
 		SHAREDMODS="${SHAREDMODS}idmap_rid,idmap_tdb2,idmap_ad"
 	fi
@@ -119,10 +131,10 @@ multilib_src_configure() {
 	local myconf=()
 	myconf=(
 		--enable-fhs
-		--sysconfdir="${EPREFIX}/etc"
-		--localstatedir="${EPREFIX}/var"
-		--with-modulesdir="${EPREFIX}/usr/$(get_libdir)/samba"
-		--with-piddir="${EPREFIX}/run/${PN}"
+		--sysconfdir=/etc
+		--localstatedir=/var
+		--with-modulesdir=/usr/$(get_libdir)/samba
+		--with-piddir=/run/${PN}
 		--bundled-libraries=NONE
 		--builtin-libraries=NONE
 		--disable-rpath
@@ -137,6 +149,7 @@ multilib_src_configure() {
 			$(use_with addns dnsupdate)
 			$(use_with ads)
 			$(usex ads '--with-shared-modules=idmap_ad' '')
+			$(use_with aio aio-support)
 			$(use_enable avahi)
 			$(use_with cluster cluster-support)
 			$(use_enable cups)
@@ -146,7 +159,8 @@ multilib_src_configure() {
 			$(use_enable iprint)
 			$(use_with ldap)
 			$(use_with pam)
-			$(usex pam "--with-pammodulesdir=${EPREFIX}/$(get_libdir)/security" '')
+			$(use_with pam pam_smbpass)
+			$(usex pam "--with-pammodulesdir=/$(get_libdir)/security" '')
 			$(use_with quota quotas)
 			$(use_with syslog)
 			$(use_with systemd)
@@ -162,6 +176,7 @@ multilib_src_configure() {
 			--without-ad-dc
 			--without-dnsupdate
 			--without-ads
+			--without-aio-support
 			--disable-avahi
 			--without-cluster-support
 			--disable-cups
@@ -171,6 +186,7 @@ multilib_src_configure() {
 			--disable-iprint
 			$(use_with ldap)
 			--without-pam
+			--without-pam_smbpass
 			--without-quotas
 			--without-syslog
 			--without-systemd
@@ -181,7 +197,7 @@ multilib_src_configure() {
 		)
 	fi
 
-	CPPFLAGS="-I${SYSROOT}${EPREFIX}/usr/include/et ${CPPFLAGS}" \
+	CPPFLAGS="-I${SYSROOT}/usr/include/et ${CPPFLAGS}" \
 		waf-utils_src_configure ${myconf[@]}
 }
 
