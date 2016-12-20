@@ -10,7 +10,7 @@ inherit eutils user git-r3
 DESCRIPTION="Download manager for many One-Click-Hoster, container formats like DLC, video sites or just plain http/ftp links."
 HOMEPAGE="http://www.pyload.org/"
 EGIT_REPO_URI="https://github.com/pyload/pyload.git"
-EGIT_COMMIT="d50792252e1bb9dd16dfe1c291e6200e7f6243ed"
+EGIT_COMMIT="ea099613e81b08a693b1f601eb5b38b753bd575e"
 
 LICENSE="GPL-2"
 SLOT="0"
