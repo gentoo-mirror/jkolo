@@ -1,94 +1,130 @@
+# Copyright 1999-2016 Gentoo Foundation                                                                                                                                                                                                                                        # Distributed under the terms of the GNU General Public License v2                                                                                                                                                                                                             # $Id$                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        EAPI=6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        inherit eutils user systemd unpacker                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          BUILD="3148"                                                                                                                                                                                                                                                                   COMMIT="b38628e"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              _APPNAME="plexmediaserver"                                                                                                                                                                                                                                                     _USERNAME="plex"                                                                                                                                                                                                                                                               _SHORTNAME="${_USERNAME}"                                                                                                                                                                                                                                                      _FULL_VERSION="${PV}.${BUILD}-${COMMIT}"                                                                                                                                                                                                                                                                     
 # Copyright 1999-2016 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
-EAPI=5
+EAPI=6
 
-inherit eutils systemd unpacker user
+inherit eutils user systemd unpacker
 
-DESCRIPTION="Plex Media Server is an organizer for your media and provides streaming over the web and to devices"
-HOMEPAGE="http://plex.tv/"
-
-SLOT="public"
-
-MY_PN="plexmediaserver"
 BUILD="3148"
 COMMIT="b38628e"
-MY_PV="${PV}.${BUILD}-${COMMIT}"
-MY_P="${MY_PN}_${MY_PV}"
 
+_APPNAME="plexmediaserver"
+_USERNAME="plex"
+_SHORTNAME="${_USERNAME}"
+_FULL_VERSION="${PV}.${BUILD}-${COMMIT}"
+
+URI="https://downloads.plex.tv/plex-media-server"
+
+DESCRIPTION="Plex Media Server is an organizer for your media and provides streaming over the web and to devices"
+HOMEPAGE="http://www.plex.tv/"
 SRC_URI="
-	x86? (
-		https://downloads.plex.tv/plex-media-server/${MY_PV}/${MY_P}_i386.deb
-	)
-	amd64? (
-		https://downloads.plex.tv/plex-media-server/${MY_PV}/${MY_P}_amd64.deb
-	)
+	x86? ( ${URI}/${_FULL_VERSION}/plexmediaserver_${_FULL_VERSION}_i386.deb )
+	amd64? ( ${URI}/${_FULL_VERSION}/plexmediaserver_${_FULL_VERSION}_amd64.deb )
 "
 
+SLOT="public"
 LICENSE="PMS-EULA"
+RESTRICT="mirror bindist strip"
 KEYWORDS="-* ~amd64 ~x86"
-IUSE=""
 
 DEPEND="
 	net-dns/avahi
-"
-RDEPEND="
-	${DEPEND}
-"
+	sys-apps/fix-gnustack"
 
 if [ ${SLOT} = "plexpass" ]; then
-	RDEPEND="${RDEPEND}
-		!media-tv/plex-media-server:public
-	"
+       RDEPEND="${RDEPEND}
+               !media-tv/plex-media-server:public
+       "
 elif [ ${SLOT} = "public" ]; then
-	RDEPEND="${RDEPEND}
-		!media-tv/plex-media-server:plexpass
-	"
+       RDEPEND="${RDEPEND}
+               !media-tv/plex-media-server:plexpass
+       "
 fi
+
+
+QA_DESKTOP_FILE="usr/share/applications/plexmediamanager.desktop"
+QA_PREBUILT="*"
+QA_MULTILIB_PATHS=(
+	"usr/lib/${_APPNAME}/.*"
+	"usr/lib/${_APPNAME}/Resources/Python/lib/python2.7/.*"
+)
+
+EXECSTACKED_BINS=( "${ED%/}/usr/lib/plexmediaserver/libgnsdk_dsp.so*" )
 
 S="${WORKDIR}"
 
-RESTRICT="mirror preserve-libs"
-QA_PREBUILT="*"
-
 pkg_setup() {
-	enewgroup plex
-	enewuser plex -1 /bin/sh /var/lib/plexmediaserver "plex" --system
+	enewgroup ${_USERNAME}
+	enewuser ${_USERNAME} -1 /bin/bash /var/lib/${_APPNAME} ${_USERNAME}
 }
 
-src_prepare() {
-	epatch "${FILESDIR}/start_pms.patch"
+src_unpack() {
+	unpack_deb ${A}
 }
 
 src_install() {
-	#Package contents
-	insinto /etc/default
-	doins etc/default/plexmediaserver
+	# Copy main files over to image and preserve permissions so it is portable
+	cp -rp usr/ "${ED}" || die
 
-	dodir /opt/plexmediaserver
-	cp -R usr/lib/plexmediaserver/* "${D}"/opt/plexmediaserver/
+	# Move the config to the correct place
+	local CONFIG_VANILLA="${S}/etc/default/plexmediaserver"
+	local CONFIG_PATH="/etc/${_SHORTNAME}"
+	dodir "${CONFIG_PATH}"
+	insinto "${CONFIG_PATH}"
+	doins "${CONFIG_VANILLA}"
 
-	dobin usr/sbin/start_pms
+	# Remove Debian specific files
+	rm -rf "${ED%/}/usr/share/doc" || die
 
-	domenu usr/share/applications/plexmediamanager.desktop
-	doicon usr/share/pixmaps/plexmediamanager.png
+	# Make sure the logging directory is created
+	local LOGGING_DIR="/var/log/pms"
+	dodir "${LOGGING_DIR}"
+	chown "${_USERNAME}":"${_USERNAME}" "${ED%/}/${LOGGING_DIR}" || die
 
-	dodoc usr/share/doc/plexmediaserver/copyright
+	# Create default library folder with correct permissions
+	local DEFAULT_LIBRARY_DIR="/var/lib/${_APPNAME}"
+	dodir "${DEFAULT_LIBRARY_DIR}"
+	chown "${_USERNAME}":"${_USERNAME}" "${ED%/}/${DEFAULT_LIBRARY_DIR}" || die
 
-	#Init files
-	doinitd "${FILESDIR}"/plexmediaserver
-	systemd_dounit "${FILESDIR}"/plexmediaserver.service
+	# Install the OpenRC init/conf files
+	doinitd "${FILESDIR}/init.d/${PN}"
+	doconfd "${FILESDIR}/conf.d/${PN}"
 
-	#Directories
-	dodir /var/lib/plexmediaserver
-	fowners plex:plex /var/lib/plexmediaserver
-	dodir /var/log/pms
-	fowners plex:plex /var/log/pms
+	_handle_multilib
+
+	# Install systemd service file
+	local INIT_NAME="${PN}.service"
+	local INIT="${FILESDIR}/systemd/${INIT_NAME}"
+	systemd_newunit "${INIT}" "${INIT_NAME}"
+
+	_remove_execstack_markings
 }
 
 pkg_postinst() {
-	einfo "To start Plex Media Server, use the plexmediaserver init script or systemd unit."
-	einfo "To manage your library and sign in to Plex, go to \"http://localhost:32400/web\"."
+	einfo ""
+	elog "Plex Media Server is now installed. Please check the configuration file in /etc/plex/${_SHORTNAME} to verify the default settings."
+	elog "To start the Plex Server, run 'rc-config start plex-media-server', you will then be able to access your library at http://<ip>:32400/web/"
+}
+
+# Finds out where the library directory is for this system
+# and handles ldflags as to not break library dependencies
+# during rebuilds.
+_handle_multilib() {
+	# Prevent revdep-rebuild, @preserved-rebuild breakage
+	cat > "${T}"/66plex <<-EOF || die
+		LDPATH="${EPREFIX}/usr/$(get_libdir)/plexmediaserver"
+	EOF
+
+	doenvd "${T}"/66plex
+}
+
+# Remove execstack flag from library so that it works in hardened setups.
+_remove_execstack_markings() {
+	for f in "${EXECSTACKED_BINS[@]}"; do
+		# Unquoting 'f' so that expansion works.
+		fix-gnustack -f ${f} > /dev/null
+	done
 }
 
