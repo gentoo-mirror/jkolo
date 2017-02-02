@@ -1,4 +1,4 @@
-# Copyright 1999-2016 Gentoo Foundation
+# Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Id$
 
@@ -672,7 +672,8 @@ src_install() {
 
 	cp "${FILESDIR}"/nginx.conf-r2 "${ED}"etc/nginx/nginx.conf || die
 
-	newinitd "${FILESDIR}"/nginx.initd-r3 nginx
+	newinitd "${FILESDIR}"/nginx.initd-r4 nginx
+	newconfd "${FILESDIR}"/nginx.confd nginx
 
 	systemd_newunit "${FILESDIR}"/nginx.service-r1 nginx.service
 
@@ -697,8 +698,11 @@ src_install() {
 	fperms 0750 "${NGINX_HOME_TMP}"
 	fowners ${PN}:0 "${NGINX_HOME_TMP}"
 
-	fperms 0700 /var/log/nginx ${keepdir_list}
-	fowners ${PN}:${PN} /var/log/nginx ${keepdir_list}
+	fperms 0700 ${keepdir_list}
+	fowners ${PN}:${PN} ${keepdir_list}
+
+	fperms 0710 /var/log/nginx
+	fowners 0:${PN} /var/log/nginx
 
 	# logrotate
 	insinto /etc/logrotate.d
@@ -815,44 +819,224 @@ pkg_postinst() {
 		ewarn "NGINX_MODULES_HTTP=\"lua http2\". For more info, see http://git.io/OldLsg"
 	fi
 
-	# This is the proper fix for bug #458726/#469094, resp. CVE-2013-0337 for
-	# existing installations
-	local fix_perms=0
+	local _n_permission_layout_checks=0
+	local _has_to_adjust_permissions=0
+	local _has_to_show_permission_warning=0
 
-	for rv in ${REPLACING_VERSIONS}; do
-		version_compare ${rv} 1.4.1-r2
-		[[ $? -eq 1 ]] && fix_perms=1
+	# Defaults to 1 to inform people doing a fresh installation
+	# that we ship modified {scgi,uwsgi,fastcgi}_params files
+	local _has_to_show_httpoxy_mitigation_notice=1
+
+	local _replacing_version=
+	for _replacing_version in ${REPLACING_VERSIONS}; do
+		_n_permission_layout_checks=$((${_n_permission_layout_checks}+1))
+
+		if [[ ${_n_permission_layout_checks} -gt 1 ]]; then
+			# Should never happen:
+			# Package is abusing slots but doesn't allow multiple parallel installations.
+			# If we run into this situation it is unsafe to automatically adjust any
+			# permission...
+			_has_to_show_permission_warning=1
+
+			ewarn "Replacing multiple ${PN}' versions is unsupported! " \
+				"You will have to adjust permissions on your own."
+
+			break
+		fi
+
+		local _replacing_version_branch=$(get_version_component_range 1-2 "${_replacing_version}")
+		debug-print "Updating an existing installation (v${_replacing_version}; branch '${_replacing_version_branch}') ..."
+
+		# Do we need to adjust permissions to fix CVE-2013-0337 (bug #458726, #469094)?
+		# This was before we introduced multiple nginx versions so we
+		# do not need to distinguish between stable and mainline
+		local _need_to_fix_CVE2013_0337=1
+
+		if version_is_at_least "1.4.1-r2" "${_replacing_version}"; then
+			# We are updating an installation which should already be fixed
+			_need_to_fix_CVE2013_0337=0
+			debug-print "Skipping CVE-2013-0337 ... existing installation should not be affected!"
+		else
+			_has_to_adjust_permissions=1
+			debug-print "Need to adjust permissions to fix CVE-2013-0337!"
+		fi
+
+		# Do we need to inform about HTTPoxy mitigation?
+		# In repository since commit 8be44f76d4ac02cebcd1e0e6e6284bb72d054b0f
+		if ! version_is_at_least "1.10" "${_replacing_version_branch}"; then
+			# Updating from <1.10
+			_has_to_show_httpoxy_mitigation_notice=1
+			debug-print "Need to inform about HTTPoxy mitigation!"
+		else
+			# Updating from >=1.10
+			local _fixed_in_pvr=
+			case "${_replacing_version_branch}" in
+				"1.10")
+					_fixed_in_pvr="1.10.1-r2"
+					;;
+				"1.11")
+					_fixed_in_pvr="1.11.3-r1"
+					;;
+				*)
+					# This should be any future branch.
+					# If we run this code it is safe to assume that the user has
+					# already seen the HTTPoxy mitigation notice because he/she is doing
+					# an update from previous version where we have already shown
+					# the warning. Otherwise, we wouldn't hit this code path ...
+					_fixed_in_pvr=
+			esac
+
+			if [[ -z "${_fixed_in_pvr}" ]] || version_is_at_least "${_fixed_in_pvr}" "${_replacing_version}"; then
+				# We are updating an installation where we already informed
+				# that we are mitigating HTTPoxy per default
+				_has_to_show_httpoxy_mitigation_notice=0
+				debug-print "No need to inform about HTTPoxy mitigation ... information was already shown for existing installation!"
+			else
+				_has_to_show_httpoxy_mitigation_notice=1
+				debug-print "Need to inform about HTTPoxy mitigation!"
+			fi
+		fi
+
+		# Do we need to adjust permissions to fix CVE-2016-1247 (bug #605008)?
+		# All branches up to 1.11 are affected
+		local _need_to_fix_CVE2016_1247=1
+
+		if ! version_is_at_least "1.10" "${_replacing_version_branch}"; then
+			# Updating from <1.10
+			_has_to_adjust_permissions=1
+			debug-print "Need to adjust permissions to fix CVE-2016-1247!"
+		else
+			# Updating from >=1.10
+			local _fixed_in_pvr=
+			case "${_replacing_version_branch}" in
+				"1.10")
+					_fixed_in_pvr="1.10.2-r3"
+					;;
+				"1.11")
+					_fixed_in_pvr="1.11.6-r1"
+					;;
+				*)
+					# This should be any future branch.
+					# If we run this code it is safe to assume that we have already
+					# adjusted permissions or were never affected because user is
+					# doing an update from previous version which was safe or did
+					# the adjustments. Otherwise, we wouldn't hit this code path ...
+					_fixed_in_pvr=
+			esac
+
+			if [[ -z "${_fixed_in_pvr}" ]] || version_is_at_least "${_fixed_in_pvr}" "${_replacing_version}"; then
+				# We are updating an installation which should already be adjusted
+				# or which was never affected
+				_need_to_fix_CVE2016_1247=0
+				debug-print "Skipping CVE-2016-1247 ... existing installation should not be affected!"
+			else
+				_has_to_adjust_permissions=1
+				debug-print "Need to adjust permissions to fix CVE-2016-1247!"
+			fi
+		fi
 	done
 
-	if [[ $fix_perms -eq 1 ]] ; then
-		ewarn "To fix a security bug (CVE-2013-0337, bug #458726) had the following"
-		ewarn "directories the world-readable bit removed (if set):"
-		ewarn "  ${EPREFIX}/var/log/nginx"
-		ewarn "  ${EPREFIX}${NGINX_HOME_TMP}/{,client,proxy,fastcgi,scgi,uwsgi}"
-		ewarn "Check if this is correct for your setup before restarting nginx!"
-		ewarn "This is a one-time change and will not happen on subsequent updates."
-		ewarn "Furthermore nginx' temp directories got moved to ${NGINX_HOME_TMP}"
-		chmod -f o-rwx "${EPREFIX}"/var/log/nginx "${EPREFIX}${NGINX_HOME_TMP}"/{,client,proxy,fastcgi,scgi,uwsgi}
+	if [[ ${_has_to_adjust_permissions} -eq 1 ]]; then
+		# We do not DIE when chmod/chown commands are failing because
+		# package is already merged on user's system at this stage
+		# and we cannot retry without losing the information that
+		# the existing installation needs to adjust permissions.
+		# Instead we are going to a show a big warning ...
+
+		if [[ ${_has_to_show_permission_warning} -eq 0 ]] && [[ ${_need_to_fix_CVE2013_0337} -eq 1 ]]; then
+			ewarn ""
+			ewarn "The world-readable bit (if set) has been removed from the"
+			ewarn "following directories to mitigate a security bug"
+			ewarn "(CVE-2013-0337, bug #458726):"
+			ewarn ""
+			ewarn "  ${EPREFIX%/}/var/log/nginx"
+			ewarn "  ${EPREFIX%/}${NGINX_HOME_TMP}/{,client,proxy,fastcgi,scgi,uwsgi}"
+			ewarn ""
+			ewarn "Check if this is correct for your setup before restarting nginx!"
+			ewarn "This is a one-time change and will not happen on subsequent updates."
+			ewarn "Furthermore nginx' temp directories got moved to '${EPREFIX%/}${NGINX_HOME_TMP}'"
+			chmod o-rwx \
+				"${EPREFIX%/}"/var/log/nginx \
+				"${EPREFIX%/}"${NGINX_HOME_TMP}/{,client,proxy,fastcgi,scgi,uwsgi} || \
+				_has_to_show_permission_warning=1
+		fi
+
+		if [[ ${_has_to_show_permission_warning} -eq 0 ]] && [[ ${_need_to_fix_CVE2016_1247} -eq 1 ]]; then
+			ewarn ""
+			ewarn "The permissions on the following directory have been reset in"
+			ewarn "order to mitigate a security bug (CVE-2016-1247, bug #605008):"
+			ewarn ""
+			ewarn "  ${EPREFIX%/}/var/log/nginx"
+			ewarn ""
+			ewarn "Check if this is correct for your setup before restarting nginx!"
+			ewarn "Also ensure that no other log directory used by any of your"
+			ewarn "vhost(s) is not writeable for nginx user. Any of your log files"
+			ewarn "used by nginx can be abused to escalate privileges!"
+			ewarn "This is a one-time change and will not happen on subsequent updates."
+			chown 0:nginx "${EPREFIX%/}"/var/log/nginx || _has_to_show_permission_warning=1
+			chmod 710 "${EPREFIX%/}"/var/log/nginx || _has_to_show_permission_warning=1
+		fi
+
+		if [[ ${_has_to_show_permission_warning} -eq 1 ]]; then
+			# Should never happen ...
+			ewarn ""
+			ewarn "*************************************************************"
+			ewarn "***************         W A R N I N G         ***************"
+			ewarn "*************************************************************"
+			ewarn "The one-time only attempt to adjust permissions of the"
+			ewarn "existing nginx installation failed. Be aware that we will not"
+			ewarn "try to adjust the same permissions again because now you are"
+			ewarn "using a nginx version where we expect that the permissions"
+			ewarn "are already adjusted or that you know what you are doing and"
+			ewarn "want to keep custom permissions."
+			ewarn ""
+		fi
 	fi
 
-	# If the nginx user can't change into or read the dir, display a warning.
-	# If su is not available we display the warning nevertheless since we can't check properly
-	su -s /bin/sh -c 'cd /var/log/nginx/ && ls' nginx >&/dev/null
-	if [ $? -ne 0 ] ; then
-		ewarn "Please make sure that the nginx user or group has at least"
-		ewarn "'rx' permissions on /var/log/nginx (default on a fresh install)"
-		ewarn "Otherwise you end up with empty log files after a logrotate."
+	# Sanity check for CVE-2016-1247
+	# Required to warn users who received the warning above and thought
+	# they could fix it by unmerging and re-merging the package or have
+	# unmerged a affected installation on purpose in the past leaving
+	# /var/log/nginx on their system due to keepdir/non-empty folder
+	# and are now installing the package again.
+	local _sanity_check_testfile=$(mktemp --dry-run "${EPREFIX%/}"/var/log/nginx/.CVE-2016-1247.XXXXXXXXX)
+	su -s /bin/sh -c "touch ${_sanity_check_testfile}" nginx >&/dev/null
+	if [ $? -eq 0 ] ; then
+		# Cleanup -- no reason to die here!
+		rm -f "${_sanity_check_testfile}"
+
+		ewarn ""
+		ewarn "*************************************************************"
+		ewarn "***************         W A R N I N G         ***************"
+		ewarn "*************************************************************"
+		ewarn "Looks like your installation is vulnerable to CVE-2016-1247"
+		ewarn "(bug #605008) because nginx user is able to create files in"
+		ewarn ""
+		ewarn "  ${EPREFIX%/}/var/log/nginx"
+		ewarn ""
+		ewarn "Also ensure that no other log directory used by any of your"
+		ewarn "vhost(s) is not writeable for nginx user. Any of your log files"
+		ewarn "used by nginx can be abused to escalate privileges!"
 	fi
 
-	# HTTPoxy mitigation
-	ewarn ""
-	ewarn "This nginx installation comes with a mitigation for the HTTPoxy"
-	ewarn "vulnerability for FastCGI applications by setting the HTTP_PROXY FastCGI"
-	ewarn "parameter to an empty string per default when you are sourcing the default"
-	ewarn "'fastcgi_params' or 'fastcgi.conf' in your server block(s)."
-	ewarn ""
-	ewarn "If this is causing any problems for you make sure that you are sourcing the"
-	ewarn "default parameters _before_ you set your own values."
-	ewarn "If you are relying on user-supplied proxy values you have to remove the"
-	ewarn "correlating lines from 'fastcgi_params' and or 'fastcgi.conf'."
+	if [[ ${_has_to_show_httpoxy_mitigation_notice} -eq 1 ]]; then
+		# HTTPoxy mitigation
+		ewarn ""
+		ewarn "This nginx installation comes with a mitigation for the HTTPoxy"
+		ewarn "vulnerability for FastCGI, SCGI and uWSGI applications by setting"
+		ewarn "the HTTP_PROXY parameter to an empty string per default when you"
+		ewarn "are sourcing one of the default"
+		ewarn ""
+		ewarn "  - 'fastcgi_params' or 'fastcgi.conf'"
+		ewarn "  - 'scgi_params'"
+		ewarn "  - 'uwsgi_params'"
+		ewarn ""
+		ewarn "files in your server block(s)."
+		ewarn ""
+		ewarn "If this is causing any problems for you make sure that you are sourcing the"
+		ewarn "default parameters _before_ you set your own values."
+		ewarn "If you are relying on user-supplied proxy values you have to remove the"
+		ewarn "correlating lines from the file(s) mentioned above."
+		ewarn ""
+	fi
 }
