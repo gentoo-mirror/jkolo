@@ -1,9 +1,7 @@
-app-crypt/libu2f-host 1.0.0: Yubico Universal 2nd Factor (U2F) Host C Library
-app-crypt/libu2f-server 1.0.1: Yubico Universal 2nd Factor (U2F) server C Library
 app-crypt/simple-tpm-pk11 0.04: Simple PKCS11 provider for TPM chips
-app-crypt/yubico-piv-tool 1.1.2: The Yubico PIV Tool allows you to configure a PIV-enabled YubiKey through a command line interface.
-app-crypt/yubikey-piv-manager 1.1.1: The YubiKey PIV Manager enables you to configure a PIV-enabled YubiKey through a graphical user interface.
-app-crypt/yubioath-desktop 2.3.0: Library and tool for personalization of Yubico's YubiKey NEO
+app-crypt/yubico-piv-tool 1.4.2: The Yubico PIV Tool allows you to configure a PIV-enabled YubiKey through a command line interface.
+app-crypt/yubikey-piv-manager 1.4.1: The YubiKey PIV Manager enables you to configure a PIV-enabled YubiKey through a graphical user interface.
+app-crypt/yubioath-desktop 3.1.0: Library and tool for personalization of Yubico's YubiKey NEO
 app-shells/oh-my-zsh 9999: A ready-to-use zsh configuration with plugins
 dev-java/jdbc-mysql 5.1.26-r1: MySQL JDBC driver
 dev-libs/globalplatform 6.0.0: This is a library for providing access to OpenPlatform 2.0.1' and GlobalPlatform 2.1.1 conforming smart cards.
