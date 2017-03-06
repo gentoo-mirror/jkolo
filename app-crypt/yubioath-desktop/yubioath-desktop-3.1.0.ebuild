@@ -1,5 +1,6 @@
 EAPI=5
-PYTHON_COMPAT=( python{2_6,2_7} )
+
+PYTHON_COMPAT=( python{2_7,3_4,3_5,3_6} )
 
 DESCRIPTION="Library and tool for personalization of Yubico's YubiKey NEO"
 SRC_URI="http://opensource.yubico.com/yubioath-desktop/releases/${P}.tar.gz"
@@ -11,7 +12,8 @@ LICENSE="BSD-2"
 
 inherit distutils-r1
 
-RDEPEND="dev-python/pyside
+RDEPEND="dev-python/click
+	 dev-python/pyside
 	 dev-python/pycrypto
 	 dev-python/pyscard
 	 dev-python/pbkdf2"
