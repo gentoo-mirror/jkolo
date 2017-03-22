@@ -20,12 +20,6 @@ net-fs/samba:smbsharemodes - Enable special smb share modes (?)
 net-fs/samba:smbtav2 - Enable Samba Traffic Analyzer version 2
 net-fs/samba:swat - Enables support for swat configuration gui
 net-fs/samba:winbind - Enables support for the winbind auth daemon
-sys-firmware/ipxe:iso - Build a bootable ISO for using PXE
-sys-firmware/ipxe:qemu - Build the required PXE ROM images for app-emulation/qemu and app-emulation/qemu-kvm
-sys-firmware/ipxe:undi - Build a Universal Network Device Interface driver chainloading your existing PXE NIC into iPXE
-sys-firmware/ipxe:usb - Build a bootable USB image for using PXE
-sys-firmware/ipxe:vmware - Build the PXE ROM images that VMWare uses
-sys-firmware/seabios:binary - Use official upstream pre-built binaries
 www-servers/nginx:aio - Enables file AIO support
 www-servers/nginx:http - Enable HTTP core support
 www-servers/nginx:http-cache - Enable HTTP cache support
