@@ -38,7 +38,6 @@ sys-firmware/iwl6005-ucode 17.168.5.3 18.168.6.1: Intel (R) Wireless WiFi Advanc
 sys-firmware/iwl6030-ucode 17.168.5.2 18.168.6.1: Intel (R) Wireless WiFi Advanced N 6030 ucode
 sys-firmware/iwl6050-ucode 9.201.4.1 41.28.5.1: Intel (R) Wireless WiFi Link 6250-AGN ucode
 sys-firmware/rt61-firmware 1.2: Firmware for Ralink rt61-based PCI/PCMCIA WiFi adapters (rt61pci module)
-sys-firmware/seabios 1.6.3 1.7.0 1.7.1 1.7.2: Open Source implementation of a 16-bit x86 BIOS
 sys-firmware/sgabios 0.1_pre8: serial graphics adapter bios option rom for x86
 sys-firmware/vgabios 0.6c-r1 0.7a: VGA BIOS implementation
 sys-firmware/zd1201-firmware 0.14: Firmware for ZyDAS 1201 based USB 802.11b Network WiFi devices
