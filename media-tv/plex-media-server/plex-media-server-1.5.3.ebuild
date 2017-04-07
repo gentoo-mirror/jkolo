@@ -7,8 +7,8 @@ EAPI=6
 
 inherit eutils user systemd unpacker
 
-BUILD="3501"
-COMMIT="3b8374a5c"
+BUILD="3580"
+COMMIT="4b377d295"
 
 _APPNAME="plexmediaserver"
 _USERNAME="plex"
@@ -24,7 +24,7 @@ SRC_URI="
 	amd64? ( ${URI}/${_FULL_VERSION}/plexmediaserver_${_FULL_VERSION}_amd64.deb )
 "
 
-SLOT="plexpass"
+SLOT="public"
 LICENSE="PMS-EULA"
 RESTRICT="mirror bindist strip"
 KEYWORDS="-* ~amd64 ~x86"
