@@ -1,8 +1,7 @@
 # Copyright 1999-2017 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Id$
 
-EAPI=6
+EAPI="6"
 
 # Maintainer notes:
 # - http_rewrite-independent pcre-support makes sense for matching locations without an actual rewrite
@@ -78,13 +77,13 @@ HTTP_METRICS_MODULE_URI="https://github.com/madvertise/ngx_metrics/archive/v${HT
 HTTP_METRICS_MODULE_WD="${WORKDIR}/ngx_metrics-${HTTP_METRICS_MODULE_PV}"
 
 # naxsi-core (https://github.com/nbs-system/naxsi, GPLv2+)
-HTTP_NAXSI_MODULE_PV="0.55.1"
+HTTP_NAXSI_MODULE_PV="0.55.3"
 HTTP_NAXSI_MODULE_P="ngx_http_naxsi-${HTTP_NAXSI_MODULE_PV}"
 HTTP_NAXSI_MODULE_URI="https://github.com/nbs-system/naxsi/archive/${HTTP_NAXSI_MODULE_PV}.tar.gz"
 HTTP_NAXSI_MODULE_WD="${WORKDIR}/naxsi-${HTTP_NAXSI_MODULE_PV}/naxsi_src"
 
 # nginx-rtmp-module (https://github.com/arut/nginx-rtmp-module, BSD license)
-RTMP_MODULE_PV="1.1.10"
+RTMP_MODULE_PV="1.1.11"
 RTMP_MODULE_P="ngx_rtmp-${RTMP_MODULE_PV}"
 RTMP_MODULE_URI="https://github.com/arut/nginx-rtmp-module/archive/v${RTMP_MODULE_PV}.tar.gz"
 RTMP_MODULE_WD="${WORKDIR}/nginx-rtmp-module-${RTMP_MODULE_PV}"
@@ -132,6 +131,12 @@ HTTP_MEMC_MODULE_P="ngx_memc_module-${HTTP_MEMC_MODULE_PV}"
 HTTP_MEMC_MODULE_URI="https://github.com/openresty/memc-nginx-module/archive/v${HTTP_MEMC_MODULE_PV}.tar.gz"
 HTTP_MEMC_MODULE_WD="${WORKDIR}/memc-nginx-module-${HTTP_MEMC_MODULE_PV}"
 
+# nginx-ldap-auth-module (https://github.com/kvspb/nginx-auth-ldap, BSD-2)
+HTTP_LDAP_MODULE_PV="49a8b4d28fc4a518563c82e0b52821e5f37db1fc"
+HTTP_LDAP_MODULE_P="nginx-auth-ldap-${HTTP_LDAP_MODULE_PV}"
+HTTP_LDAP_MODULE_URI="https://github.com/kvspb/nginx-auth-ldap/archive/${HTTP_LDAP_MODULE_PV}.tar.gz"
+HTTP_LDAP_MODULE_WD="${WORKDIR}/nginx-auth-ldap-${HTTP_LDAP_MODULE_PV}"
+
 # spnego-http-auth-nginx-module (https://github.com/stnoonan/spnego-http-auth-nginx-module)
 HTTP_AUTH_SPNEGO_MODULE_PV="0ea80a9f53b2830803eee0ef6becd2a10cd3f5fe"
 HTTP_AUTH_SPNEGO_MODULE_P="ngx_auth_spnego_module-${HTTP_AUTH_SPNEGO_MODULE_PV}"
@@ -144,11 +149,11 @@ HTTP_AJP_MODULE_P="ngx_ajp_module-${HTTP_AJP_MODULE_PV}"
 HTTP_AJP_MODULE_URI="https://github.com/sklochkov/nginx_ajp_module/archive/${HTTP_AJP_MODULE_PV}.tar.gz"
 HTTP_AJP_MODULE_WD="${WORKDIR}/nginx_ajp_module-${HTTP_AJP_MODULE_PV}"
 
-# nginx-ldap-auth-module (https://github.com/kvspb/nginx-auth-ldap, BSD-2)
-HTTP_LDAP_MODULE_PV="49a8b4d28fc4a518563c82e0b52821e5f37db1fc"
-HTTP_LDAP_MODULE_P="nginx-auth-ldap-${HTTP_LDAP_MODULE_PV}"
-HTTP_LDAP_MODULE_URI="https://github.com/kvspb/nginx-auth-ldap/archive/${HTTP_LDAP_MODULE_PV}.tar.gz"
-HTTP_LDAP_MODULE_WD="${WORKDIR}/nginx-auth-ldap-${HTTP_LDAP_MODULE_PV}"
+# ct-module
+HTTP_CT_MODULE_PV="1.3.2"
+HTTP_CT_MODULE_P="nginx-ct-${HTTP_CT_MODULE_PV}"
+HTTP_CT_MODULE_URI="https://github.com/grahamedgecombe/nginx-ct/archive/v${HTTP_CT_MODULE_PV}.tar.gz"
+HTTP_CT_MODULE_WD="${WORKDIR}/nginx-ct-${HTTP_CT_MODULE_PV}"
 
 # We handle deps below ourselves
 SSL_DEPS_SKIP=1
@@ -157,8 +162,8 @@ AUTOTOOLS_AUTO_DEPEND="no"
 inherit autotools ssl-cert toolchain-funcs perl-module flag-o-matic user systemd versionator multilib
 
 DESCRIPTION="Robust, small and high performance http and reverse proxy server"
-HOMEPAGE="http://nginx.org"
-SRC_URI="http://nginx.org/download/${P}.tar.gz
+HOMEPAGE="https://nginx.org"
+SRC_URI="https://nginx.org/download/${P}.tar.gz
 	${DEVEL_KIT_MODULE_URI} -> ${DEVEL_KIT_MODULE_P}.tar.gz
 	nginx_modules_http_upload_progress? ( ${HTTP_UPLOAD_PROGRESS_MODULE_URI} -> ${HTTP_UPLOAD_PROGRESS_MODULE_P}.tar.gz )
 	nginx_modules_http_headers_more? ( ${HTTP_HEADERS_MORE_MODULE_URI} -> ${HTTP_HEADERS_MORE_MODULE_P}.tar.gz )
@@ -178,9 +183,10 @@ SRC_URI="http://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_sticky? ( ${HTTP_STICKY_MODULE_URI} -> ${HTTP_STICKY_MODULE_P}.tar.bz2 )
 	nginx_modules_http_mogilefs? ( ${HTTP_MOGILEFS_MODULE_URI} -> ${HTTP_MOGILEFS_MODULE_P}.tar.gz )
 	nginx_modules_http_memc? ( ${HTTP_MEMC_MODULE_URI} -> ${HTTP_MEMC_MODULE_P}.tar.gz )
+	nginx_modules_http_auth_ldap? ( ${HTTP_LDAP_MODULE_URI} -> ${HTTP_LDAP_MODULE_P}.tar.gz )
 	nginx_modules_http_auth_spnego? ( ${HTTP_AUTH_SPNEGO_MODULE_URI} -> ${HTTP_AUTH_SPNEGO_MODULE_P}.tar.gz )
-	nginx_modules_http_ajp? ( ${HTTP_AJP_MODULE_URI} -> ${HTTP_AJP_MODULE_P}.tar.gz  )
-	nginx_modules_http_auth_ldap? ( ${HTTP_LDAP_MODULE_URI} -> ${HTTP_LDAP_MODULE_P}.tar.gz )"
+	nginx_modules_http_ajp? ( ${HTTP_AJP_MODULE_URI} -> ${HTTP_AJP_MODULE_P}.tar.gz )
+	nginx_modules_http_ct? ( ${HTTP_CT_MODULE_URI} -> ${HTTP_CT_MODULE_P}.tar.gz )"
 
 LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+
 	nginx_modules_http_security? ( Apache-2.0 )
@@ -188,6 +194,9 @@ LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+
 
 SLOT="mainline"
 KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+
+# Package doesn't provide a real test suite
+RESTRICT="test"
 
 NGINX_MODULES_STD="access auth_basic autoindex browser charset empty_gif
 	fastcgi geo gzip limit_req limit_conn map memcached proxy referer
@@ -216,11 +225,12 @@ NGINX_MODULES_3RD="
 	http_security
 	http_push_stream
 	http_sticky
-	http_ajp
 	http_mogilefs
 	http_memc
+	http_auth_ldap
+	http_ajp
 	http_auth_spnego
-	http_auth_ldap"
+	http_ct"
 
 IUSE="aio debug +http +http2 +http-cache +ipv6 libatomic libressl luajit +pcre
 	pcre-jit rtmp selinux ssl threads userland_GNU vim-syntax"
@@ -352,12 +362,21 @@ src_prepare() {
 	eapply "${FILESDIR}/${PN}-1.4.1-fix-perl-install-path.patch"
 	eapply "${FILESDIR}/${PN}-httpoxy-mitigation-r1.patch"
 
+	if use nginx_modules_http_echo; then
+		cd "${HTTP_ECHO_MODULE_WD}" || die
+		eapply "${FILESDIR}"/http_echo-nginx-1.11.11+.patch
+		cd "${S}" || die
+	fi
+
 	if use nginx_modules_http_upstream_check; then
 		#eapply -p0 "${HTTP_UPSTREAM_CHECK_MODULE_WD}"/check_1.11.1+.patch
 		eapply -p0 "${FILESDIR}"/http_upstream_check-nginx-1.11.5+.patch
 	fi
 
 	if use nginx_modules_http_lua; then
+		cd "${HTTP_LUA_MODULE_WD}" || die
+		eapply -p1 "${FILESDIR}"/http_lua_nginx-1.11.11+.patch
+		cd "${S}" || die
 		sed -i -e 's/-llua5.1/-llua/' "${HTTP_LUA_MODULE_WD}/config" || die
 	fi
 
@@ -371,6 +390,7 @@ src_prepare() {
 		cd "${HTTP_SECURITY_MODULE_WD}" || die
 
 		eapply "${FILESDIR}"/http_security-pr_1158.patch
+		eapply "${FILESDIR}"/http_security-pr_1373.patch
 
 		eautoreconf
 
@@ -556,6 +576,11 @@ src_configure() {
 		myconf+=( --add-module=${HTTP_MEMC_MODULE_WD} )
 	fi
 
+	if use nginx_modules_http_auth_ldap; then
+		http_enabled=1
+		myconf+=( --add-module=${HTTP_LDAP_MODULE_WD} )
+	fi
+
 	if use nginx_modules_http_auth_spnego ; then
 		http_enabled=1
 		myconf+=( --add-module=${HTTP_AUTH_SPNEGO_MODULE_WD} )
@@ -566,9 +591,9 @@ src_configure() {
 		myconf+=( --add-module=${HTTP_AJP_MODULE_WD} )
 	fi
 
-	if use nginx_modules_http_auth_ldap; then
+	if use nginx_modules_http_ct ; then
 		http_enabled=1
-		myconf+=( --add-module=${HTTP_LDAP_MODULE_WD} )
+		myconf+=( --add-module=${HTTP_CT_MODULE_WD} )
 	fi
 
 	if use http || use http-cache || use http2; then
@@ -785,6 +810,11 @@ src_install() {
 		dodoc "${HTTP_MEMC_MODULE_WD}"/README.markdown
 	fi
 
+	if use nginx_modules_http_auth_ldap; then
+		docinto ${HTTP_LDAP_MODULE_P}
+		dodoc "${HTTP_LDAP_MODULE_WD}"/example.conf
+	fi
+
 	if use nginx_modules_http_auth_spnego; then
 		docinto ${HTTP_AUTH_SPNEGO_MODULE_P}
 		dodoc "${HTTP_AUTH_SPNEGO_MODULE_WD}"/README.md
@@ -795,9 +825,9 @@ src_install() {
 		dodoc "${HTTP_AJP_MODULE_WD}"/{README.markdown,README,README.wiki}
 	fi
 
-	if use nginx_modules_http_auth_ldap; then
-		docinto ${HTTP_LDAP_MODULE_P}
-		dodoc "${HTTP_LDAP_MODULE_WD}"/example.conf
+	if use nginx_modules_http_ct; then
+		docinto ${HTTP_CT_MODULE_P}
+		dodoc "${HTTP_CT_MODULE_WD}"/{README.markdown,LICENSE,CHANGELOG.markdown}
 	fi
 }
 
