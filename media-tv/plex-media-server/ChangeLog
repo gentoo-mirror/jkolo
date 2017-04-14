@@ -1,0 +1,4 @@
+2017.04.12 (1.5.5.3634-995f1dead)
+(Transcoder) Fix an issue with transcodes failing with long Windows user names. (#6709)
+
+
