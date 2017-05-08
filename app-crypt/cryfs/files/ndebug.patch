@@ -1,0 +1,16 @@
+diff -Naur cryfs.old/CMakeLists.txt cryfs/CMakeLists.txt
+--- cryfs.old/CMakeLists.txt	2017-04-30 02:06:51.568327947 +0200
++++ cryfs/CMakeLists.txt	2017-04-30 02:13:36.777988853 +0200
+@@ -22,6 +22,12 @@
+     set(CRYFS_UPDATE_CHECKS ON CACHE BOOL "CRYFS_UPDATE_CHECKS")
+ endif(NOT CRYFS_UPDATE_CHECKS)
+ 
++if( NOT uppercase_CMAKE_BUILD_TYPE STREQUAL "RELEASE" )
++    if( NOT MSVC_IDE AND NOT XCODE )
++        add_definitions( -DNDEBUG )
++    endif()
++endif()
++
+ add_subdirectory(vendor)
+ add_subdirectory(src)
+ add_subdirectory(test)
