@@ -12,12 +12,13 @@ SLOT="0"
 
 LICENSE="LGPL-3"
 KEYWORDS="~amd64 ~x86"
-IUSE="libressl"
+IUSE="libressl static"
 
 
 DEPEND="
 	net-misc/curl
-	>=dev-libs/boost-1.56.0[threads]
+	static? ( >=dev-libs/boost-1.56.0[threads,static-libs(+)] )
+	!static? ( >=dev-libs/boost-1.56.0[threads] )
 	>=dev-libs/crypto++-5.6.3
 	!libressl? ( dev-libs/openssl:0= )
 	libressl? ( dev-libs/libressl:0= )
@@ -31,3 +32,10 @@ DOCS=( ChangeLog.txt README.md )
 PATCHES=( "${FILESDIR}/ndebug.patch" )
 
 CMAKE_BUILD_TYPE=Release
+
+src_configure() {
+        local mycmakeargs=(
+                -DBoost_USE_STATIC_LIBS="$(usex static)"
+                )
+        cmake-utils_src_configure
+}
