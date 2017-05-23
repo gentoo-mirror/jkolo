@@ -1,3 +1,19 @@
+2017.05.23 (1.7.1.3856-757424396)
+(Streaming Brain) Incorrectly chose to Direct Stream audio under certain circumstances
+
+2017.05.20 (1.7.0.3840-45a6a85f4)
+(Library) Enable the 'Allow media deletion' preference on new and default installations (#6753)
+(NAS) Added Synology multivolume support (#6782)
+(Camera Upload) Trying to upload files larger than 4GB would fail.
+(Linux) Fix install issue if user has a systemd override.conf in place for PMS. (#6904)
+(Linux) Install error on Ubuntu 17.04 (#6783)
+(Music) Albums were incorrectly sorted (#6537 #6043)
+(Streaming Brain) Rare deadlock when transcoding DASH
+(Scannner) Cancelling a photo section scan could take a significant amount of time (#6663 #6699)
+
+2017.05.09 (1.5.6.3790-4613ce077)
+- (Windows) Installer improvements
+
 2017.04.27 (1.6.1.3722-4955e31cf)
 (Transcoder) Fix an issue with transcodes failing with long Windows user names. (#6709)
 
