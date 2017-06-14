@@ -1,3 +1,18 @@
+2017.06.08 (1.7.3.3937-70f781325)
+(DVR) Support of extra versions of the WinTV QuadHD
+(Linux) Fix RPM package to not overwrite repo files on upgrades. (#7078)
+(Chromecast) Multi-channel audio would not play back on updated devices (#7089)
+(Companion) Remote control could be unreliable in some cases (e.g. Xbox One) (#3635)
+(Sync) Shared users would not see sync updates in the web UI
+
+2017.05.27 (1.7.2.3878-8088811b8)
+(Web) Updated Plex Web to 3.7.0
+(Metadata) Use 16x9 aspect ratios for 480p and 576p resolution limits. (#6795)
+(MDE) Corrected codec decision to prefer AAC over MP3 when on windows (#6737)
+(DVR) Stutter during playback of remuxed DVR recordings (#7070)
+(Tags) Tags including numbers were sorted incorrectly (#7027)
+(DVR) Multiple concurrent recordings could not be made with the HDHR Dual (#6934)
+
 2017.05.23 (1.7.1.3856-757424396)
 (Streaming Brain) Incorrectly chose to Direct Stream audio under certain circumstances
 
