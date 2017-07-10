@@ -1,3 +1,26 @@
+2017.06.28 (1.7.5.4035-313f93718)
+(Linux) Ubuntu package would not install unless udev was installed (#7205)
+
+2017.06.22 (1.7.4.4017-3886b5c85)
+ - (Web) Updated Plex Web to 3.9.1
+ - (DVR) Support for WinTV-HVR-22XX PCIe tuners
+ - (DVR) Support for timeshift in live streams (requires upcoming iOS v4.14 and Android TV v6.2 app releases)
+ - (Butler) Allow server updates triggered from client apps to occur during nightly maintenance (#6246)
+ - (Windows) Failures when transcoding with EAE
+ - (Windows) Cygwin1.dll reported as insecure by Secunia PSI, updated to 2.8.0
+ - (Windows) Failures transcoding AAC on older versions of Windows when using the Media Foundation AAC Encoder (#7132)
+ - (Butler) Clean up previous updaters during maintenance. PMS will keep the previous three updates (#4510)
+ - (Photos) Moving files between folders inside the same section may result in the timeline view becoming inconsistent.
+ - (Xbox 360) Videos with MP3 audio could go out-of-sync. (#6989)
+ - (Discovery) Improve quality of related media on movie/show pages.
+ - (DVR) Under certain circumstances, duplicate recordings could occur (#7144)
+ - (DVR) Some supported WinTV models were not detected
+ - (DVR) TVButler was not detected on Ubuntu/CentOS/Fedora/Synology (#7162)
+ - (SHEILD) Transcoded videos were incorrectly cropped
+
+2017.06.22 (1.5.7.4016-25d94bad9)
+(Cloud Sync) Using Cloud Sync with Dropbox would have failed after June 28th (#7152)
+
 2017.06.08 (1.7.3.3937-70f781325)
 (DVR) Support of extra versions of the WinTV QuadHD
 (Linux) Fix RPM package to not overwrite repo files on upgrades. (#7078)
