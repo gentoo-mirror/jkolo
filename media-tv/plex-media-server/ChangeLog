@@ -1,3 +1,21 @@
+2017.07.26 (1.8.0.4109-42bd8c63f)
+(Web) Updated Plex Web to 3.11.0
+(DVR) Various rare crashes
+(Photos) Missing date attribute on home videos leads to incorrect timeline view. (#6791)
+(DVR) Stop blacklisting infomercials in EyeQ program guide data (#7188)
+(DVR) Avoid crash with when loading program guide data for certain channels in Denmark (#7274)
+(Playback) Deadlocks could occur during playback (#7201)
+(Transcoder) Some AVI files would fail to transcode (#7164)
+(Analysis) Rare crashes during analysis (#7190)
+(Transcoder) HLS segment durations could be incorrectly calculated (#7266)
+
+2017.07.05 (1.7.6.4058-8fa494d15)
+(Web) Updated Plex Web to 3.10.0
+(Local Media Agent) Add support for ietf subtitle language extensions
+(DVR) Use MPEGTS for all DVR recordings
+(Photos) Support dates before 1970 for photos (#5926)
+(DVR) Failed to find paths to XMLTV files in Windows (#6776)
+
 2017.06.28 (1.7.5.4035-313f93718)
 (Linux) Ubuntu package would not install unless udev was installed (#7205)
 
