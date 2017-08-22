@@ -1,3 +1,15 @@
+2017.08.08 (1.8.1.4139-c789b3fbb)
+(Web) Updated Plex Web to 3.14.1
+(Play Queues) Skipping to the same item in a play queue would not update the id accordingly (#7248)
+(Preferences) Hide auto-update preference on platforms that don't support it (#7332)
+(Streaming Brain) Allow clients to buffer more when at max quality (#6624)
+(Serialization) /status/sessions endpoint for playbacks with multiple Media elements wasn't serialized to JSON correctly (#7344)
+(DVR) Log tuner make/model and support status when media grabs start. (#7167)
+(Photos) Bad data saved inside Exposure EXIF tags could cause analysis to crash (#6822)
+(Serialization) Requesting /media/providers as JSON no longer crashes PMS (#7354)
+(Android) Green tint in software-decoded video (#7385)
+(Transcoder) Crashes when playing VP8 content (#7281) (#7359)
+
 2017.07.26 (1.8.0.4109-42bd8c63f)
 (Web) Updated Plex Web to 3.11.0
 (DVR) Various rare crashes

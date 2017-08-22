@@ -53,7 +53,7 @@ HTTP_FANCYINDEX_MODULE_URI="https://github.com/aperezdc/ngx-fancyindex/archive/v
 HTTP_FANCYINDEX_MODULE_WD="${WORKDIR}/ngx-fancyindex-${HTTP_FANCYINDEX_MODULE_PV}"
 
 # http_lua (https://github.com/openresty/lua-nginx-module, BSD license)
-HTTP_LUA_MODULE_PV="0.10.8"
+HTTP_LUA_MODULE_PV="0.10.10"
 HTTP_LUA_MODULE_P="ngx_http_lua-${HTTP_LUA_MODULE_PV}"
 HTTP_LUA_MODULE_URI="https://github.com/openresty/lua-nginx-module/archive/v${HTTP_LUA_MODULE_PV}.tar.gz"
 HTTP_LUA_MODULE_WD="${WORKDIR}/lua-nginx-module-${HTTP_LUA_MODULE_PV}"
@@ -89,20 +89,20 @@ RTMP_MODULE_URI="https://github.com/arut/nginx-rtmp-module/archive/v${RTMP_MODUL
 RTMP_MODULE_WD="${WORKDIR}/nginx-rtmp-module-${RTMP_MODULE_PV}"
 
 # nginx-dav-ext-module (https://github.com/arut/nginx-dav-ext-module, BSD license)
-HTTP_DAV_EXT_MODULE_PV="0.0.3"
+HTTP_DAV_EXT_MODULE_PV="0.1.0"
 HTTP_DAV_EXT_MODULE_P="ngx_http_dav_ext-${HTTP_DAV_EXT_MODULE_PV}"
 HTTP_DAV_EXT_MODULE_URI="https://github.com/arut/nginx-dav-ext-module/archive/v${HTTP_DAV_EXT_MODULE_PV}.tar.gz"
 HTTP_DAV_EXT_MODULE_WD="${WORKDIR}/nginx-dav-ext-module-${HTTP_DAV_EXT_MODULE_PV}"
 
 # echo-nginx-module (https://github.com/openresty/echo-nginx-module, BSD license)
-HTTP_ECHO_MODULE_PV="0.60"
+HTTP_ECHO_MODULE_PV="0.61"
 HTTP_ECHO_MODULE_P="ngx_http_echo-${HTTP_ECHO_MODULE_PV}"
 HTTP_ECHO_MODULE_URI="https://github.com/openresty/echo-nginx-module/archive/v${HTTP_ECHO_MODULE_PV}.tar.gz"
 HTTP_ECHO_MODULE_WD="${WORKDIR}/echo-nginx-module-${HTTP_ECHO_MODULE_PV}"
 
 # mod_security for nginx (https://modsecurity.org/, Apache-2.0)
 # keep the MODULE_P here consistent with upstream to avoid tarball duplication
-HTTP_SECURITY_MODULE_PV="2.9.1"
+HTTP_SECURITY_MODULE_PV="2.9.2"
 HTTP_SECURITY_MODULE_P="modsecurity-${HTTP_SECURITY_MODULE_PV}"
 HTTP_SECURITY_MODULE_URI="https://www.modsecurity.org/tarball/${HTTP_SECURITY_MODULE_PV}/${HTTP_SECURITY_MODULE_P}.tar.gz"
 HTTP_SECURITY_MODULE_WD="${WORKDIR}/${HTTP_SECURITY_MODULE_P}"
@@ -199,9 +199,10 @@ KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 RESTRICT="test"
 
 NGINX_MODULES_STD="access auth_basic autoindex browser charset empty_gif
-	fastcgi geo gzip limit_req limit_conn map memcached proxy referer
-	rewrite scgi ssi split_clients upstream_hash upstream_ip_hash
-	upstream_keepalive upstream_least_conn upstream_zone userid uwsgi"
+	fastcgi geo gzip limit_req limit_conn map memcached mirror proxy
+	referer rewrite scgi ssi split_clients upstream_hash
+	upstream_ip_hash upstream_keepalive upstream_least_conn
+	upstream_zone userid uwsgi"
 NGINX_MODULES_OPT="addition auth_request dav degradation flv geoip gunzip
 	gzip_static image_filter mp4 perl random_index realip secure_link
 	slice stub_status sub xslt"
@@ -362,22 +363,9 @@ src_prepare() {
 	eapply "${FILESDIR}/${PN}-1.4.1-fix-perl-install-path.patch"
 	eapply "${FILESDIR}/${PN}-httpoxy-mitigation-r1.patch"
 
-	if use nginx_modules_http_echo; then
-		cd "${HTTP_ECHO_MODULE_WD}" || die
-		eapply "${FILESDIR}"/http_echo-nginx-1.11.11+.patch
-		cd "${S}" || die
-	fi
-
 	if use nginx_modules_http_upstream_check; then
 		#eapply -p0 "${HTTP_UPSTREAM_CHECK_MODULE_WD}"/check_1.11.1+.patch
 		eapply -p0 "${FILESDIR}"/http_upstream_check-nginx-1.11.5+.patch
-	fi
-
-	if use nginx_modules_http_lua; then
-		cd "${HTTP_LUA_MODULE_WD}" || die
-		eapply -p1 "${FILESDIR}"/http_lua_nginx-1.11.11+-r1.patch
-		cd "${S}" || die
-		sed -i -e 's/-llua5.1/-llua/' "${HTTP_LUA_MODULE_WD}/config" || die
 	fi
 
 	if use nginx_modules_http_auth_spnego && has_version app-crypt/heimdal; then
@@ -388,9 +376,6 @@ src_prepare() {
 
 	if use nginx_modules_http_security; then
 		cd "${HTTP_SECURITY_MODULE_WD}" || die
-
-		eapply "${FILESDIR}"/http_security-pr_1158.patch
-		eapply "${FILESDIR}"/http_security-pr_1373.patch
 
 		eautoreconf
 
@@ -776,7 +761,7 @@ src_install() {
 
 	if use nginx_modules_http_dav_ext; then
 		docinto ${HTTP_DAV_EXT_MODULE_P}
-		dodoc "${HTTP_DAV_EXT_MODULE_WD}"/README
+		dodoc "${HTTP_DAV_EXT_MODULE_WD}"/README.rst
 	fi
 
 	if use nginx_modules_http_echo; then
