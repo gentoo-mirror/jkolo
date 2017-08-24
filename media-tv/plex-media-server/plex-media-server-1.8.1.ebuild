@@ -24,7 +24,7 @@ SRC_URI="
 	amd64? ( ${URI}/${_FULL_VERSION}/plexmediaserver_${_FULL_VERSION}_amd64.deb )
 "
 
-SLOT="plexpass"
+SLOT="public"
 LICENSE="PMS-EULA"
 RESTRICT="mirror bindist strip"
 KEYWORDS="-* ~amd64 ~x86"
