@@ -1,3 +1,22 @@
+2017.09.26 (1.9.3.4290-9798172d4)
+(Hubs) Massive speedup to discovery hubs via caching system
+(iOS) Allow syncing ALAC music without conversion.
+(Transcoder) Portrait videos would be stretched out when being transcoded (#7287)
+(Music) Artist album sorting was sometimes overridden incorrectly (#7349)
+(Network) Fallback to IPv4 only if IPv6 networking fails to setup (#7382)
+(Transcoder) Extracting chapter thumbnails could use significant memory (#7397)
+(Scanner) Some plexignore rules were not being applied for photo libraries (#5866)
+(DVR) Setups with multiple HDHomeRun tuners now properly tune on both (#7417)
+(Relay) Don't attempt to load ~/.ssh/config on macOS/Linux (#7528)
+
+2017.09.25 (1.9.2.4285-9f65b88ae)
+(Web) Updated Plex Web to 3.20.8
+
+2017.09.19 (1.9.1.4272-b207937f1)
+(Crash Reporting) Preference to opt out of crash reporting
+(Privacy) Updates for new privacy policy
+(Transcoder) Deadlocks when performing concurrent static and streaming transcodes (#7554)
+
 2017.09.08 (1.9.0.4252-d07c1f408)
 (Streaming Brain) ABR streams will now balance their BW usage among each other (#7414)
 (DVR) Sort by release date more sensibly in the Program Guide - Movies view (#6981)
