@@ -1,3 +1,19 @@
+2017.10.12 (1.9.5.4339-46276db8d)
+(Trailers) Allow specifying preroll with a file path.
+(Trailers) Allow specifying alternate prerolls with file paths separated by semicolon.
+(Trailers) Allow specifying sequential prerolls with file paths separated by comma.
+(Update Channels) New release channels names. "PlexPass" channel is now named "Beta".
+(Streaming Brain) Rare deadlock that could occur when seeking (#7590)
+(Photos) Photo timestamps read from EXIF tags were recorded incorrectly when Daylight Saving Time is in effect (#7577)
+(DVR) Properly set all images for EyeQ channels (#7428)
+(Transcoder) Seeks may not be processed under rare circumstances (#7599)
+(Linux) Add Apollolake support for Synology x86_64 (#7550)
+(Streaming Brain) Temporarily burn subtitles in for DASH Auto-Quality, in cases where the subs could be lost on a quality change (#7597)
+
+2017.10.05 (1.9.4.4325-1bf240a65)
+(Hubs) Opening a photo discovery hub may cause the server to crash (#7624)
+(DVR) A rare crash when using DVR or Live TV (#7632)
+
 2017.09.26 (1.9.3.4290-9798172d4)
 (Hubs) Massive speedup to discovery hubs via caching system
 (iOS) Allow syncing ALAC music without conversion.
