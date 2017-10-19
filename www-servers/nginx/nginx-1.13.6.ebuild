@@ -65,10 +65,10 @@ HTTP_AUTH_PAM_MODULE_URI="https://github.com/stogh/ngx_http_auth_pam_module/arch
 HTTP_AUTH_PAM_MODULE_WD="${WORKDIR}/ngx_http_auth_pam_module-${HTTP_AUTH_PAM_MODULE_PV}"
 
 # http_upstream_check (https://github.com/yaoweibin/nginx_upstream_check_module, BSD license)
-HTTP_UPSTREAM_CHECK_MODULE_PV="0.3.0-10-gf3bdb7b"
+HTTP_UPSTREAM_CHECK_MODULE_PV="31b1b42873fa56620d8a873ac13f5f26b52d0cd6"
 HTTP_UPSTREAM_CHECK_MODULE_P="ngx_http_upstream_check-${HTTP_UPSTREAM_CHECK_MODULE_PV}"
-HTTP_UPSTREAM_CHECK_MODULE_URI="https://github.com/yaoweibin/nginx_upstream_check_module/archive/v${HTTP_UPSTREAM_CHECK_MODULE_PV}.tar.gz"
-HTTP_UPSTREAM_CHECK_MODULE_WD="${WORKDIR}/nginx_upstream_check_module-f3bdb7b85a194e2ad58e3c306c1d021ee76da2f5"
+HTTP_UPSTREAM_CHECK_MODULE_URI="https://github.com/yaoweibin/nginx_upstream_check_module/archive/${HTTP_UPSTREAM_CHECK_MODULE_PV}.tar.gz"
+HTTP_UPSTREAM_CHECK_MODULE_WD="${WORKDIR}/nginx_upstream_check_module-${HTTP_UPSTREAM_CHECK_MODULE_PV}"
 
 # http_metrics (https://github.com/zenops/ngx_metrics, BSD license)
 HTTP_METRICS_MODULE_PV="0.1.1"
@@ -193,7 +193,7 @@ LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+
 	nginx_modules_http_push_stream? ( GPL-3 )"
 
 SLOT="mainline"
-KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 
 # Package doesn't provide a real test suite
 RESTRICT="test"
