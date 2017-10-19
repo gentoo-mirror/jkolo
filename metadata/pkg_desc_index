@@ -20,5 +20,5 @@ net-misc/pyload 0.4.9.20161220: Download manager for many One-Click-Hoster, cont
 net-misc/yacy 1.82.20150121.9000: p2p based distributed web-search engine - latest stable binary
 sys-auth/pam_u2f 1.0.3: Library for authenticating against PAM with a Yubikey
 sys-fs/libldm 0.2.3: Tool for managing windows's LDM partitions
-www-servers/nginx 1.13.5: Robust, small and high performance http and reverse proxy server
+www-servers/nginx 1.13.6: Robust, small and high performance http and reverse proxy server
 www-servers/spreed-webrtc 0.29.2: WebRTC audio/video call and conferencing server and web client
