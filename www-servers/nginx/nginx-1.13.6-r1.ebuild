@@ -374,6 +374,12 @@ src_prepare() {
 		popd
  	fi
 
+	if use nginx_modules_http_cache_purge; then
+		cd "${HTTP_CACHE_PURGE_MODULE_WD}" || die
+		eapply "${FILESDIR}"/http_cache_purge-1.11.6+.patch
+		cd "${S}" || die
+	fi
+
 	if use nginx_modules_http_security; then
 		cd "${HTTP_SECURITY_MODULE_WD}" || die
 
