@@ -1,3 +1,15 @@
+2017.12.13 (1.10.1.4602-f54242b6b)
+(Codecs) Previously downloaded codecs were not automatically downloaded at server upgrade time (#7643)
+(DVR) Add some extra safety around loading EPG data to avoid a couple of crashes (#7883)
+(DVR) Recordings could hang if the tuner lost its signal lock (#7606)
+(Hubs) Starting playback from certain hubs may fail (#7777)
+(Photos) Videos added via Camera Upload have the wrong date on iOS (#7517).
+(Streaming Brain) Playback involving transcodes of some channel content failed with bandwidth error (#7911)
+(Streaming Brain) Subtitles could disappear at the end of the file while transcoding (#7922)
+(Transcoder) Subtitles could be unnecessarily transcoded when streaming to Plex Media Player (#7598)
+(MediaInspector) Not all date information was getting saved correctly after re-analysis (#7934)
+(Photos) The timeline view could become inconsistent when dates are altered on items in the section (#7955)
+
 2017.12.06 (1.10.1.4561-9de2951fc)
 (Codecs) Previously downloaded codecs were not always automatically downloaded at server upgrade time (#7643)
 (DVR) Add some extra safety around loading EPG data to avoid a couple of crashes (#7883)
