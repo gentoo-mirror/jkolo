@@ -1,3 +1,15 @@
+2017.12.19 (1.11.0.4633-70f9c31ed)
+(Transcoder) Support HDMI frame rate and dynamic range switching on the Apple TV 4K (#7778)
+(Web) Updated Plex Web to 3.31.1
+(Analysis) Not all data was reported on Opus streams
+(DVR) Fix a crash on start. (#7953)
+(Hubs) Photo albums could show up in recent playlists hubs (#7944)
+(Transcoder) Sidecar subtitles could disappear when using direct stream (#7931)
+Crash when requesting play queue (#7997).
+
+ ()
+
+
 2017.12.13 (1.10.1.4602-f54242b6b)
 (Codecs) Previously downloaded codecs were not automatically downloaded at server upgrade time (#7643)
 (DVR) Add some extra safety around loading EPG data to avoid a couple of crashes (#7883)
