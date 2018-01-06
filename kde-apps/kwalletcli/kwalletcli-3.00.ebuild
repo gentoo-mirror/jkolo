@@ -12,7 +12,7 @@ SRC_URI="https://www.mirbsd.org/MirOS/dist/hosted/${PN}/${P}.tar.gz"
 
 # TODO: add MirOS License?
 LICENSE="LGPL-3+"
-SLOT="4"
+SLOT="5"
 KEYWORDS=" ~amd64 ~x86"
 
 RDEPEND="
