@@ -1,3 +1,97 @@
+2018.02.13 (1.11.3.4793-482972920)
+(Photos) Show recently favorited items in discovery hub (#8101)
+(DVR) Cancelling a recording when comskip is enabled shouldn't result in an error (#7926)
+(DVR) Episodes of the same show that air on the same day now record correctly (#6668)
+(Filters) Dates before Jan 1st 1970 would not work properly in some filter fields (#8077)
+(Photos) Autotagging for some items could become stuck in a throttled state (#8068)
+(Photos) Changes to EXIF date fields edited in certain applications would not get picked up correctly (#8125)
+(Photos) Photo albums in folder view will now show thumbs for Posters and Backgrounds when editing and will correctly retain changes between scans (#7947)
+(Photos) Show video items in Recently Added hub for photo sections (#8101)
+(Photos) Timeline entries before Jan 1 1970 would not be displayed consistently (#8152)
+(Streaming Brain) Could deadlock in certain circumstances when ABR was in use (#8124)
+(Transcoder) Playback could fail or behave erratically near the end of videos when Direct Streaming to certain clients (#8042)
+(Transcoder) Soft subtitles could sometimes fail to play on iOS/tvOS (#8022)
+
+ ()
+
+
+2018.02.08 (1.11.2.4772-3e88ad3ba)
+(WebTV) Tizen WebVTT subtitle compatibility changes
+
+2018.02.06 (1.11.1.4768-338ac2b75)
+(Photos) Extract title and image description from photo metadata when available (#7770)
+(Analysis) MP2 audio in MP4 could be mis-detected as MP3
+(DVR) Prefer subscription comskip preferences over global pref (#7968)
+(DVR) Recordings could become "stuck" in some cases (#7606)
+(DVR) Recordings could terminate prematurely in some cases (#7623)
+(DVR) Updated transponder frequencies for DVB-T (#7473)
+(Hubs) Improved the performance of the Recently Added TV hub. (#7656)
+(Hubs) Recently Added TV hub failed to load for managed users with content restrictions. (#8123)
+(Hubs) The (per-show) setting to show/hide TV seasons was being ignored by Recently Added TV. (#7656)
+(MDE) If video was missing video steam, crash would occur in making decision (#8122)
+(Photos) Browsing the timeline view could have a negative impact on performance of other operations (#8078)
+(Photos) Improve metadata extraction for camera lens info (#7770)
+(Photos) Opening related items for photos could sometimes cause the server to crash (#8078)
+(Streaming Brain) Playback could deadlock in statistics gathering (#7918)
+(Transcoder) Playing back HEVC on Apple TV or iOS could cause the server to crash (#8032)
+(Transcoder) Improved resilience of the Matroska demuxer when seeking in corrupted files (#7682)
+(Transcoder) Playback could cause deadlocks in certain situations (#8079)
+(Transcoder) Soft subtitles could sometimes fail to play on iOS/tvOS (#8022)
+(Transcoder) Transcodes of mov_text streams for PMP could fail (#7951)
+(Transcoder) Videos could fail to play when started at an offset on iOS with soft subtitles (#8082)
+A crash could occur on Windows after a library scan (#8029).
+Collections from related libraries the user didn't have permission could appear (but were not accessible).
+The scanner could crash during loudness analysis.
+Updated string translations
+
+2018.02.02 (1.11.1.4760-58bcb2957)
+(Photos) Extract title and image description from photo metadata when available (#7770)
+(Analysis) MP2 audio in MP4 could be mis-detected as MP3
+(DVR) Prefer subscription comskip preferences over global pref (#7968)
+(DVR) Recordings could become "stuck" in some cases (#7606)
+(DVR) Recordings could terminate prematurely in some cases (#7623)
+(DVR) Updated transponder frequencies for DVB-T (#7473)
+(Hubs) Improved the performance of the Recently Added TV hub. (#7656)
+(Hubs) The (per-show) setting to show/hide TV seasons was being ignored by Recently Added TV. (#7656)
+(Photos) Browsing the timeline view could have a negative impact on performance of other operations (#8078)
+(Photos) Improve metadata extraction for camera lens info (#7770)
+(Photos) Opening related items for photos could sometimes cause the server to crash (#8078)
+(Transcoder) Playing back HEVC on Apple TV or iOS could cause the server to crash (#8032)
+(Transcoder) Improved resilience of the Matroska demuxer when seeking in corrupted files (#7682)
+(Transcoder) Playback could cause deadlocks in certain situations (#8079)
+(Transcoder) Soft subtitles could sometimes fail to play on iOS/tvOS (#8022)
+(Transcoder) Transcodes of mov_text streams for PMP could fail (#7951)
+(Transcoder) Videos could fail to play when started at an offset on iOS with soft subtitles (#8082)
+A crash could occur on Windows after a library scan (#8029).
+Collections from related libraries the user didn't have permission could appear (but were not accessible).
+The scanner could crash during loudness analysis.
+Updated string translations
+
+2018.01.31 (1.11.1.4753-da42c409e)
+(DVR) Recordings could become "stuck" in some cases (#7606)
+(DVR) Recordings could terminate prematurely in some cases (#7623)
+(Transcoder) Playback could cause deadlocks in certain situations (#8079)
+(Transcoder) Videos could fail to play when started at an offset on iOS with soft subtitles (#8082)
+
+2018.01.25 (1.11.1.4730-6967ec0b1)
+(Photos) Extract title and image description from photo metadata when available (#7770)
+(Analysis) MP2 audio in MP4 could be mis-detected as MP3
+(DVR) Prefer subscription comskip preferences over global pref (#7968)
+(DVR) Updated transponder frequencies for DVB-T (#7473)
+(Hubs) Improved the performance of the Recently Added TV hub (#7656)
+(Hubs) The (per-show) setting to show/hide TV seasons was being ignored by Recently Added TV (#7656)
+(Photos) Browsing the timeline view could have a negative impact on performance of other operations (#8078)
+(Photos) Improve metadata extraction for camera lens info (#7770)
+(Photos) Opening related items for photos could sometimes cause the server to crash (#8078)
+(Transcoder) Playing back HEVC on Apple TV or iOS could cause the server to crash (#8032)
+(Transcoder) Improved resilience of the Matroska demuxer when seeking in corrupted files (#7682)
+(Transcoder) Soft subtitles could sometimes fail to play on iOS/tvOS (#8022)
+(Transcoder) Transcodes of mov_text streams for PMP could fail (#7951)
+A crash could occur on Windows after a library scan (#8029)
+Collections from related libraries the user didn't have permission could appear (but were not accessible)
+The scanner could crash during loudness analysis
+Updated string translations
+
 2017.12.28 (1.11.0.4666-fc63598ba)
 (Transcoder) Support HDMI frame rate and dynamic range switching on the Apple TV 4K (#7778)
 (Web) Updated Plex Web to 3.31.1
