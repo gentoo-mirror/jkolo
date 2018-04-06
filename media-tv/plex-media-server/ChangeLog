@@ -1,3 +1,41 @@
+2018.03.29 (1.12.2.4929-29f6d1796)
+(DVR) Certain DVB-T providers should not show up in non-European and non-ISDBT countries (#7615)
+(DVR) Display placeholder items in Watch Now if there's no guide data for a channel (#7587)
+(DVR) Don't display disabled channels in the Program Guide when loading initial EPG data (#7587)
+(DVR) When more frequent EPG refreshing is enabled, spread the refresh times around some to avoid all refreshes occurring on an hour mark (#8281)
+(DVR) Icons from OnConnect EPG guides shouldn't disappear (#8366)
+(DVR) More fixes around recording multiple airings of a show on the same day (#6668)
+(OnDeck) Restore ability to disable OnDeck when setting 'Weeks to consider for OnDeck' to 0 (#8279)
+(Photos) Various improvements to filters for photo libraries (#8305)
+(Transcoder) Hardware video decoding sometimes wasn't reported, even when it was being used (#7670)
+(Transcoder) The server could erroneously attempt to mux DVB teletext into Matroska (#8213)
+
+2018.03.16 (1.12.1.4885-1046ba85f)
+(Movies) Improve matching with filenames containing recent things like "UHD".
+(Photos) New "Folder" sort type for photo libraries - will sort by name but keep folders and photo items separate.
+(Playback) Don't select teletext streams as subtitles automatically (#7739)
+(Web) Updated to 3.39.5
+Season premieres show up in On Deck even when they're outside the window (#8229)
+(Library) Library scans subsequent to first would not attempt to match unmatched items (#8282)
+(Photos) Filters with greater-than or less-than filters would not work properly on some libraries (#8258)
+(Photos) The "Name" sort for photo libraries was returning the incorrect parameters (#8165)
+(Type First) Fix TV Shows library hub ordering (#8260)
+(Windows) Files could fail to be deleted due to child processes inheriting duplicate handles (#7830)
+The server could become unresponsive in certain complex scenarios (#8220)
+
+2018.03.13 (1.12.1.4871-6daee94e2)
+(Movies) Improve matching with filenames containing recent things like "UHD".
+(Photos) New "Folder" sort type for photo libraries - will sort by name but keep folders and photo items separate.
+(Playback) Don't select teletext streams as subtitles automatically (#7739)
+(Web) Updated to 3.39.5
+Season premieres show up in On Deck even when they're outside the window (#8229)
+(Library) Library scans subsequent to first would not attempt to match unmatched items (#8282)
+(Photos) Filters with greater-than or less-than filters would not work properly on some libraries (#8258)
+(Photos) The "Name" sort for photo libraries was returning the incorrect parameters (#8165)
+(Type First) Fix TV Shows library hub ordering (#8260)
+(Windows) Files could fail to be deleted due to child processes inheriting duplicate handles (#7830)
+The server could become unresponsive in certain complex scenarios (#8220)
+
 2018.02.27 (1.12.0.4829-6de959918)
 (Analysis) Detect ATSC closed captions in video files (#7110)
 (Analysis) Distinguish HEVC codec tags to work around iOS platform limitation (#7882)
