@@ -23,7 +23,7 @@ DEVEL_KIT_MODULE_URI="https://github.com/simpl/ngx_devel_kit/archive/v${DEVEL_KI
 DEVEL_KIT_MODULE_WD="${WORKDIR}/ngx_devel_kit-${DEVEL_KIT_MODULE_PV}"
 
 # ngx_brotli (https://github.com/eustas/ngx_brotli, BSD-2)
-HTTP_BROTLI_MODULE_PV="8cd9dd5fc232d3a01644584921e52dae99034779"
+HTTP_BROTLI_MODULE_PV="6a1174446f5a866d3d13615dd2824177570f0a69"
 HTTP_BROTLI_MODULE_P="ngx_brotli-${HTTP_BROTLI_MODULE_PV}"
 HTTP_BROTLI_MODULE_URI="https://github.com/eustas/ngx_brotli/archive/${HTTP_BROTLI_MODULE_PV}.tar.gz"
 HTTP_BROTLI_MODULE_WD="${WORKDIR}/ngx_brotli-${HTTP_BROTLI_MODULE_PV}"
@@ -168,7 +168,7 @@ HTTP_CT_MODULE_URI="https://github.com/grahamedgecombe/nginx-ct/archive/v${HTTP_
 HTTP_CT_MODULE_WD="${WORKDIR}/nginx-ct-${HTTP_CT_MODULE_PV}"
 
 # njs-module (https://github.com/nginx/njs, as-is)
-NJS_MODULE_PV="0.1.15"
+NJS_MODULE_PV="0.2.0"
 NJS_MODULE_P="njs-${NJS_MODULE_PV}"
 NJS_MODULE_URI="https://github.com/nginx/njs/archive/${NJS_MODULE_PV}.tar.gz"
 NJS_MODULE_WD="${WORKDIR}/njs-${NJS_MODULE_PV}"
@@ -221,8 +221,8 @@ KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 RESTRICT="test"
 
 NGINX_MODULES_STD="access auth_basic autoindex browser charset empty_gif
-	fastcgi geo gzip limit_req limit_conn map memcached mirror proxy
-	referer rewrite scgi ssi split_clients upstream_hash
+	fastcgi geo grpc gzip limit_req limit_conn map memcached mirror
+	proxy referer rewrite scgi ssi split_clients upstream_hash
 	upstream_ip_hash upstream_keepalive upstream_least_conn
 	upstream_zone userid uwsgi"
 NGINX_MODULES_OPT="addition auth_request dav degradation flv geoip gunzip
@@ -347,6 +347,7 @@ DEPEND="${CDEPEND}
 PDEPEND="vim-syntax? ( app-vim/nginx-syntax )"
 
 REQUIRED_USE="pcre-jit? ( pcre )
+	nginx_modules_http_grpc? ( http2 )
 	nginx_modules_http_lua? ( nginx_modules_http_rewrite )
 	nginx_modules_http_naxsi? ( pcre )
 	nginx_modules_http_dav_ext? ( nginx_modules_http_dav )
@@ -398,14 +399,7 @@ src_prepare() {
 		cd "${S}" || die
 	fi
 
-	if use nginx_modules_http_javascript || use nginx_modules_stream_javascript; then
-		cd "${NJS_MODULE_WD}" || die
-		eapply "${FILESDIR}"/njs-0.1.15-fix-o3-building.patch
-		cd "${S}" || die
-	fi
-
 	if use nginx_modules_http_upstream_check; then
-		#eapply -p0 "${HTTP_UPSTREAM_CHECK_MODULE_WD}"/check_1.11.1+.patch
 		eapply -p0 "${FILESDIR}"/http_upstream_check-nginx-1.11.5+.patch
 	fi
 
@@ -703,6 +697,11 @@ src_configure() {
 	local WITHOUT_IPV6=
 	if ! use ipv6; then
 		WITHOUT_IPV6=" -DNGX_HAVE_INET6=0"
+	fi
+
+	if [[ -n "${EXTRA_ECONF}" ]]; then
+		myconf+=( ${EXTRA_ECONF} )
+		ewarn "EXTRA_ECONF applied. Now you are on your own, good luck!"
 	fi
 
 	./configure \
