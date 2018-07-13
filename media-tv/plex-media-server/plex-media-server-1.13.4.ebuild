@@ -1,4 +1,4 @@
-# Copyright 1999-2017 Gentoo Foundation
+# Copyright 1999-2018 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI=6
@@ -6,18 +6,17 @@ EAPI=6
 PYTHON_COMPAT=( python2_7 )
 inherit eutils user systemd unpacker pax-utils python-single-r1
 
-BUILD="5251"
-COMMIT="2e6e8f841"
+MINOR_VERSION="5251-2e6e8f841"
 
 _APPNAME="plexmediaserver"
 _USERNAME="plex"
 _SHORTNAME="${_USERNAME}"
-_FULL_VERSION="${PV}.${BUILD}-${COMMIT}"
+_FULL_VERSION="${PV}.${MINOR_VERSION}"
 
 URI="https://downloads.plex.tv/plex-media-server"
 
 DESCRIPTION="A free media library that is intended for use with a plex client."
-HOMEPAGE="http://www.plex.tv/"
+HOMEPAGE="https://www.plex.tv/"
 SRC_URI="amd64? ( ${URI}/${_FULL_VERSION}/plexmediaserver_${_FULL_VERSION}_amd64.deb )"
 SLOT="plexpass"
 LICENSE="Plex"
@@ -34,13 +33,13 @@ RDEPEND="
 	${PYTHON_DEPS}"
 
 if [ ${SLOT} = "plexpass" ]; then
-       RDEPEND="${RDEPEND}
-               !media-tv/plex-media-server:public
-       "
+        RDEPEND="${RDEPEND}
+                !media-tv/plex-media-server:public
+        "
 elif [ ${SLOT} = "public" ]; then
-       RDEPEND="${RDEPEND}
-               !media-tv/plex-media-server:plexpass
-       "
+        RDEPEND="${RDEPEND}
+                !media-tv/plex-media-server:plexpass
+        "
 fi
 
 QA_DESKTOP_FILE="usr/share/applications/plexmediamanager.desktop"
@@ -85,17 +84,24 @@ src_install() {
 	local LOGGING_DIR="/var/log/pms"
 	dodir "${LOGGING_DIR}"
 	chown "${_USERNAME}":"${_USERNAME}" "${ED%/}/${LOGGING_DIR}" || die
+	keepdir "${LOGGING_DIR}"
 
 	# Create default library folder with correct permissions
 	local DEFAULT_LIBRARY_DIR="/var/lib/${_APPNAME}"
 	dodir "${DEFAULT_LIBRARY_DIR}"
 	chown "${_USERNAME}":"${_USERNAME}" "${ED%/}/${DEFAULT_LIBRARY_DIR}" || die
+	keepdir "${DEFAULT_LIBRARY_DIR}"
 
 	# Install the OpenRC init/conf files
 	doinitd "${FILESDIR}/init.d/${PN}"
 	doconfd "${FILESDIR}/conf.d/${PN}"
 
-	_handle_multilib
+	# Disabling due to Bug 644694
+	#_handle_multilib
+
+	# Mask Plex libraries so that revdep-rebuild doesn't try to rebuild them.
+	# Plex has its own precompiled libraries.
+	_mask_plex_libraries_revdep
 
 	# Install systemd service file
 	local INIT_NAME="${PN}.service"
@@ -118,6 +124,11 @@ pkg_postinst() {
 	elog "To start the Plex Server, run 'rc-config start plex-media-server', you will then be able to access your library at http://<ip>:32400/web/"
 }
 
+# Disabling the follow function due to Bug 644694.
+# We shouldn't register plex libraries in global
+# library path since this will cause other packages
+# on the system to break.
+
 # Finds out where the library directory is for this system
 # and handles ldflags as to not break library dependencies
 # during rebuilds.
@@ -130,7 +141,21 @@ _handle_multilib() {
 	doenvd "${T}"/66plex
 }
 
-# Remove execstack flags from some libraries/executables so that it works in hardened setups.
+# Adds the precompiled plex libraries to the revdep-rebuild's mask list
+# so it doesn't try to rebuild libraries that can't be rebuilt.
+_mask_plex_libraries_revdep() {
+	dodir /etc/revdep-rebuild/
+
+	# Bug: 659702. The upstream plex binary installs its precompiled package to /usr/lib.
+	# Due to profile 17.1 splitting /usr/lib and /usr/lib64, we can no longer rely
+	# on the implicit symlink automatically satisfying our revdep requirement when we use $(get_libdir).
+	# Thus we will match upstream's directory automatically. If upstream switches their location,
+	# then so should we.
+	echo "SEARCH_DIRS_MASK=\"${EPREFIX}/usr/lib/plexmediaserver\"" > "${ED}"/etc/revdep-rebuild/80plexmediaserver
+}
+
+# Remove execstack flags from some libraries/executables
+# so that it works in hardened setups.
 _remove_execstack_markings() {
 	for f in "${EXECSTACKED_BINS[@]}"; do
 		# Unquoting 'f' so that expansion works.
@@ -144,4 +169,3 @@ _add_pax_markings() {
 		pax-mark m "${f}"
 	done
 }
-
