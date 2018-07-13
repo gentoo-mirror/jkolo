@@ -1,3 +1,29 @@
+2018.07.10 (1.13.4.5251-2e6e8f841)
+(DVR) Check for the correct postal code format for Switzerland (#8646)
+(Library) Episodes could show duplicate roles for actors (#6117)
+(Metadata) An issue with TheMovieDb agent contributing to TheTVDB agent for TV shows (#8645)
+(Photos) Improve the extraction of Place names from geotagged items in photo libraries (#8683)
+(Playback) Rare deadlock with stopping sessions (#8659)
+(Streaming Brain) Rare deadlock involving bandwidth limits (#8498)
+Attempt to find better channel numbers in XMLTV files (#8744)
+Shrunk the excessive memory usage when serializing large JSON trees (#8579)
+Update localization strings
+
+ ()
+
+
+2018.06.27 (1.13.3.5223-cd1e0da1b)
+(Web) Updated to 3.53.7
+(DVR) Allow navigation from Recordings to pre-play screen for any item that generated a recording, regardless of final status. (#8381)
+(DVR) Check for the correct postal code format for Switzerland (#8646)
+(DVR) Guide refreshes shouldn't remove the whole guide if Internet connectivity is down (#8531)
+(DVR) Speed up channel scanning by using all available tuners in parallel. (#8444)
+(Filters) Using "not" custom filters with multiple values would return the incorrect results (#8017)
+(Library) Removed the Rating sort from photo libraries (#8473)
+(Live) Tuners could remain in use indefinitely if clients disconnected without notice (#8019)
+(NAS) QNAP devices falsely reported an error when stopping or upgrading PMS (#8673)
+(Photos) Scanning in a photo library with only a single item would sometimes fail (#8653)
+
 2018.06.23 (1.13.3.5208-20455f518)
 (Web) Updated to 3.53.7
 (DVR) Allow navigation from Recordings to pre-play screen for any item that generated a recording, regardless of final status. (#8381)
