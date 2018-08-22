@@ -25,8 +25,8 @@ IUSE=""
 
 CDEPEND="dev-python/setuptools[${PYTHON_USEDEP}]"
 RDEPEND="${CDEPEND}
-	>app-crypt/acme-0.26.1[${PYTHON_USEDEP}]
-	>app-crypt/certbot-0.26.1[${PYTHON_USEDEP}]
+	>=app-crypt/acme-0.26.0[${PYTHON_USEDEP}]
+	>=app-crypt/certbot-0.26.1[${PYTHON_USEDEP}]
 	dev-python/dnspython[${PYTHON_USEDEP}]
 	dev-python/mock[${PYTHON_USEDEP}]
 	dev-python/zope-interface[${PYTHON_USEDEP}]"
