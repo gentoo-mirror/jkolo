@@ -1,3 +1,32 @@
+2018.08.18 (1.13.5.5332-21ab172de)
+(Streaming Brain) Added preference to treat WAN IP Address as on the LAN for bandwidth Limits (#8037)
+(Transcoder) Improved startup times in some cases (#8931)
+(Transcoder) Support 4K hardware decoding on macOS (#8806)
+(Web) Updated to 3.57.1
+(DVR) Support network tuner icons (#7552)
+(DVR) Users that no longer have a Plex Pass should no longer have access to the Recording Schedule and Guide (#8672)
+(Security) Updated libxml2 to fix CVE-2018-13415 (#8805)
+Allow picking a specific network address to bind to (#8492)
+Seek thumbnail timestamps could be off by a few seconds (#2569)
+Split Live TV quick links into two hubs.
+When remote access is disabled, don't publish non-private addresses (#8751)
+
+2018.08.20 (1.13.6.5339-115f087d6)
+(DVR) Added incremental loading for EPG guide data (#7981)
+(Web) Updated to 3.63.1
+(Security) Updated libxml2 to fix CVE-2018-13415
+(Analysis) Loudness data could be reported incorrectly for some DTS files (#8719)
+(DVR) Avoid crash when using negative start/end time adjustment that is equal to the duration of the grab. (#8346)
+(DVR) Avoid rare crash when starting up a recording (#8657)
+(DVR) Fix for 11pm UTC airings not getting recorded during Daylight Savings Time. (#8803)
+(DVR) Whitelisting for DVB-T scanners for non-European/ISDB-T countries was not working correctly (#7615)
+(Streaming Brain) Debug log for media with unknown bandwidth was giving a value of 10.5Gbps (#8335)
+(Transcoder) Chinese and Korean subtitles could render using Japanese character variants (#8713)
+(Transcoder) Fixed case where crash could occur while parsing segment list (#8886)
+Parse multiple SSDP devices out of a single SSDP XML document (#8409)
+Update localization strings
+Webhooks using some newer TLS roots would fail (#8884)
+
 2018.07.24 (1.13.5.5291-6fa5e50a8)
 (Streaming Brain) Added preference to treat WAN IP Address as on the LAN for bandwidth Limits (#8037)
 (Transcoder) Support 4K hardware decoding on macOS (#8806)
