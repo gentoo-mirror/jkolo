@@ -1,3 +1,28 @@
+2018.10.08 (1.13.9.5439-7303bc002)
+(NAS) Support for hardware transcoding on TerraMaster devices. (#8762)
+(Web) Updated to 3.69.1
+Improved functionality around selecting a preferred network interface (#9110)
+(Discovery) Expire movie genre/actor/director discovery hubs once/day.
+(Live TV) Hubs would intermittently contain incorrect airings. (#8943)
+(Radio) Only allow shared content for owners.
+(Scanner) Ignore @Recently-Snapshot folders. (#9177)
+(Subtitle Search) Flag hearing impaired subtitles in the pre-play
+(Sync) Garbage collect sync transcodes on start (#9094)
+(Sync) Playlists consisting of music videos would not sync (#8821)
+(Transcoder) Hardware transcode job on Shield occasionally never completed (#8690)
+(Transcoder, Analysis) Some poorly-muxed 4K files could fail to analyze or transcode (#9139)
+Directory browsing showed no mount-points on FreeBSD (#9032)
+
+2018.09.21 (1.13.8.5395-10d48da0d)
+(Live TV) If a tuner stops sending data or disconnects mid-stream, attempt to reconnect (#8989)
+(Web) Updated to 3.67.1
+Added tuner icons for HDHomeRun CONNECT Quatro and CONNECT Duo (#9029)
+(DVR) Avoid rare crash involving updating status from HDHomeRun tuners (#9045)
+(DVR) Modifying start/end time of in-progress recording will now correctly adjust the duration. (#7247)
+(Library) Playlists generated from custom filters would sometimes not show the correct items (#8017)
+(Sync) Smart playlists would not sync if all items were already synced (#7329)
+Fix for duplicate EventSource event processing that may have affected remote access availability. (#8853)
+
 2018.09.14 (1.13.8.5388-509720743)
 (Live TV) If a tuner stops sending data or disconnects mid-stream, attempt to reconnect (#8989)
 (Web) Updated to 3.67.1
