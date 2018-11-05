@@ -1,3 +1,20 @@
+2018.10.30 (1.13.9.5456-ecd600442)
+(NAS) Support for hardware transcoding on TerraMaster devices. (#8762)
+(Web) Updated to 3.69.1
+Improved functionality around selecting a preferred network interface (#9110)
+(Discovery) Expire movie genre/actor/director discovery hubs once/day.
+(DVR) Extend initial timeout value for live TV tunes to avoid giving up on a tune too early (#9211)
+(Live TV) Hubs would intermittently contain incorrect airings. (#8943)
+(Radio) Only allow shared content for owners.
+(Scanner) Ignore @Recently-Snapshot folders. (#9177)
+(Subtitle Search) Flag hearing impaired subtitles in the pre-play
+(Sync) Garbage collect sync transcodes on start (#9094)
+(Sync) Playlists consisting of music videos would not sync (#8821)
+(Transcoder) Hardware transcode job on Shield occasionally never completed (#8690)
+(Transcoder, Analysis) Some poorly-muxed 4K files could fail to analyze or transcode (#9139)
+Directory browsing showed no mount-points on FreeBSD (#9032)
+Fix for recorded TV libraries failing to load on iOS. (#9227)
+
 2018.10.08 (1.13.9.5439-7303bc002)
 (NAS) Support for hardware transcoding on TerraMaster devices. (#8762)
 (Web) Updated to 3.69.1
