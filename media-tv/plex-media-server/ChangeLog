@@ -1,3 +1,14 @@
+2018.11.10 (1.14.0.5465-425e4ac90)
+(Butler) Reduce the amount of temp memory in processing items in certain butler tasks.
+(DVR) Avoid timeouts when retrieving the best lineup during DVR setup (#9161)
+(DVR) Display better error messages when tunes fail because of antenna signal issues (#7049)
+(DVR) Recordings would sometimes fail at the start with "Error 3 (The recording was aborted)". (#8871)
+(Live TV) Make sure conflict dialog is always shown if Live TV session will be cancelled when recordings start. (#7659)
+(Metadata) Chapters and respective images were out of order (issues#195)
+Deletion policy for unwatched TV episodes will now use `addedAt` rather than `originallyAvailableAt` to calculate the time period of episodes to keep. (ux#440)
+Incorrect network addresses could be displayed in systems with multiple interfaces (#9109)
+Updated TV deletion policy text for clarity. (#7249)
+
 2018.10.30 (1.13.9.5456-ecd600442)
 (NAS) Support for hardware transcoding on TerraMaster devices. (#8762)
 (Web) Updated to 3.69.1
