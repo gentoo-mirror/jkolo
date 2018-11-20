@@ -23,9 +23,9 @@ DEVEL_KIT_MODULE_URI="https://github.com/simpl/ngx_devel_kit/archive/v${DEVEL_KI
 DEVEL_KIT_MODULE_WD="${WORKDIR}/ngx_devel_kit-${DEVEL_KIT_MODULE_PV}"
 
 # ngx_brotli (https://github.com/eustas/ngx_brotli, BSD-2)
-HTTP_BROTLI_MODULE_PV="0.1.2"
+HTTP_BROTLI_MODULE_PV="8104036af9cff4b1d34f22d00ba857e2a93a243c"
 HTTP_BROTLI_MODULE_P="ngx_brotli-${HTTP_BROTLI_MODULE_PV}"
-HTTP_BROTLI_MODULE_URI="https://github.com/eustas/ngx_brotli/archive/v${HTTP_BROTLI_MODULE_PV}.tar.gz"
+HTTP_BROTLI_MODULE_URI="https://github.com/eustas/ngx_brotli/archive/${HTTP_BROTLI_MODULE_PV}.tar.gz"
 HTTP_BROTLI_MODULE_WD="${WORKDIR}/ngx_brotli-${HTTP_BROTLI_MODULE_PV}"
 
 # http_uploadprogress (https://github.com/masterzen/nginx-upload-progress-module, BSD-2 license)
@@ -174,7 +174,7 @@ GEOIP2_MODULE_URI="https://github.com/leev/ngx_http_geoip2_module/archive/${GEOI
 GEOIP2_MODULE_WD="${WORKDIR}/ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
 
 # njs-module (https://github.com/nginx/njs, as-is)
-NJS_MODULE_PV="0.2.4"
+NJS_MODULE_PV="0.2.5"
 NJS_MODULE_P="njs-${NJS_MODULE_PV}"
 NJS_MODULE_URI="https://github.com/nginx/njs/archive/${NJS_MODULE_PV}.tar.gz"
 NJS_MODULE_WD="${WORKDIR}/njs-${NJS_MODULE_PV}"
@@ -408,7 +408,7 @@ src_prepare() {
 
 	if use nginx_modules_http_brotli; then
 		cd "${HTTP_BROTLI_MODULE_WD}" || die
-		eapply "${FILESDIR}"/http_brotli-detect-brotli-r1.patch
+		eapply "${FILESDIR}"/http_brotli-detect-brotli-r2.patch
 		cd "${S}" || die
 	fi
 
