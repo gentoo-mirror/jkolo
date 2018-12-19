@@ -174,7 +174,7 @@ GEOIP2_MODULE_URI="https://github.com/leev/ngx_http_geoip2_module/archive/${GEOI
 GEOIP2_MODULE_WD="${WORKDIR}/ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
 
 # njs-module (https://github.com/nginx/njs, as-is)
-NJS_MODULE_PV="0.2.5"
+NJS_MODULE_PV="0.2.6"
 NJS_MODULE_P="njs-${NJS_MODULE_PV}"
 NJS_MODULE_URI="https://github.com/nginx/njs/archive/${NJS_MODULE_PV}.tar.gz"
 NJS_MODULE_WD="${WORKDIR}/njs-${NJS_MODULE_PV}"
@@ -222,8 +222,8 @@ LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+
 	nginx_modules_http_security? ( Apache-2.0 )
 	nginx_modules_http_push_stream? ( GPL-3 )"
 
-SLOT="0"
-KEYWORDS="amd64 ~arm ~arm64 ~ppc ~ppc64 x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+SLOT="mainline"
+KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 
 # Package doesn't provide a real test suite
 RESTRICT="test"
@@ -351,7 +351,7 @@ CDEPEND="
 	nginx_modules_stream_geoip2? ( dev-libs/libmaxminddb:= )"
 RDEPEND="${CDEPEND}
 	selinux? ( sec-policy/selinux-nginx )
-	!www-servers/nginx:mainline"
+	!www-servers/nginx:0"
 DEPEND="${CDEPEND}
 	nginx_modules_http_brotli? ( virtual/pkgconfig )
 	nginx_modules_http_security? ( ${AUTOTOOLS_DEPEND} )
@@ -405,6 +405,12 @@ pkg_setup() {
 src_prepare() {
 	eapply "${FILESDIR}/${PN}-1.4.1-fix-perl-install-path.patch"
 	eapply "${FILESDIR}/${PN}-httpoxy-mitigation-r1.patch"
+
+	if use nginx_modules_http_auth_pam; then
+		cd "${HTTP_AUTH_PAM_MODULE_WD}" || die
+		eapply "${FILESDIR}"/http_auth_pam-1.5.1-adjust-loglevel-for-authentication-failures.patch
+		cd "${S}" || die
+	fi
 
 	if use nginx_modules_http_brotli; then
 		cd "${HTTP_BROTLI_MODULE_WD}" || die
