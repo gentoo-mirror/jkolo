@@ -1,3 +1,41 @@
+ ()
+
+
+2018.12.14 (1.14.1.5488-cc260c476)
+(Web) Updated to 3.77.4
+(DVR) New DVR scheduler
+(DLNA) DLNA clients would not report timeline states for Now Playing (#9347)
+(DVR) Don't return an error message when shutting down a live TV session in a normal way (#9277)
+(DVR) Fixed bug that prevented scheduling of recordings with `HD only` setting. (#9226)
+(DVR) Properly parse episode number from dd_progid field in XMLTV data (#9419)
+(DVR) Revert timeout changes, should help with timeouts during tune startup (#9473, #9437)
+(HTTP) Enabling IPv6 support could prevent IPv4 connections from being accepted on some FreeBSD systems (#9405)
+(Radio) Only expose Discovery Radio if there is a linked TIDAL account (#9428)
+(Relay) The relay service may not function when server support for IPv6 is enabled on some systems (#9399)
+(SSDP) Better checking for invalid IP addresses in location field of SSDP XML
+(Streaming Brain) More exact accounting of bandwidth buckets to reduce bandwidth going unused (#9273)
+(Subtitles) Some subtitles could not be downloaded by shared users (#9323)
+(Subtitles) Subtitles aquired by the OpenSubtitle agent could cause playback failures on Nvidia SHIELD
+Improve robustness when routers fail to respond to port-mapping refresh requests in time (#9107)
+The server could crash when using network interface aliases on macOS (#9344; rdar://46083980)
+
+2018.12.12 (1.14.1.5487-dcc512d26)
+(Web) Updated to 3.77.4
+(DLNA) DLNA clients would not report timeline states for Now Playing (#9347)
+(DVR) Don't return an error message when shutting down a live TV session in a normal way (#9277)
+(DVR) Fixed bug that prevented scheduling of recordings with `HD only` setting. (#9226)
+(DVR) Properly parse episode number from dd_progid field in XMLTV data (#9419)
+(DVR) Wait longer to detect duration during live TV transcoder startup (#9437)
+(HTTP) Enabling IPv6 support could prevent IPv4 connections from being accepted on some FreeBSD systems (#9405)
+(Radio) Only expose Discovery Radio if there is a linked TIDAL account (#9428)
+(Relay) The relay service may not function when server support for IPv6 is enabled on some systems (#9399)
+(SSDP) Better checking for invalid IP addresses in location field of SSDP XML
+(Streaming Brain) More exact accounting of bandwidth buckets to reduce bandwidth going unused (#9273)
+(Subtitles) Some subtitles could not be downloaded by shared users (#9323)
+(Subtitles) Subtitles aquired by the OpenSubtitle agent could cause playback failures on Nvidia SHIELD
+Improve robustness when routers fail to respond to port-mapping refresh requests in time (#9107)
+The server could crash when using network interface aliases on macOS (#9344; rdar://46083980)
+
 2018.11.23 (1.14.0.5470-9d51fdfaa)
 (Butler) Reduce the amount of temp memory in processing items in certain butler tasks.
 (DVR) Avoid timeouts when retrieving the best lineup during DVR setup (#9161)
