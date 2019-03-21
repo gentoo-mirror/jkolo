@@ -1,4 +1,4 @@
-# Copyright 1999-2018 Gentoo Authors
+# Copyright 1999-2019 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
@@ -59,7 +59,7 @@ HTTP_FANCYINDEX_MODULE_URI="https://github.com/aperezdc/ngx-fancyindex/archive/v
 HTTP_FANCYINDEX_MODULE_WD="${WORKDIR}/ngx-fancyindex-${HTTP_FANCYINDEX_MODULE_PV}"
 
 # http_lua (https://github.com/openresty/lua-nginx-module, BSD license)
-HTTP_LUA_MODULE_PV="0.10.13"
+HTTP_LUA_MODULE_PV="0.10.14"
 HTTP_LUA_MODULE_P="ngx_http_lua-${HTTP_LUA_MODULE_PV}"
 HTTP_LUA_MODULE_URI="https://github.com/openresty/lua-nginx-module/archive/v${HTTP_LUA_MODULE_PV}.tar.gz"
 HTTP_LUA_MODULE_WD="${WORKDIR}/lua-nginx-module-${HTTP_LUA_MODULE_PV}"
@@ -149,6 +149,24 @@ HTTP_LDAP_MODULE_P="nginx-auth-ldap-${HTTP_LDAP_MODULE_PV}"
 HTTP_LDAP_MODULE_URI="https://github.com/kvspb/nginx-auth-ldap/archive/${HTTP_LDAP_MODULE_PV}.tar.gz"
 HTTP_LDAP_MODULE_WD="${WORKDIR}/nginx-auth-ldap-${HTTP_LDAP_MODULE_PV}"
 
+# spnego-http-auth-nginx-module (https://github.com/stnoonan/spnego-http-auth-nginx-module)
+HTTP_AUTH_SPNEGO_MODULE_PV="0ea80a9f53b2830803eee0ef6becd2a10cd3f5fe"
+HTTP_AUTH_SPNEGO_MODULE_P="ngx_auth_spnego_module-${HTTP_AUTH_SPNEGO_MODULE_PV}"
+HTTP_AUTH_SPNEGO_MODULE_URI="https://github.com/jkolo/spnego-http-auth-nginx-module/archive/${HTTP_AUTH_SPNEGO_MODULE_PV}.tar.gz"
+HTTP_AUTH_SPNEGO_MODULE_WD="${WORKDIR}/spnego-http-auth-nginx-module-${HTTP_AUTH_SPNEGO_MODULE_PV}"
+
+# ajp-module
+HTTP_AJP_MODULE_PV="b6993cc5befd6b9d4d6aefc91c689c20aabacbd2"
+HTTP_AJP_MODULE_P="ngx_ajp_module-${HTTP_AJP_MODULE_PV}"
+HTTP_AJP_MODULE_URI="https://github.com/sklochkov/nginx_ajp_module/archive/${HTTP_AJP_MODULE_PV}.tar.gz"
+HTTP_AJP_MODULE_WD="${WORKDIR}/nginx_ajp_module-${HTTP_AJP_MODULE_PV}"
+
+# ct-module
+HTTP_CT_MODULE_PV="1.3.2"
+HTTP_CT_MODULE_P="nginx-ct-${HTTP_CT_MODULE_PV}"
+HTTP_CT_MODULE_URI="https://github.com/grahamedgecombe/nginx-ct/archive/v${HTTP_CT_MODULE_PV}.tar.gz"
+HTTP_CT_MODULE_WD="${WORKDIR}/nginx-ct-${HTTP_CT_MODULE_PV}"
+
 # geoip2 (https://github.com/leev/ngx_http_geoip2_module, BSD-2)
 GEOIP2_MODULE_PV="2.0"
 GEOIP2_MODULE_P="ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
@@ -156,7 +174,7 @@ GEOIP2_MODULE_URI="https://github.com/leev/ngx_http_geoip2_module/archive/${GEOI
 GEOIP2_MODULE_WD="${WORKDIR}/ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
 
 # njs-module (https://github.com/nginx/njs, as-is)
-NJS_MODULE_PV="0.2.7"
+NJS_MODULE_PV="0.2.8"
 NJS_MODULE_P="njs-${NJS_MODULE_PV}"
 NJS_MODULE_URI="https://github.com/nginx/njs/archive/${NJS_MODULE_PV}.tar.gz"
 NJS_MODULE_WD="${WORKDIR}/njs-${NJS_MODULE_PV}"
@@ -171,10 +189,13 @@ DESCRIPTION="Robust, small and high performance http and reverse proxy server"
 HOMEPAGE="https://nginx.org"
 SRC_URI="https://nginx.org/download/${P}.tar.gz
 	${DEVEL_KIT_MODULE_URI} -> ${DEVEL_KIT_MODULE_P}.tar.gz
+	nginx_modules_http_ajp? ( ${HTTP_AJP_MODULE_URI} -> ${HTTP_AJP_MODULE_P}.tar.gz )
 	nginx_modules_http_auth_ldap? ( ${HTTP_LDAP_MODULE_URI} -> ${HTTP_LDAP_MODULE_P}.tar.gz )
 	nginx_modules_http_auth_pam? ( ${HTTP_AUTH_PAM_MODULE_URI} -> ${HTTP_AUTH_PAM_MODULE_P}.tar.gz )
+	nginx_modules_http_auth_spnego? ( ${HTTP_AUTH_SPNEGO_MODULE_URI} -> ${HTTP_AUTH_SPNEGO_MODULE_P}.tar.gz )
 	nginx_modules_http_brotli? ( ${HTTP_BROTLI_MODULE_URI} -> ${HTTP_BROTLI_MODULE_P}.tar.gz )
 	nginx_modules_http_cache_purge? ( ${HTTP_CACHE_PURGE_MODULE_URI} -> ${HTTP_CACHE_PURGE_MODULE_P}.tar.gz )
+	nginx_modules_http_ct? ( ${HTTP_CT_MODULE_URI} -> ${HTTP_CT_MODULE_P}.tar.gz )
 	nginx_modules_http_dav_ext? ( ${HTTP_DAV_EXT_MODULE_URI} -> ${HTTP_DAV_EXT_MODULE_P}.tar.gz )
 	nginx_modules_http_echo? ( ${HTTP_ECHO_MODULE_URI} -> ${HTTP_ECHO_MODULE_P}.tar.gz )
 	nginx_modules_http_fancyindex? ( ${HTTP_FANCYINDEX_MODULE_URI} -> ${HTTP_FANCYINDEX_MODULE_P}.tar.gz )
@@ -201,7 +222,7 @@ LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+
 	nginx_modules_http_security? ( Apache-2.0 )
 	nginx_modules_http_push_stream? ( GPL-3 )"
 
-SLOT="0"
+SLOT="mainline"
 KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 
 # Package doesn't provide a real test suite
@@ -220,10 +241,13 @@ NGINX_MODULES_STREAM_STD="access geo limit_conn map return split_clients
 NGINX_MODULES_STREAM_OPT="geoip realip ssl_preread"
 NGINX_MODULES_MAIL="imap pop3 smtp"
 NGINX_MODULES_3RD="
+	http_ajp
 	http_auth_ldap
 	http_auth_pam
+	http_auth_spnego
 	http_brotli
 	http_cache_purge
+	http_ct
 	http_dav_ext
 	http_echo
 	http_fancyindex
@@ -310,10 +334,11 @@ CDEPEND="
 		)
 	)
 	nginx_modules_http_xslt? ( dev-libs/libxml2:= dev-libs/libxslt )
-	nginx_modules_http_lua? ( !luajit? ( dev-lang/lua:0= ) luajit? ( dev-lang/luajit:2= ) )
+	nginx_modules_http_lua? ( dev-lang/luajit:2= )
 	nginx_modules_http_auth_pam? ( virtual/pam )
 	nginx_modules_http_metrics? ( dev-libs/yajl:= )
 	nginx_modules_http_dav_ext? ( dev-libs/libxml2 )
+	nginx_modules_http_auth_spnego? ( virtual/krb5 )
 	nginx_modules_http_security? (
 		dev-libs/apr:=
 		dev-libs/apr-util:=
@@ -326,7 +351,7 @@ CDEPEND="
 	nginx_modules_stream_geoip2? ( dev-libs/libmaxminddb:= )"
 RDEPEND="${CDEPEND}
 	selinux? ( sec-policy/selinux-nginx )
-	!www-servers/nginx:mainline"
+	!www-servers/nginx:0"
 DEPEND="${CDEPEND}
 	nginx_modules_http_brotli? ( virtual/pkgconfig )
 	nginx_modules_http_security? ( ${AUTOTOOLS_DEPEND} )
@@ -336,7 +361,10 @@ PDEPEND="vim-syntax? ( app-vim/nginx-syntax )"
 
 REQUIRED_USE="pcre-jit? ( pcre )
 	nginx_modules_http_grpc? ( http2 )
-	nginx_modules_http_lua? ( nginx_modules_http_rewrite )
+	nginx_modules_http_lua? (
+		luajit
+		nginx_modules_http_rewrite
+	)
 	nginx_modules_http_naxsi? ( pcre )
 	nginx_modules_http_dav_ext? ( nginx_modules_http_dav )
 	nginx_modules_http_metrics? ( nginx_modules_http_stub_status )
@@ -396,6 +424,12 @@ src_prepare() {
 	if use nginx_modules_http_upstream_check; then
 		eapply -p0 "${FILESDIR}"/http_upstream_check-nginx-1.11.5+.patch
 	fi
+
+	if use nginx_modules_http_auth_spnego && has_version app-crypt/heimdal; then
+		pushd ${HTTP_AUTH_SPNEGO_MODULE_WD}
+		epatch "${FILESDIR}/spnego-http-auth-ld.patch"
+		popd
+ 	fi
 
 	if use nginx_modules_http_cache_purge; then
 		cd "${HTTP_CACHE_PURGE_MODULE_WD}" || die
@@ -513,13 +547,8 @@ src_configure() {
 
 	if use nginx_modules_http_lua; then
 		http_enabled=1
-		if use luajit; then
-			export LUAJIT_LIB=$(pkg-config --variable libdir luajit)
-			export LUAJIT_INC=$(pkg-config --variable includedir luajit)
-		else
-			export LUA_LIB=$(pkg-config --variable libdir lua)
-			export LUA_INC=$(pkg-config --variable includedir lua)
-		fi
+		export LUAJIT_LIB=$(pkg-config --variable libdir luajit)
+		export LUAJIT_INC=$(pkg-config --variable includedir luajit)
 		myconf+=( --add-module=${DEVEL_KIT_MODULE_WD} )
 		myconf+=( --add-module=${HTTP_LUA_MODULE_WD} )
 	fi
@@ -587,6 +616,21 @@ src_configure() {
 	if use nginx_modules_http_auth_ldap; then
 		http_enabled=1
 		myconf+=( --add-module=${HTTP_LDAP_MODULE_WD} )
+	fi
+
+	if use nginx_modules_http_auth_spnego ; then
+		http_enabled=1
+		myconf+=( --add-module=${HTTP_AUTH_SPNEGO_MODULE_WD} )
+	fi
+
+	if use nginx_modules_http_ajp ; then
+		http_enabled=1
+		myconf+=( --add-module=${HTTP_AJP_MODULE_WD} )
+	fi
+
+	if use nginx_modules_http_ct ; then
+		http_enabled=1
+		myconf+=( --add-module=${HTTP_CT_MODULE_WD} )
 	fi
 
 	if use nginx_modules_http_vhost_traffic_status; then
@@ -833,6 +877,21 @@ src_install() {
 	if use nginx_modules_http_auth_ldap; then
 		docinto ${HTTP_LDAP_MODULE_P}
 		dodoc "${HTTP_LDAP_MODULE_WD}"/example.conf
+	fi
+
+	if use nginx_modules_http_auth_spnego; then
+		docinto ${HTTP_AUTH_SPNEGO_MODULE_P}
+		dodoc "${HTTP_AUTH_SPNEGO_MODULE_WD}"/README.md
+	fi
+
+	if use nginx_modules_http_ajp; then
+		docinto ${HTTP_AJP_MODULE_P}
+		dodoc "${HTTP_AJP_MODULE_WD}"/{README.markdown,README,README.wiki}
+	fi
+
+	if use nginx_modules_http_ct; then
+		docinto ${HTTP_CT_MODULE_P}
+		dodoc "${HTTP_CT_MODULE_WD}"/{README.markdown,LICENSE,CHANGELOG.markdown}
 	fi
 }
 
