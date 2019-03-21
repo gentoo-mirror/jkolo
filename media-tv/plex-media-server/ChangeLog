@@ -1,3 +1,63 @@
+2019.03.14 (1.15.2.793-782228f99)
+- (Analysis) Chapters for multi-part media was not correctly imported (#9554)
+- (DVR) Don't schedule in progress airings if sub doesn't allow partials. (#9688)
+- (DVR) Fix a long-standing but rare crash when starting a live tune (#7790)
+- (Dashboard) User counts in Top Played could be inaccurate (#9730)
+- (Transcoder) A few seconds of audio could be missing after seeking while Direct Streaming both audio and video (#9658)
+- (Transcoder) Seeking could be unreliable with some DASH clients (#9137)
+
+2019.03.13 (1.15.1.791-8bec0f76c)
+- (On Deck) Added preference for showing season premiers in On Deck
+- (Web) Updated to 3.83.1
+- (DVR) Better support for the dd_progid field in XMLTV. Adds handling of SH and MV tags. (#9680)
+- (DVR) Display a better error message when there is a duplicate channel mapping when configuring a DVR (#9606)
+- (DVR) Don't let DVR content refreshes take place simultaneously.
+- (DVR) Fix for Live TV session not getting stopped when a recording needs the tuner.
+- (DVR) Handle original-air-date field in XMLTV correctly if it doesn't include a time (#9593)
+- (DVR) Recording files with non-ASCII characters in filename could fail on macOS.
+- (DVR) Scheduler would use large amounts of memory with many recordings scheduled. (#9050)
+- (Dashboard) Some playback sessions were not displayed (#9705)
+- (HTTP) Connections could become unresponsive after a long-poll response (#9713)
+- (HTTP) Server could become unavailable when using the Samsung app (#9784)
+- (Library) "Scan library automatically" did not work on MacOS (#9695)
+- (Library) Smart playlists with multiple tags (e.g. genre and genre) didn't work correctly.
+- (Library) When rematching an item, preserve any uploaded media.
+- (Live TV) Fix for sessions not ending after tune failure. (#9465)
+- (Metadata) Lockouts when scanning / refreshing metadata (#9704)
+- (Playlists) Playlist items would fail to load given certain parameters (#8963)
+- (Transcoder) Segments near the end of a session could be dropped (#9702)
+- Avoid crash at startup when scanning remote media servers (#9664)
+- Pull in episode ratings from TMDB.
+- (Windows) Crashes as a result of database contention (#9663)
+
+2019.03.12 (1.15.1.780-a27ffa5be)
+- (On Deck) Added preference for showing season premiers in On Deck
+- (Web) Updated to 3.83.1
+- (DVR) Better support for the dd_progid field in XMLTV. Adds handling of SH and MV tags. (#9680)
+- (DVR) Display a better error message when there is a duplicate channel mapping when configuring a DVR (#9606)
+- (DVR) Don't let DVR content refreshes take place simultaneously.
+- (DVR) Fix for Live TV session not getting stopped when a recording needs the tuner.
+- (DVR) Handle original-air-date field in XMLTV correctly if it doesn't include a time (#9593)
+- (DVR) Recording files with non-ASCII characters in filename could fail on macOS.
+- (DVR) Scheduler would use large amounts of memory with many recordings scheduled. (#9050)
+- (Dashboard) Some playback sessions were not displayed (#9705)
+- (HTTP) Connections could become unresponsive after a long-poll response (#9713)
+- (HTTP) Server could become unavailable when using the Samsung app (#9784)
+- (Library) "Scan library automatically" did not work on MacOS (#9695)
+- (Library) Smart playlists with multiple tags (e.g. genre and genre) didn't work correctly.
+- (Library) When rematching an item, preserve any uploaded media.
+- (Live TV) Fix for sessions not ending after tune failure. (#9465)
+- (Metadata) Lockouts when scanning / refreshing metadata (#9704)
+- (Playlists) Playlist items would fail to load given certain parameters (#8963)
+- (Transcoder) Segments near the end of a session could be dropped (#9702)
+- Avoid crash at startup when scanning remote media servers (#9664)
+- Pull in episode ratings from TMDB.
+- (Windows) Crashes as a result of database contention (#9663)
+
+2019.02.25 (1.15.1.710-ece95b3a1)
+Support for hardware transcoding on Windows has been restored
+The Donator build of comskip is now included.
+
  ()
 
 
