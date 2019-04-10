@@ -1,3 +1,19 @@
+2019.04.05 (1.15.3.876-ad6e39743)
+- (Subtitles) Support txt uploads (#9398)
+- Analysis could fail to set media item attributes
+- Cases where having "web-dl" in the filename prevented matching.
+- When manually selecting an audio stream in your language, subtitles in your language could be incorrectly selected.
+- When playing in the middle and returning to start, view offset is properly saved.
+
+2019.04.01 (1.15.3.858-fbfb913f7)
+Analysis could fail to set media item attributes
+
+2019.03.27 (1.15.3.835-5d4a5c895)
+- (Subtitles) Support txt uploads (#9398)
+- Cases where having "web-dl" in the filename prevented matching.
+- When manually selecting an audio stream in your language, subtitles in your language could be incorrectly selected.
+- When playing in the middle and returning to start, view offset is properly saved.
+
 2019.03.14 (1.15.2.793-782228f99)
 - (Analysis) Chapters for multi-part media was not correctly imported (#9554)
 - (DVR) Don't schedule in progress airings if sub doesn't allow partials. (#9688)
