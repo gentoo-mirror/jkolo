@@ -1,3 +1,37 @@
+2019.04.22 (1.15.5.994-4610c6e8d)
+(Analysis) A data structure was freed twice (#9865)
+(DVR) Shows with a title ending in a special character would sometimes fail to record on Windows. (#9763)
+(Music) Local artist music videos were unintentionally hidden for all users (#9923)
+(Music) Local artist music videos would not have thumbnails
+(Photos) Place tags could get duplicated (#9884)
+(Transcoder) The server could crash if an HLS subtitle segment was requested while the session was terminating (#9927)
+Transcoded sparse subtitle streams in HLS could take too long to respond (#9921)
+
+2019.04.23 (1.15.4.993-bb4a2cb6c)
+(DVR) Ability to give Home Users DVR access. (#8794)
+(Playback) Assume unknown audio to be foreign if the preferred audio language is not english (#6126)
+(Streaming Brain) Preference to allow automatically terminating playbacks which have been paused for an hour (#9700)
+(Subtitles) Auto select forced subtitles when not listening to foreign audio (#6126)
+(Web) Updated to 3.95.2
+When transcoding for supported clients, automatically select media based on supported resolution and dynamic range (#9490)
+(Analysis) Chapters were not being imported for new media (#9843)
+(Dashboard) Respect user preferences for local / remote bandwidth (#9562)
+(Dashboard) Respect user preferences when showing streams as local / remote (#9562)
+(Metadata) Asking to refresh metadata still used cache for movies and TV shows (#1566)
+(Metadata) Related collections were not paginated (#9844)
+
+2019.04.11 (1.15.4.919-8e2884e4b)
+(DVR) Ability to give Home Users DVR access. (#8794)
+(Playback) Assume unknown audio to be foreign if the preferred audio language is not english (#6126)
+(Streaming Brain) Preference to allow automatically terminating playbacks which have been paused for an hour (#9700)
+(Subtitles) Auto select forced subtitles when not listening to foreign audio (#6126)
+When transcoding for supported clients, automatically select media based on supported resolution and dynamic range (#9490)
+(Analysis) Chapters were not being imported for new media (#9843)
+(Dashboard) Respect user preferences for local / remote bandwidth (#9562)
+(Dashboard) Respect user preferences when showing streams as local / remote (#9562)
+(Metadata) Asking to refresh metadata still used cache for movies and TV shows (#1566)
+(Metadata) Related collections were not paginated (#9844)
+
 2019.04.05 (1.15.3.876-ad6e39743)
 - (Subtitles) Support txt uploads (#9398)
 - Analysis could fail to set media item attributes
