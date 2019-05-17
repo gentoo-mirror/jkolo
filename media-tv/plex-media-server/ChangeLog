@@ -1,3 +1,24 @@
+2019.05.15 (1.15.6.1079-78232c603)
+(DVR) Add `Resolution`, `Replace lower resolution items`, and `Allow partial airings` at DVR level with option to override at recording level.
+(Analysis) Corrected chapters not being imported again
+(DVR) Prefer HD airings when both HD and SD are available. (#9641)
+Docker host addresses were published unnecessarily (#9576)
+IP addresses from interfacing starting with a "v" weren't published (#9576)
+Sync or Optimize could fail to fallback to software transcoding if hardware transcoding failed (#9455)
+
+2019.05.08 (1.15.4.994-107756f7e)
+(DVR) Ability to give Home Users DVR access. (#8794)
+(Playback) Assume unknown audio to be foreign if the preferred audio language is not english (#6126)
+(Streaming Brain) Preference to allow automatically terminating playbacks which have been paused for an hour (#9700)
+(Subtitles) Auto select forced subtitles when not listening to foreign audio (#6126)
+(Web) Updated to 3.95.2
+When transcoding for supported clients, automatically select media based on supported resolution and dynamic range (#9490)
+(Analysis) Chapters were not being imported for new media (#9843)
+(Dashboard) Respect user preferences for local / remote bandwidth (#9562)
+(Dashboard) Respect user preferences when showing streams as local / remote (#9562)
+(Metadata) Asking to refresh metadata still used cache for movies and TV shows (#1566)
+(Metadata) Related collections were not paginated (#9844)
+
 2019.04.22 (1.15.5.994-4610c6e8d)
 (Analysis) A data structure was freed twice (#9865)
 (DVR) Shows with a title ending in a special character would sometimes fail to record on Windows. (#9763)
