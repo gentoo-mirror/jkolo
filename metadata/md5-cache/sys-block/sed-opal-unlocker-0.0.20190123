@@ -1,0 +1,11 @@
+DEFINED_PHASES=install setup
+DESCRIPTION=Micro-utility for unlocking TCG-OPAL encrypted disks, utilizing CONFIG_BLK_SED_OPAL interface introduced in kernel 4.11.
+EAPI=6
+HOMEPAGE=https://github.com/dex6/sed-opal-unlocker
+IUSE=kernel_linux
+KEYWORDS=~amd64 ~x86
+LICENSE=GPL-3+
+SLOT=0
+SRC_URI=https://github.com/dex6/sed-opal-unlocker/archive/8ef88c017a63aa24823651f38ea442997a0dc419.tar.gz -> sed-opal-unlocker-0.0.20190123.tar.gz
+_eclasses_=eapi7-ver	756b3f27d8e46131d5cf3c51bd876446	linux-info	953c3b1c472dcadbf62098a9301327f2	multilib	1d91b03d42ab6308b5f4f6b598ed110e	toolchain-funcs	8c7f9d80beedd16f2e5a7f612c609529
+_md5_=120fe02e3f4ce034d84cf63aba5c10a7
