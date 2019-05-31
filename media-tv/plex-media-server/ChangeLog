@@ -1,3 +1,10 @@
+2019.05.29 (1.15.8.1163-005053bb5)
+- (Database) Scheduled database backup job could cause a crash (#9993)
+- (Hubs) Invalidate cached hubs when watch state or library preferences are updated. (#8401)
+- (Music) Don't try to run loudness analysis on non-local files (#9999)
+- Certain clients (third party Samsung and OpenPHT) would fail to resume video.
+- The server could crash when interacting with a video item with no audio streams (#10007)
+
 2019.05.15 (1.15.6.1079-78232c603)
 (DVR) Add `Resolution`, `Replace lower resolution items`, and `Allow partial airings` at DVR level with option to override at recording level.
 (Analysis) Corrected chapters not being imported again
