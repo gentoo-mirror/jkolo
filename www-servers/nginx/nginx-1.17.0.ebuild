@@ -59,7 +59,7 @@ HTTP_FANCYINDEX_MODULE_URI="https://github.com/aperezdc/ngx-fancyindex/archive/v
 HTTP_FANCYINDEX_MODULE_WD="${WORKDIR}/ngx-fancyindex-${HTTP_FANCYINDEX_MODULE_PV}"
 
 # http_lua (https://github.com/openresty/lua-nginx-module, BSD license)
-HTTP_LUA_MODULE_PV="0.10.14"
+HTTP_LUA_MODULE_PV="0.10.15"
 HTTP_LUA_MODULE_P="ngx_http_lua-${HTTP_LUA_MODULE_PV}"
 HTTP_LUA_MODULE_URI="https://github.com/openresty/lua-nginx-module/archive/v${HTTP_LUA_MODULE_PV}.tar.gz"
 HTTP_LUA_MODULE_WD="${WORKDIR}/lua-nginx-module-${HTTP_LUA_MODULE_PV}"
@@ -168,13 +168,13 @@ HTTP_CT_MODULE_URI="https://github.com/grahamedgecombe/nginx-ct/archive/v${HTTP_
 HTTP_CT_MODULE_WD="${WORKDIR}/nginx-ct-${HTTP_CT_MODULE_PV}"
 
 # geoip2 (https://github.com/leev/ngx_http_geoip2_module, BSD-2)
-GEOIP2_MODULE_PV="2.0"
+GEOIP2_MODULE_PV="3.2"
 GEOIP2_MODULE_P="ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
 GEOIP2_MODULE_URI="https://github.com/leev/ngx_http_geoip2_module/archive/${GEOIP2_MODULE_PV}.tar.gz"
 GEOIP2_MODULE_WD="${WORKDIR}/ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
 
 # njs-module (https://github.com/nginx/njs, as-is)
-NJS_MODULE_PV="0.2.8"
+NJS_MODULE_PV="0.3.2"
 NJS_MODULE_P="njs-${NJS_MODULE_PV}"
 NJS_MODULE_URI="https://github.com/nginx/njs/archive/${NJS_MODULE_PV}.tar.gz"
 NJS_MODULE_WD="${WORKDIR}/njs-${NJS_MODULE_PV}"
@@ -183,7 +183,7 @@ NJS_MODULE_WD="${WORKDIR}/njs-${NJS_MODULE_PV}"
 SSL_DEPS_SKIP=1
 AUTOTOOLS_AUTO_DEPEND="no"
 
-inherit autotools ssl-cert toolchain-funcs perl-module flag-o-matic user systemd versionator multilib
+inherit autotools ssl-cert toolchain-funcs perl-module flag-o-matic user systemd versionator multilib pax-utils
 
 DESCRIPTION="Robust, small and high performance http and reverse proxy server"
 HOMEPAGE="https://nginx.org"
@@ -222,8 +222,8 @@ LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+
 	nginx_modules_http_security? ( Apache-2.0 )
 	nginx_modules_http_push_stream? ( GPL-3 )"
 
-SLOT="0"
-KEYWORDS="amd64 ~arm ~arm64 ~ppc ~ppc64 x86 ~x86-fbsd ~amd64-linux ~x86-linux"
+SLOT="mainline"
+KEYWORDS="~amd64 ~arm ~arm64 ~ppc ~ppc64 ~x86 ~x86-fbsd ~amd64-linux ~x86-linux"
 
 # Package doesn't provide a real test suite
 RESTRICT="test"
@@ -351,7 +351,7 @@ CDEPEND="
 	nginx_modules_stream_geoip2? ( dev-libs/libmaxminddb:= )"
 RDEPEND="${CDEPEND}
 	selinux? ( sec-policy/selinux-nginx )
-	!www-servers/nginx:mainline"
+	!www-servers/nginx:0"
 DEPEND="${CDEPEND}
 	nginx_modules_http_brotli? ( virtual/pkgconfig )
 	nginx_modules_http_security? ( ${AUTOTOOLS_DEPEND} )
@@ -796,6 +796,10 @@ src_install() {
 	# logrotate
 	insinto /etc/logrotate.d
 	newins "${FILESDIR}"/nginx.logrotate-r1 nginx
+
+	if use luajit; then
+		pax-mark m "${ED%/}/usr/sbin/nginx"
+	fi
 
 	if use nginx_modules_http_perl; then
 		cd "${S}"/objs/src/http/modules/perl/ || die
