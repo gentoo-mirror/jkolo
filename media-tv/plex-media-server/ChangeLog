@@ -1,3 +1,16 @@
+2019.06.13 (1.16.0.1226-7eb2c8f6f)
+(HTTP) Addressed network efficiency issues which could lead to slow Live TV tunes (#10151)
+(HTTP) Responses to requests on keep-alive connections could be delayed, potentially resulting in slow transcoder startups (#10118)
+(Live TV) The transcoder could take a very long time to start on streams from certain broadcasters or service providers (#10065)
+The server could crash when a transcode session finished (#9801)
+Updated translations
+
+2019.06.11 (1.16.0.1220-147963d87)
+(HTTP) Addressed network efficiency issues which could lead to slow Live TV tunes (#10151)
+(HTTP) Responses to requests on keep-alive connections could be delayed, potentially resulting in slow transcoder startups (#10118)
+(Live TV) The transcoder could take a very long time to start on streams from certain broadcasters or service providers (#10065)
+(Playback) The server could crash when a transcode session finished. These manifested as heap corruptions or double-frees (#9801 #9883 #9938 #9940 #9950)
+
 2019.06.06 (1.15.8.1198-eadbcbb45)
 - (Database) Scheduled database backup job could cause a crash (#9993)
 - (Hubs) Invalidate cached hubs when watch state or library preferences are updated. (#8401)
