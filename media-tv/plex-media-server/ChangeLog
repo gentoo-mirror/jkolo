@@ -1,3 +1,11 @@
+2019.06.24 (1.16.1.1273-4b6101f87)
+New EPG provider for Live TV & DVR.
+(DVR) Don't default to Episode 1. (#10207)
+(DVR) Users in Canada and Ireland were unable to set up a new DVR. (#10204)
+
+2019.06.19 (1.16.1.1246-1d09ac057)
+New EPG provider for Live TV & DVR.
+
 2019.06.13 (1.16.0.1226-7eb2c8f6f)
 (HTTP) Addressed network efficiency issues which could lead to slow Live TV tunes (#10151)
 (HTTP) Responses to requests on keep-alive connections could be delayed, potentially resulting in slow transcoder startups (#10118)
