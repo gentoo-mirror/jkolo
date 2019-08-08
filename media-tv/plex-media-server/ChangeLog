@@ -1,3 +1,53 @@
+2019.08.02 (1.16.4.1469-6d5612c2f)
+- (Web) Updated to 3.104.2
+- (DVR) Improve selection of default lineup during setup. (#10211)
+- (Filters) Track source filter would not work. Renamed to Album Source.
+- (Music) Tracks added from TIDAL would not show up in Popular Tracks (#10319)
+- (Notifications) A large number of new item notifications would arrive after enabling the preference
+- (Playlists) Shuffling a playlist containing items from mixed sources could cause unexpected results (#10222)
+- (Playlists) Smart playlist generated from Add to Library content would not play back (#10244)
+- (Scanner) PlexIgnore file exclusion would not work in Photo libraries (#9818)
+- (Subtitles) Issues with automatic selection when default subtitle and audio languages differ (#10241)
+- Fix for deadlock when deleting DVR that could not be upgraded to Cloud EPG. (#10358)
+- (Transcoder) The transcoder process could leak memory on the Nvidia SHIELD (#9291)
+
+2019.07.25 (1.16.3.1433-359b06978)
+(LiveTV) Temporarily disable signal strength updates. This reduces pixelation with some tuners.
+
+2019.07.18 (1.16.2.1321-ad17d5f9e)
+(Web) Updated to 3.99.2
+(Add to Library) Hi-fi quality was limited if TIDAL account was not managed through plex.tv (#10155)
+(Localization) Translated strings were not returned (#10168)
+(NAS) Ensure transcoder temp directory is present at startup on Synology devices (#10213)
+(NAS) The server might not automatically start after system reboot on Synology devices (#10236)
+Greatly speed up partial scan operation (#10171)
+On macOS, if a network interface had multiple IPv4 addresses, they could fail to publish to plex.tv (#1778)
+Shows in "Shows you might like" were missing season counts (#10162)
+The scanner or transcoder could crash when processing files containing big-endian DTS audio streams (#10135)
+The server could use large amounts of CPU time when running on a network with certain routers with UPnP enabled (#9610)
+
+2019.07.15 (1.16.3.1402-22929c8a2)
+(Web) Updated to 3.104.1
+Add translations for Afrikaans, Finnish and Polish and update existing ones.
+(Library) Filtering shows by audio or subtitle language would fail (#10189)
+(Metadata) Posters could fail to load on Nvidia Shield servers (#10036)
+Collection hubs would only display a maximum of six items.
+Fix Hungarian translations.
+In single-core systems, loudness analysis might not occur on audio files (10049)
+Published addresses could fail to update after network interface state changed on macOS (#10192)
+
+2019.07.02 (1.16.2.1297-4b7ace214)
+- (Web) Updated to 3.99.2
+- (Add to Library) Hi-fi quality was limited if TIDAL account was not managed through plex.tv (#10155)
+- (Localization) Translated strings were not returned (#10168)
+- (NAS) Ensure transcoder temp directory is present at startup on Synology devices (#10213)
+- (NAS) The server might not automatically start after system reboot on Synology devices (#10236)
+- Greatly speed up partial scan operation (#10171)
+- On macOS, if a network interface had multiple IPv4 addresses, they could fail to publish to plex.tv (#1778)
+- Shows in "Shows you might like" were missing season counts (#10162)
+- The scanner or transcoder could crash when processing files containing big-endian DTS audio streams (#10135)
+- The server could use large amounts of CPU time when running on a network with certain routers with UPnP enabled (#9610)
+
 2019.06.29 (1.16.1.1291-158e5b199)
 
 

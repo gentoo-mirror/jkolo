@@ -6,12 +6,12 @@ EAPI=6
 PYTHON_COMPAT=( python2_7 )
 inherit eutils user systemd unpacker pax-utils python-single-r1
 
-MINOR_VERSION="1291-158e5b199"
+HASH_VERSION="22929c8a2"
 
 _APPNAME="plexmediaserver"
 _USERNAME="plex"
 _SHORTNAME="${_USERNAME}"
-_FULL_VERSION="${PV}.${MINOR_VERSION}"
+_FULL_VERSION="${PV}-${HASH_VERSION}"
 
 URI="https://downloads.plex.tv/plex-media-server-new"
 
