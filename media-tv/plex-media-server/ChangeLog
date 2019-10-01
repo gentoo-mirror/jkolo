@@ -1,3 +1,44 @@
+2019.09.14 (1.17.0.1709-982421575)
+(Transcoder) Update to current upstream ffmpeg
+(Transcoder) Support for hardware transcoding on Linux with Intel 9th-gen processors
+(Transcoder) Support for VC-1 hardware decoding on supported platforms
+(Transcoder) Support for hardware decoding on Linux with Nvidia GPUs
+(Transcoder) Support for zero-copy hardware transcoding on Linux with Nvidia GPUs
+(Transcoder) Support for zero-copy hardware transcoding of interlaced media
+(DVR) Comskip was not available in recording options on FreeBSD.
+(DVR) Enhanced Plex Media Server's performance by skipping reads of previously processed XMLTV guide data. (#9846)
+(Transcoder) The server could become unresponsive after certain precisely-timed client interactions.
+Corrects Live TV playback error when tuning to channel that contains space(s) in it.
+(Transcoder) The server could use large amounts of CPU time when converting subtitles (#10478)
+
+2019.08.28 (1.16.6.1592-b9d49bdb7)
+Resolved an issue loading Plex Web settings page on various Linux/NAS platforms.
+
+2019.08.23 (1.16.6.1559-a71394a45)
+Enhance the loudness leveling to reflect recent research.
+(EPG) Make episode detection more robust when using XMLTV guide data (#10390)
+(Library) Sorting a Show by Oldest first didn't work correctly (#7800)
+(Music) Items added from TIDAL would not show up in collection hubs (#10306)
+Plex Relay could fail to start on Netgear R9000 devices. (#10395)
+Read track titles from embedded tags in audio files.
+Repair trailing slashes which could appear in audio metadata.
+
+2019.08.22 (1.16.5.1554-1e5ff713d)
+- (Web) Updated to 3.108.2
+- (DVR) Re-enable signal strength updates for all tuners except Hauppauge. (#10352)
+- (Library) The Track Last Skipped filter could return the incorrect results (#10309)
+- (Live) In some circumstances, new recordings could use an additional tuner, rather than sharing one already tuning the same channel. This could manifest as a missing "watch from start" option (#9736)
+- Watching a trailer could mark the corresponding movie watched in some cases (#9481)
+- (DVR) Live session buffer data could be pruned prematurely, resulting in live TV being unable to seek back as far as expected (#10430)
+- (Playback) Certain clients could receive corrupted data in media requests, leading to corruption during playback (#10436)
+
+2019.08.07 (1.16.5.1488-deeb86e7f)
+(Web) Updated to 3.108.2
+(DVR) Re-enable signal strength updates for all tuners except Hauppauge. (#10352)
+(Library) The Track Last Skipped filter could return the incorrect results (#10309)
+(Live) In some circumstances, new recordings could use an additional tuner, rather than sharing one already tuning the same channel (#9736)
+Watching a trailer could mark the corresponding movie watched in some cases (#9481)
+
 2019.08.02 (1.16.4.1469-6d5612c2f)
 - (Web) Updated to 3.104.2
 - (DVR) Improve selection of default lineup during setup. (#10211)
