@@ -1,3 +1,142 @@
+2019.10.08 (1.18.0.1906-0c0e93faa)
+(BIF) Improved performance when generating media indexes (#10455)
+(DVR) Now supports team and sport tags in XMLTV guide data (#6272).
+(Library) Add an "Unmatched" filter.
+(Library) Allow artist/album title override during fix match.
+(Library) Brand new music scanner and metadata system.
+(Library) Improved music library preferences.
+(Library) Magic shuffle heuristics now employed in many more scenarios (e.g. smart playlists).
+(Library) Maximum number of On Deck items is now a preference.
+(Library) Mood now works for artists and albums, and add new style tag.
+(Library) Support for reading OGG tags.
+(Transcoder) Support for zero-copy hardware transcoding on Windows with Intel GPUs
+(Web) Updated to 4.8.4
+(Companion) Some companion apps would not be available to control from the Web player (#10522)
+(DVR) Rarely would crash while extending a rolling subscription (#10535)
+(DVR) Recordings with ' in the title would show "No upcoming airings". (#10673)
+(EPG) Change to daily full guide refresh instead of incremental refreshes multiple times a day. (#9403)
+(EPG) On Windows, XMLTV guide would fail to refresh (#10624).
+(Library) An issue on macOS where media with non-ASCII characters could be removed and added during scans.
+(Library) Disable popular tracks for Various Artists.
+(Library) Ignore a few more prefix characters when generating sort titles.
+(Library) In some cases, cast members could be shown in the wrong order.
+(Library) More fields are read from music file tags during refresh.
+(Library) Newer locations are now scanned before older ones.
+(Library) Refreshing Various Artists now refreshes all its albums.
+(Library) Slight speedup for database writes.
+(Music) Albums added from TIDAL would not match correctly with the new Plex Music libraries.
+(Networking) The server could become inaccessible when IPv6 is configured on Android (#10426)
+(Transcoder) Fixed H263 hardware decoding (#10580)
+(Transcoder) Hardware encoding wasn't used in some situations when hardware decoding was unavailable for HEVC Main 10 (#7897)
+(Transcoder) Hardware transcoding could fail on input with ATSC closed captions on Windows systems with Intel GPUs (#8509) (#9840) (#10517)
+(Transcoder) Individual subtitle lines could fail to display in some clients when there are no subtitle lines for a long period afterwards
+(Transcoder) Individual subtitle lines could randomly fail to appear in certain clients
+(Transcoder) Playback could fail after a long period between subtitle lines in certain circumstances (#10582)
+(Transcoder) Reduced the amount of I/O load when streaming subtitles
+(Transcoder) Some packets could randomly be skipped in certain clients, resulting in a "skipping" effect (#10401)
+(Transcoder) Subtitles could vanish after a random period after seeking in certain clients (#10573)
+(Transcoder) Transcoding HEVC Main 10 content could fail on hardware without built-in support (#10590)
+A rare crash during scanning.
+Fix for empty/missing "Shows you might like" hub. (#10375)
+Long-standing issue which could lead to lack of recommended media in some cases.
+Music metadata wasn't periodically refreshed in new Plex Music libraries.
+The blob database was not cleaned up during periodic maintenance.
+When analyzing tracks, menu item would never re-enable (#8477)
+When fixing match for an album, the year could disappear temporarily.
+
+2019.10.07 (1.18.0.1892-6887070bc)
+(BIF) Improved performance when generating media indexes (#10455)
+(DVR) Now supports team and sport tags in XMLTV guide data (#6272).
+(Library) Add an "Unmatched" filter.
+(Library) Allow artist/album title override during fix match.
+(Library) Brand new music scanner and metadata system.
+(Library) Improved music library preferences.
+(Library) Magic shuffle heuristics now employed in many more scenarios (e.g. smart playlists).
+(Library) Maximum number of On Deck items is now a preference.
+(Library) Mood now works for artists and albums, and add new style tag.
+(Library) Support for reading OGG tags.
+(Transcoder) Support for zero-copy hardware transcoding on Windows with Intel GPUs
+(Web) Updated to 4.8.4
+(Companion) Some companion apps would not be available to control from the Web player (#10522)
+(DVR) Rarely would crash while extending a rolling subscription (#10535)
+(DVR) Recordings with ' in the title would show "No upcoming airings". (#10673)
+(EPG) Change to daily full guide refresh instead of incremental refreshes multiple times a day. (#9403)
+(EPG) On Windows, XMLTV guide would fail to refresh (#10624).
+(Library) An issue on macOS where media with non-ASCII characters could be removed and added during scans.
+(Library) Disable popular tracks for Various Artists.
+(Library) Ignore a few more prefix characters when generating sort titles.
+(Library) In some cases, cast members could be shown in the wrong order.
+(Library) More fields are read from music file tags during refresh.
+(Library) Newer locations are now scanned before older ones.
+(Library) Refreshing Various Artists now refreshes all its albums.
+(Library) Slight speedup for database writes.
+(Music) Albums added from TIDAL would not match correctly with the new Plex Music libraries.
+(Networking) The server could become inaccessible when IPv6 is configured on Android (#10426)
+(Transcoder) Fixed H263 hardware decoding (#10580)
+(Transcoder) Hardware encoding wasn't used in some situations when hardware decoding was unavailable for HEVC Main 10 (#7897)
+(Transcoder) Hardware transcoding could fail on input with ATSC closed captions on Windows systems with Intel GPUs (#8509) (#9840) (#10517)
+(Transcoder) Individual subtitle lines could fail to display in some clients when there are no subtitle lines for a long period afterwards
+(Transcoder) Individual subtitle lines could randomly fail to appear in certain clients
+(Transcoder) Playback could fail after a long period between subtitle lines in certain circumstances (#10582)
+(Transcoder) Reduced the amount of I/O load when streaming subtitles
+(Transcoder) Some packets could randomly be skipped in certain clients, resulting in a "skipping" effect (#10401)
+(Transcoder) Subtitles could vanish after a random period after seeking in certain clients (#10573)
+(Transcoder) Transcoding HEVC Main 10 content could fail on hardware without built-in support (#10590)
+A rare crash during scanning.
+Fix for empty/missing "Shows you might like" hub. (#10375)
+Long-standing issue which could lead to lack of recommended media in some cases.
+Music metadata wasn't periodically refreshed in new Plex Music libraries.
+The blob database was not cleaned up during periodic maintenance.
+When analyzing tracks, menu item would never re-enable (#8477)
+When fixing match for an album, the year could disappear temporarily.
+
+2019.10.01 (1.18.0.1846-f62172e99)
+(Library) Brand new music scanner and metadata system! More details at https://support.plex.tv/articles/upgrade-music-libraries-new-metadata-system/
+(BIF) Improved performance when generating media indexes (#10455)
+(DVR) Now supports team and sport tags in XMLTV guide data (#6272).
+(Library) Add an "Unmatched" filter.
+(Library) Allow artist/album title override during fix match.
+(Library) Improved music library preferences.
+(Library) Magic shuffle heuristics now employed in many more scenarios (e.g. smart playlists).
+(Library) Maximum number of On Deck items is now a preference.
+(Library) Mood now works for artists and albums, and add new style tag.
+(Library) Support for reading OGG tags.
+(Transcoder) Support for zero-copy hardware transcoding on Windows with Intel GPUs
+(Web) Updated to 4.8.3
+(Companion) Some companion apps would not be available to control from the Web player (#10522)
+(DVR) Rarely would crash while extending a rolling subscription (#10535)
+(EPG) Change to daily full guide refresh instead of incremental refreshes multiple times a day. (#9403)
+(EPG) On Windows, XMLTV guide would fail to refresh (#10624).
+(Library) An issue on macOS where media with non-ASCII characters could be removed and added during scans.
+(Library) Disable popular tracks for Various Artists.
+(Library) Ignore a few more prefix characters when generating sort titles.
+(Library) In some cases, cast members could be shown in the wrong order.
+(Library) More fields are read from music file tags during refresh.
+(Library) Newer locations are now scanned before older ones.
+(Library) Refreshing Various Artists now refreshes all its albums.
+(Library) Slight speedup for database writes.
+(Music) Albums added from TIDAL would not match correctly with the new Plex Music libraries.
+(Networking) The server could become inaccessible when IPv6 is configured on Android (#10426)
+(Transcoder) Fixed H263 hardware decoding (#10580)
+(Transcoder) Hardware encoding wasn't used in some situations when hardware decoding was unavailable for HEVC Main 10 (#7897)
+(Transcoder) Hardware transcoding could fail on input with ATSC closed captions on Windows systems with Intel GPUs (#8509) (#9840) (#10517)
+(Transcoder) Individual subtitle lines could fail to display in some clients when there are no subtitle lines for a long period afterwards
+(Transcoder) Individual subtitle lines could randomly fail to appear in certain clients
+(Transcoder) Playback could fail after a long period between subtitle lines in certain circumstances (#10582)
+(Transcoder) Reduced the amount of I/O load when streaming subtitles
+(Transcoder) Some packets could randomly be skipped in certain clients, resulting in a "skipping" effect (#10401)
+(Transcoder) Subtitles could vanish after a random period after seeking in certain clients (#10573)
+(Transcoder) Transcoding HEVC Main 10 content could fail on hardware without built-in support (#10590)
+A rare crash during scanning.
+Fix for empty/missing "Shows you might like" hub. (#10375)
+Long-standing issue which could lead to lack of recommended media in some cases.
+The blob database was not cleaned up during periodic maintenance.
+When analyzing tracks, menu item would never re-enable (#8477)
+When fixing match for an album, the year could disappear temporarily.
+
+2019.10.01 (1.17.0.1841-d42cfa161)
+- (EPG) On Windows, XMLTV guide would fail to refresh (#10624)
+
 2019.09.14 (1.17.0.1709-982421575)
 (Transcoder) Update to current upstream ffmpeg
 (Transcoder) Support for hardware transcoding on Linux with Intel 9th-gen processors
