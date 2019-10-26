@@ -1,3 +1,41 @@
+2019.10.17 (1.18.1.1973-0f4abfbcc)
+- (Localization) Updated translations
+- Add an HDR filter for movies (#9652)
+- Improve detection of udevadm on newer debian-based distros.
+- Set the DLNA server feature to be turned off by default. It can be manually re-enabled if required in Plex Web's server settings (#10530)
+- (Linux) Improved quality and performance of hardware transcoding on Linux systems with 8th-generation or later GPUs
+- (Linux) Improved automatic detection of Intel GPUs on systems that also have other graphics
+- (Dashboard) CPU and Memory graphs would not load on some NAS devices (#10080)
+- (Library) Some portrait videos could return the incorrect resolution value (#10586)
+- (Linux) An internal system directory could be displayed unexpectedly in the directory browser on certain NAS platforms (#10630)
+- (Transcoder) Hardware transcoding could fail on systems with recent systemd versions (#10723)
+- (Transcoder) Fixed hardware decoding of VC1
+- (Transcoder) Output streams could be corrupted in certain cases (#10709)
+- (Metadata) Improved reliability of music lookups
+
+2019.10.16 (1.18.1.1966-10fc2f8d3)
+- (Localization) Updated translations
+- Add an HDR filter for movies (#9652)
+- Improve detection of udevadm on newer debian-based distros.
+- Set the DLNA server feature to be turned off by default. It can be manually re-enabled if required in Plex Web's server settings (#10530)
+- (Linux) Improved quality and performance of hardware transcoding on Linux systems with 8th-generation or later GPUs
+- (Linux) Improved automatic detection of Intel GPUs on systems that also have other graphics
+- (Metadata) Read track moods
+- (Dashboard) CPU and Memory graphs would not load on some NAS devices (#10080)
+- (Library) Some portrait videos could return the incorrect resolution value (#10586)
+- (Linux) An internal system directory could be displayed unexpectedly in the directory browser on certain NAS platforms (#10630)
+- (Transcoder) Hardware transcoding could fail on systems with recent systemd versions (#10723)
+- (Transcoder) Fixed hardware decoding of VC1
+- (Transcoder) Output streams could be corrupted in certain cases (#10709)
+- (Metadata) Improved reliability of music lookups
+
+2019.10.11 (1.18.0.1944-f2cae8d6b)
+- (LiveTV) Pixellation and stuttering could occur during LiveTV and DVR playback
+
+2019.10.09 (1.18.0.1913-e5cc93306)
+(Library) Music could fail to scan when added to a new or upgraded music library on Nvidia SHIELD devices.
+(NAS) Permissions issues resulting in a failures to start
+
 2019.10.08 (1.18.0.1906-0c0e93faa)
 (BIF) Improved performance when generating media indexes (#10455)
 (DVR) Now supports team and sport tags in XMLTV guide data (#6272).
