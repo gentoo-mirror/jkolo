@@ -1,3 +1,90 @@
+2019.11.22 (1.18.2.2058-e67a4e892)
+- (DVR) Ability to browse upcoming airings in a library style view (#10556)
+- (DVR) Added explanation for partial recording (#10167).
+- (DVR) Added smarter logic for detecting existing recordings (#9669).
+- (Dashboard) FreeBSD CPU and memory graphs (#10611)
+- (Agents) Make the Framework use modern HTTP libs, fixes certain TheTVDB requests failing among others.
+- (Butler) Some butler tasks would not run.
+- (Camera Upload) Don't allow shared users to enable Camera Upload if they don't have access to any photo libraries. (#8787)
+- (DVR) Preserve EPG metadata when assimilating Sports and News recordings. (#10544)
+- (Library) Add album critic rating as a field.
+- (Library) Add track mood back as filter/field.
+- (Library) Allow sorting on user ratings of artists, there are no artist critic ratings.
+- (Library) Plex Music libraries have critic ratings, allow sorting on them.
+- (Music) Related TIDAL hubs could sometimes stop showing (#10738)
+- (Music) Shared users using artist shuffles could get unavailable items in the play queue (#9827)
+- (Playlists) Recently added playlists were not sorted correctly
+- (Startup) The server would hang when the application support directory was not writable. (#7492)
+- Improve movie and TV show matching in some cases (#10641)
+
+2019.11.19 (1.18.2.2041-3d469cb32)
+- (DVR) Ability to browse upcoming airings in a library style view (#10556)
+- (DVR) Added explanation for partial recording (#10167).
+- (DVR) Added smarter logic for detecting existing recordings (#9669).
+- (Dashboard) FreeBSD CPU and memory graphs (#10611)
+- (Butler) Some butler tasks would not run.
+- (Camera Upload) Don't allow shared users to enable Camera Upload if they don't have access to any photo libraries. (#8787)
+- (DVR) Preserve EPG metadata when assimilating Sports and News recordings. (#10544)
+- (Library) Add album critic rating as a field.
+- (Library) Add track mood back as filter/field.
+- (Library) Allow sorting on user ratings of artists, there are no artist critic ratings.
+- (Library) Plex Music libraries have critic ratings, allow sorting on them.
+- (Music) Related TIDAL hubs could sometimes stop showing (#10738)
+- (Music) Shared users using artist shuffles could get unavailable items in the play queue (#9827)
+- (Playlists) Recently added playlists were not sorted correctly
+- (Startup) The server would hang when the application support directory was not writable. (#7492)
+- Improve movie and TV show matching in some cases (#10641)
+
+2019.11.13 (1.18.2.2029-36236cc4c)
+(DVR) Ability to browse upcoming airings in a library style view (#10556)
+(DVR) Added explanation for partial recording (#10167).
+(DVR) Added smarter logic for detecting existing recordings (#9669).
+(Dashboard) FreeBSD CPU and memory graphs (#10611)
+(Butler) Some butler tasks would not run.
+(Camera Upload) Don't allow shared users to enable Camera Upload if they don't have access to any photo libraries. (#8787)
+(DVR) Preserve EPG metadata when assimilating Sports and News recordings. (#10544)
+(Library) Add album critic rating as a field.
+(Library) Add track mood back as filter/field.
+(Library) Allow sorting on user ratings of artists, there are no artist critic ratings.
+(Library) Plex Music libraries have critic ratings, allow sorting on them.
+(Music) Related TIDAL hubs could sometimes stop showing (#10738)
+(Music) Shared users using artist shuffles could get unavailable items in the play queue (#9827)
+(Playlists) Recently added playlists were not sorted correctly
+(Startup) The server would hang when the application support directory was not writable. (#7492)
+Improve movie and TV show matching in some cases (#10641)
+
+2019.11.11 (1.18.1.2019-c186313fe)
+- (Localization) Updated translations
+- Add an HDR filter for movies (#9652)
+- Improve detection of udevadm on newer debian-based distros.
+- Set the DLNA server feature to be turned off by default. It can be manually re-enabled if required in Plex Web's server settings (#10530)
+- (Linux) Improved quality and performance of hardware transcoding on Linux systems with 8th-generation or later GPUs
+- (Linux) Improved automatic detection of Intel GPUs on systems that also have other graphics
+- (Dashboard) CPU and Memory graphs would not load on some NAS devices (#10080)
+- (Library) Some portrait videos could return the incorrect resolution value (#10586)
+- (Linux) An internal system directory could be displayed unexpectedly in the directory browser on certain NAS platforms (#10630)
+- (Transcoder) Hardware transcoding could fail on systems with recent systemd versions (#10723)
+- (Transcoder) Fixed hardware decoding of VC1
+- (Transcoder) Output streams could be corrupted in certain cases (#10709)
+- (Metadata) Improved reliability of music lookups
+- (DVR) Hubs and Grid may not load for shared users (or may take a long time to do so)
+
+2019.11.07 (1.18.2.2015-5a99a9a46)
+- (DVR) Ability to browse upcoming airings in a library style view (#10556)
+- (DVR) Added explanation for partial recording (#10167).
+- (DVR) Added smarter logic for detecting existing recordings (#9669).
+- (Dashboard) FreeBSD CPU and memory graphs (#10611)
+- (Butler) Some butler tasks would not run.
+- (Camera Upload) Don't allow shared users to enable Camera Upload if they don't have access to any photo libraries. (#8787)
+- (Library) Add album critic rating as a field.
+- (Library) Add track mood back as filter/field.
+- (Library) Allow sorting on user ratings of artists, there are no artist critic ratings.
+- (Library) Plex Music libraries have critic ratings, allow sorting on them.
+- (Music) Related TIDAL hubs could sometimes stop showing (#10738)
+- (Music) Shared users using artist shuffles could get unavailable items in the play queue (#9827)
+- (Startup) The server would hang when the application support directory was not writable. (#7492)
+- Improve movie and TV show matching in some cases (#10641)
+
 2019.10.17 (1.18.1.1973-0f4abfbcc)
 - (Localization) Updated translations
 - Add an HDR filter for movies (#9652)
