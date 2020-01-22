@@ -1,3 +1,179 @@
+2020.01.17 (1.18.5.2260-056ab4be9)
+- (Networking) Added prefrence to allow disabling of the relay (#8514)
+- (Photos) Support WebP image format in photo libraries (#1082)
+- (Prefs) Exposed an advanced preference to disable video transcoding (#10891)
+- (Ubuntu/Debian) Add support for SysVinit.
+- (Ubuntu/Debian) Improve installation in non-standard environments.
+- (Camera Upload) Very large video files could fail to upload (#6880)
+- (Collections) Collections were sorted incorrectly in some cases
+- (Language) Changes to shared user's audio/subtitle language preferences were not respected. (#10910)
+- (Library) Crash scanning single track albums. (#10941)
+- (PlayQueue) Deleting the currently playing item in a queue could result in undefined behaviour (#10450)
+- (Synology) Improve process of stopping PMS when device is busy.
+- (TerraMaster) Libraries created during initial setup could be lost in rare cases.
+
+2019.12.20 (1.18.4.2171-ac2afe5f8)
+(DVR) "Upcoming Sports" renamed to "Sports On Later"; filter refined to only have sport events (#10554).
+(DVR) Added new "Sports On Now" hub (#10554).
+(DVR) Enhanced "TV Shows" Hub, now named "Shows On Now". (#10815)
+(Library) Add an "in progress" filter for movies and episodes.
+(Library) Added a release date filter for albums.
+(Library) Allow using Musicbrainz IDs when manually matching artists and albums.
+(Library) Keep track of when items are rated, add filter.
+(Preferences) Added more bitrate options to limiting remote per-stream bandwidth (#10778)
+(Preferences) Enable "Use hardware-accelerated video encoding" by default.
+(DVR) Programs listed under "Recommended" Hub would not sort by airing start datetime (#10554).
+(EPG) Allow filtering of EPG data by content rating.
+(Library) Fix manual searches for old music album agents.
+(Library) Huge speedup to history view in dashboard.
+(Library) Read MusicBrainz tags from files to help match the correct release.
+(Library) Stop showing recommendations from shared libraries which don't exist anymore.
+(Library) Use track filenames as last-ditch track titles. (#10740)
+(Music) Read track artist tags in more cases.
+(PMS) Server would sometimes return HTTP 404 when scanner was traversing folders. (#10800)
+(Transcoder) The server could crash when attempting hardware transcodes on certain Windows systems (#10736)
+
+2019.12.17 (1.18.4.2164-2aa83397b)
+
+
+2019.12.16 (1.18.3.2156-349e9837e)
+- (Dashboard) Add CPU and memory graphs to some new linux-based platforms (#10080)
+- (Library) Don't add duplicate files to the PlayQueue. This could occur when a single file contains multiple episodes. (#1340)
+- (Library) Track watch status accross multiple episodes when they share the same underlying file. (#1340)
+- (NAS) QNAP packages are now signed. (required for QTS 4.4.0 and newer)
+- (Web) Updated to 4.12.3
+- (Apple) Disable iPhoto and Aperture channels. They can be re-enabled in settings. (#7189)
+- (DVR) Change India to require an XMLTV guide since our provider is dropping support. (#10659)
+- (DVR) Re-enable signal strength updates for Hauppauge tuners. (#9746)
+- (DVR) Recording options "Show Advanced" -> "Limit To Airing Time" would sometimes display incorrect airing times, that were off by 1 hour. (#10536)
+- (DVR) Reduce the likelihood of a national lineup being selected by default during setup. (#10211)
+- (DVR) Return proper error when recording is skipped because airing is in progress. (#9688)
+- (DVR) Support moving multiple files during assimilation. (#9996)
+- (Playqueue) Shared users would not see subsequent episodes in playqueues (#10838)
+- (Scanner) Some pre-defined directories weren't ignored when scanning (#10671)
+- (DVR) Fix for crash when accessing Live TV & DVR.
+- Fix crash on Windows with Intel graphics adapter and hardware acceleration enabled (#10736)
+
+2019.12.06 (1.18.3.2129-41af4e729)
+- (Dashboard) Add CPU and memory graphs to some new linux-based platforms (#10080)
+- (Library) Don't add duplicate files to the PlayQueue. This could occur when a single file contains multiple episodes. (#1340)
+- (Library) Track watch status accross multiple episodes when they share the same underlying file. (#1340)
+- (NAS) QNAP packages are now signed. (required for QTS 4.4.0 and newer)
+- (Web) Updated to 4.12.3
+- (Apple) Disable iPhoto and Aperture channels. They can be re-enabled in settings. (#7189)
+- (DVR) Change India to require an XMLTV guide since our provider is dropping support. (#10659)
+- (DVR) Re-enable signal strength updates for Hauppauge tuners. (#9746)
+- (DVR) Recording options "Show Advanced" -> "Limit To Airing Time" would sometimes display incorrect airing times, that were off by 1 hour. (#10536)
+- (DVR) Reduce the likelihood of a national lineup being selected by default during setup. (#10211)
+- (DVR) Return proper error when recording is skipped because airing is in progress. (#9688)
+- (DVR) Support moving multiple files during assimilation. (#9996)
+- (Playqueue) Shared users would not see subsequent episodes in playqueues (#10838)
+- (Scanner) Some pre-defined directories weren't ignored when scanning (#10671)
+- (DVR) Fix for crash when accessing Live TV & DVR.
+
+2019.12.02 (1.18.3.2111-5a96726d0)
+- (Dashboard) Add CPU and memory graphs to some new linux-based platforms (#10080)
+- (Library) Don't add duplicate files to the PlayQueue. This could occur when a single file contains multiple episodes. (#1340)
+- (Library) Track watch status accross multiple episodes when they share the same underlying file. (#1340)
+- (NAS) QNAP packages are now signed. (required for QTS 4.4.0 and newer)
+- (Web) Updated to 4.12.3
+- (Apple) Disable iPhoto and Aperture channels. They can be re-enabled in settings. (#7189)
+- (DVR) Change India to require an XMLTV guide since our provider is dropping support. (#10659)
+- (DVR) Re-enable signal strength updates for Hauppauge tuners. (#9746)
+- (DVR) Recording options "Show Advanced" -> "Limit To Airing Time" would sometimes display incorrect airing times, that were off by 1 hour. (#10536)
+- (DVR) Reduce the likelihood of a national lineup being selected by default during setup. (#10211)
+- (DVR) Return proper error when recording is skipped because airing is in progress. (#9688)
+- (DVR) Support moving multiple files during assimilation. (#9996)
+- (Playqueue) Shared users would not see subsequent episodes in playqueues (#10838)
+- (Scanner) Some pre-defined directories weren't ignored when scanning (#10671) 
+
+2019.11.22 (1.18.2.2058-e67a4e892)
+- (DVR) Ability to browse upcoming airings in a library style view (#10556)
+- (DVR) Added explanation for partial recording (#10167).
+- (DVR) Added smarter logic for detecting existing recordings (#9669).
+- (Dashboard) FreeBSD CPU and memory graphs (#10611)
+- (Agents) Make the Framework use modern HTTP libs, fixes certain TheTVDB requests failing among others.
+- (Butler) Some butler tasks would not run.
+- (Camera Upload) Don't allow shared users to enable Camera Upload if they don't have access to any photo libraries. (#8787)
+- (DVR) Preserve EPG metadata when assimilating Sports and News recordings. (#10544)
+- (Library) Add album critic rating as a field.
+- (Library) Add track mood back as filter/field.
+- (Library) Allow sorting on user ratings of artists, there are no artist critic ratings.
+- (Library) Plex Music libraries have critic ratings, allow sorting on them.
+- (Music) Related TIDAL hubs could sometimes stop showing (#10738)
+- (Music) Shared users using artist shuffles could get unavailable items in the play queue (#9827)
+- (Playlists) Recently added playlists were not sorted correctly
+- (Startup) The server would hang when the application support directory was not writable. (#7492)
+- Improve movie and TV show matching in some cases (#10641)
+
+2019.11.19 (1.18.2.2041-3d469cb32)
+- (DVR) Ability to browse upcoming airings in a library style view (#10556)
+- (DVR) Added explanation for partial recording (#10167).
+- (DVR) Added smarter logic for detecting existing recordings (#9669).
+- (Dashboard) FreeBSD CPU and memory graphs (#10611)
+- (Butler) Some butler tasks would not run.
+- (Camera Upload) Don't allow shared users to enable Camera Upload if they don't have access to any photo libraries. (#8787)
+- (DVR) Preserve EPG metadata when assimilating Sports and News recordings. (#10544)
+- (Library) Add album critic rating as a field.
+- (Library) Add track mood back as filter/field.
+- (Library) Allow sorting on user ratings of artists, there are no artist critic ratings.
+- (Library) Plex Music libraries have critic ratings, allow sorting on them.
+- (Music) Related TIDAL hubs could sometimes stop showing (#10738)
+- (Music) Shared users using artist shuffles could get unavailable items in the play queue (#9827)
+- (Playlists) Recently added playlists were not sorted correctly
+- (Startup) The server would hang when the application support directory was not writable. (#7492)
+- Improve movie and TV show matching in some cases (#10641)
+
+2019.11.13 (1.18.2.2029-36236cc4c)
+(DVR) Ability to browse upcoming airings in a library style view (#10556)
+(DVR) Added explanation for partial recording (#10167).
+(DVR) Added smarter logic for detecting existing recordings (#9669).
+(Dashboard) FreeBSD CPU and memory graphs (#10611)
+(Butler) Some butler tasks would not run.
+(Camera Upload) Don't allow shared users to enable Camera Upload if they don't have access to any photo libraries. (#8787)
+(DVR) Preserve EPG metadata when assimilating Sports and News recordings. (#10544)
+(Library) Add album critic rating as a field.
+(Library) Add track mood back as filter/field.
+(Library) Allow sorting on user ratings of artists, there are no artist critic ratings.
+(Library) Plex Music libraries have critic ratings, allow sorting on them.
+(Music) Related TIDAL hubs could sometimes stop showing (#10738)
+(Music) Shared users using artist shuffles could get unavailable items in the play queue (#9827)
+(Playlists) Recently added playlists were not sorted correctly
+(Startup) The server would hang when the application support directory was not writable. (#7492)
+Improve movie and TV show matching in some cases (#10641)
+
+2019.11.11 (1.18.1.2019-c186313fe)
+- (Localization) Updated translations
+- Add an HDR filter for movies (#9652)
+- Improve detection of udevadm on newer debian-based distros.
+- Set the DLNA server feature to be turned off by default. It can be manually re-enabled if required in Plex Web's server settings (#10530)
+- (Linux) Improved quality and performance of hardware transcoding on Linux systems with 8th-generation or later GPUs
+- (Linux) Improved automatic detection of Intel GPUs on systems that also have other graphics
+- (Dashboard) CPU and Memory graphs would not load on some NAS devices (#10080)
+- (Library) Some portrait videos could return the incorrect resolution value (#10586)
+- (Linux) An internal system directory could be displayed unexpectedly in the directory browser on certain NAS platforms (#10630)
+- (Transcoder) Hardware transcoding could fail on systems with recent systemd versions (#10723)
+- (Transcoder) Fixed hardware decoding of VC1
+- (Transcoder) Output streams could be corrupted in certain cases (#10709)
+- (Metadata) Improved reliability of music lookups
+- (DVR) Hubs and Grid may not load for shared users (or may take a long time to do so)
+
+2019.11.07 (1.18.2.2015-5a99a9a46)
+- (DVR) Ability to browse upcoming airings in a library style view (#10556)
+- (DVR) Added explanation for partial recording (#10167).
+- (DVR) Added smarter logic for detecting existing recordings (#9669).
+- (Dashboard) FreeBSD CPU and memory graphs (#10611)
+- (Butler) Some butler tasks would not run.
+- (Camera Upload) Don't allow shared users to enable Camera Upload if they don't have access to any photo libraries. (#8787)
+- (Library) Add album critic rating as a field.
+- (Library) Add track mood back as filter/field.
+- (Library) Allow sorting on user ratings of artists, there are no artist critic ratings.
+- (Library) Plex Music libraries have critic ratings, allow sorting on them.
+- (Music) Related TIDAL hubs could sometimes stop showing (#10738)
+- (Music) Shared users using artist shuffles could get unavailable items in the play queue (#9827)
+- (Startup) The server would hang when the application support directory was not writable. (#7492)
+- Improve movie and TV show matching in some cases (#10641)
+
 2019.10.17 (1.18.1.1973-0f4abfbcc)
 - (Localization) Updated translations
 - Add an HDR filter for movies (#9652)

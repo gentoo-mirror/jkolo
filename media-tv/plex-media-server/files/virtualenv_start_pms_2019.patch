@@ -1,6 +1,5 @@
-diff -Naur a/usr/sbin/start_pms b/usr/sbin/start_pms
---- a/usr/sbin/start_pms	2019-03-01 16:38:26.226238213 +0100
-+++ b/usr/sbin/start_pms	2019-03-01 16:37:35.237756784 +0100
+--- a/usr/sbin/start_pms	2019-08-08 01:07:58.239646635 +0200
++++ b/usr/sbin/start_pms	2019-08-08 01:09:39.828649755 +0200
 @@ -20,6 +20,9 @@
  
  test -f /etc/default/plexmediaserver && . /etc/default/plexmediaserver
