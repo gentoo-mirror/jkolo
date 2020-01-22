@@ -1,7 +1,7 @@
 EAPI=6
 
 PHP_EXT_NAME="mcrypt"
-USE_PHP="php7-2 php7-3"
+USE_PHP="php7-2 php7-3 php7-4"
 
 inherit php-ext-pecl-r3
 
