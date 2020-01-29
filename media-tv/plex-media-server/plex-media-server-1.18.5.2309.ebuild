@@ -6,7 +6,7 @@ EAPI=7
 PYTHON_COMPAT=( python2_7 )
 inherit eutils systemd unpacker pax-utils python-single-r1
 
-HASH_VERSION="056ab4be9"
+HASH_VERSION="f5213a238"
 
 _APPNAME="plexmediaserver"
 _USERNAME="plex"
@@ -21,7 +21,7 @@ SRC_URI="
 	amd64? ( ${URI}/${_FULL_VERSION}/debian/plexmediaserver_${_FULL_VERSION}_amd64.deb )
 	x86? ( ${URI}/${_FULL_VERSION}/debian/plexmediaserver_${_FULL_VERSION}_i386.deb )
 "
-SLOT="plexpass"
+SLOT="public"
 LICENSE="Plex"
 RESTRICT="bindist strip"
 KEYWORDS="-* ~amd64"
