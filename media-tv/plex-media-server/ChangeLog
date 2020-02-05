@@ -1,3 +1,48 @@
+2020.02.04 (1.18.6.2368-97add474d)
+(Web) Updated to 4.20.2
+(Butler) Auto deletion of old update directories would fail on Windows. (#7759)
+(DVR) Fix for in-progress recordings being deleted by another server that records to the same directory. (#10929)
+(DVR) Server would not display future scheduled recordings when Limit To Airing Time advanced setting was selected (#10950).
+(EPG) Improve XMLTV episode info parsing.
+(EPG) Only allow Enhanced Guide option for XMLTV, and disable by default. (#10969)
+(FreeBSD) Fixes for database problems when syncing
+(Library) In some cases, playbacks would be registered when quickly skipping over items.
+(Library) Scrobble offline plays to Last.FM.
+(Library) Switching between types may show the incorrect default sort order (#10806)
+(Library) The Studio/Record Label custom filter would not work as expected (#10900)
+(Library) The scheduled task to generate video preview thumbnails didn't always work.
+(Metadata) Movies with 8 digit IMDB ids would not be imported (#10937)
+(Performance) Speed up connectivity tests and library discovery (#10930)
+(Photos) Some items may show under 1 Jan 1900 in the timeline view (#10917)
+(Preferences) The dropdown options for the preferred network interface were missing (#10975)
+(Radio) Don't show library radios for empty libraries (#9192)
+(Scanning) Linux automatic library change detection setup could crash when filesystem experiences I/O errors (#10890)
+(Ubuntu/Debian) In some cases Docker container detection could fail.
+(Ubuntu/Debian) The service may not have automatically started after upgrading an existing install.
+Shuffling a smart music playlist with an item limit would ignore the limit. (#10774)
+The server could become unresponsive after navigating many preplay screens.
+
+2020.01.30 (1.18.6.2348-fd90a1389)
+(Web) Updated to 4.20.2
+(Butler) Auto deletion of old update directories would fail on Windows. (#7759)
+(DVR) Fix for in-progress recordings being deleted by another server that records to the same directory. (#10929)
+(DVR) Server would not display future scheduled recordings when Limit To Airing Time advanced setting was selected (#10950).
+(EPG) Improve XMLTV episode info parsing.
+(EPG) Only allow Enhanced Guide option for XMLTV, and disable by default. (#10969)
+(FreeBSD) Fixes for database problems when syncing
+(Library) In some cases, playbacks would be registered when quickly skipping over items.
+(Library) Scrobble offline plays to Last.FM.
+(Library) Switching between types may show the incorrect default sort order (#10806)
+(Library) The Studio/Record Label custom filter would not work as expected (#10900)
+(Library) The scheduled task to generate video preview thumbnails didn't always work.
+(Metadata) Movies with 8 digit IMDB ids would not be imported (#10937)
+(Performance) Speed up connectivity tests and library discovery (#10930)
+(Photos) Some items may show under 1 Jan 1900 in the timeline view (#10917)
+(Preferences) The dropdown options for the preferred network interface were missing (#10975)
+(Radio) Don't show library radios for empty libraries (#9192)
+(Scanning) Linux automatic library change detection setup could crash when filesystem experiences I/O errors (#10890)
+Shuffling a smart music playlist with an item limit would ignore the limit. (#10774)
+
  ()
 
 
