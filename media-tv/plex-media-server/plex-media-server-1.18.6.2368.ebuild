@@ -21,13 +21,17 @@ SRC_URI="
 	amd64? ( ${URI}/${_FULL_VERSION}/debian/plexmediaserver_${_FULL_VERSION}_amd64.deb )
 	x86? ( ${URI}/${_FULL_VERSION}/debian/plexmediaserver_${_FULL_VERSION}_i386.deb )
 "
-SLOT="plexpass"
+SLOT="public"
 LICENSE="Plex"
 RESTRICT="bindist strip"
 KEYWORDS="-* ~amd64"
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 
-DEPEND="dev-python/virtualenv[${PYTHON_USEDEP}]"
+DEPEND="
+	$(python_gen_cond_dep '
+		dev-python/virtualenv[${PYTHON_MULTI_USEDEP}]
+	')"
+
 BDEPEND="dev-util/patchelf"
 
 RDEPEND="
