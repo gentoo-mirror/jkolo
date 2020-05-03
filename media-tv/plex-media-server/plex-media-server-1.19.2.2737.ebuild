@@ -6,7 +6,7 @@ EAPI=7
 PYTHON_COMPAT=( python2_7 )
 inherit eutils systemd unpacker pax-utils python-single-r1
 
-HASH_VERSION="97add474d"
+HASH_VERSION="b69929dab"
 
 _APPNAME="plexmediaserver"
 _USERNAME="plex"
@@ -31,7 +31,6 @@ DEPEND="
 	$(python_gen_cond_dep '
 		dev-python/virtualenv[${PYTHON_MULTI_USEDEP}]
 	')"
-
 BDEPEND="dev-util/patchelf"
 
 RDEPEND="
@@ -64,9 +63,8 @@ BINS_TO_PAX_MARK=(
 
 S="${WORKDIR}"
 PATCHES=(
-	"${FILESDIR}/virtualenv_start_pms_2020.patch"
 	"${FILESDIR}/plexmediamanager.desktop.new.patch"
-	"${FILESDIR}/add_gentoo_profile_as_platform_version.patch"
+	"${FILESDIR}/plexmediaserver.service.patch"
 )
 
 src_unpack() {
@@ -74,11 +72,12 @@ src_unpack() {
 }
 
 src_install() {
-	# Move the config to the correct place
-	local config_vanilla="/etc/default/plexmediaserver"
-	local config_path="/etc/${_SHORTNAME}"
-	dodir "${config_path}"
-	sed -e "s#${config_vanilla}#${config_path}/${_APPNAME}#g" -i "${S}"/usr/sbin/start_pms || die
+	# Install base config file
+	insinto "/etc/plex/"
+	newins "${FILESDIR}/etc-plexmediaserver" "plexmediaserver"
+
+	# Remove Debian apt repo files
+	rm -r "etc/apt" || die
 
 	# Remove Debian specific files
 	rm -r "usr/share/doc" || die
@@ -116,6 +115,10 @@ src_install() {
 	for f in "${BINS_TO_PAX_MARK[@]}"; do
 		pax-mark m "${f}"
 	done
+
+	# Install start_pms script
+	into /usr
+	dosbin "${FILESDIR}/start_pms"
 
 	einfo "Configuring virtualenv"
 	virtualenv -v --no-pip --no-setuptools --no-wheel "${ED}"/usr/lib/plexmediaserver/Resources/Python || die

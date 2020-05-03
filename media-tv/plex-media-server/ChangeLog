@@ -1,3 +1,225 @@
+2020.04.30 (1.19.3.2740-add6f438d)
+(Web) Updated to 4.30.2
+(DVR) Postprocessing scripts must now be located inside APPDATA/Scripts. Old scripts will continue to work
+(DVR) Server would sometimes fail to consume EPG data from certain XMLTV data files. (#11368)
+(First Run) Music libraries added during setup wizard could fail to be created (#11432)
+(Security) Remove the Windows AppData path preference from the web app (#11355)
+
+2020.04.29 (1.19.2.2737-b69929dab)
+(Library) New visibility preference to control library visibility in home screen hubs / search
+(DVR) EPG data may not completely get refreshed if there is cached data from earlier recent refresh. (#11287)
+(DVR) Server would not load internet hosted XMLTV guide data that was over 16MB in size. (#11266)
+(Debian/Ubuntu) Sysvinit service would fail to start in some cases.
+(Library) Renamed the "Include in dashboard" library preference to "Hidden" to better convey its meaning
+(Remote Access) Online status in the web client could erroneously show it as offline (#11449)
+(Scanner) Partial scans would not work correctly on photo and new music libraries (#10877)
+The legacy Samsung app failed to connect.
+
+2020.04.27 (1.19.2.2711-bab6de29f)
+
+
+2020.04.23 (1.19.2.2702-776106bc6)
+(Security) Hardened update process
+
+2020.04.23 (1.19.1.2701-6327e27bf)
+(Security) Hardened update process
+
+2020.04.16 (1.19.2.2673-776106bc6)
+- (Library) New visibility preference to control library visibility in home screen hubs / search
+- (DVR) EPG data may not completely get refreshed if there is cached data from earlier recent refresh. (#11287)
+- (DVR) Server would not load internet hosted XMLTV guide data that was over 16MB in size. (#11266)
+- (Debian/Ubuntu) Sysvinit service would fail to start in some cases.
+- (Library) Renamed the "Include in dashboard" library preference to "Hidden" to better convey its meaning
+- (Scanner) Partial scans would not work correctly on photo and new music libraries (#10877)
+
+2020.04.09 (1.19.1.2645-ccb6eb67e)
+FreeBSD package re-added.
+
+2020.04.07 (1.19.1.2630-72c16a276)
+(Debian/Ubuntu) Sysvinit service would fail to start in some cases.
+
+2020.04.03 (1.19.1.2621-b249be3b0)
+(DVR) Added What's On Now and What's On Later hubs (#11135).
+(Sync) Support for syncing FLAC music without transcoding on iOS devices (requires Plex for iOS version 5.7 or greater) (#10933)
+(Ubuntu/Debian) IPA / LDAP environments now supported for User and Group names
+(Ubuntu/Debian) Improved detection when installing in a container environment (Docker, LXC, or other container methods)
+snap packages are now built for armv7hf (armhf) and aarch64 (arm64)
+(Library) Add a preference for smart shuffles.
+(Library) When deleting items, try to maintain playlists (e.g. in the case of album upgrades).
+(Library) When re-adding a show, compute more realistic date added based on play history.
+(Library) When upgrading an album, maintain the date added.
+(Debian/Ubuntu) Close potential privilege escalation vulnerability for a local, non-root computer account during install/upgrade (#11222)
+(Debian/Ubuntu) Sysvinit service auto-restart during package upgrade could fail on older systems.
+(Library) Locked similar artists field would still get overwritten by refreshes.
+(Ubuntu/Debian) Avoid triggering udevadm bug when installing in a LXC
+(Ubuntu/Debian) Be tolerant of non-POSIX environments which allow spaces in User / Group names
+(Ubuntu/Debian) Do not falsely detect transcoding hardware during installation on systems which cannot support it
+(Ubuntu/Debian) Installing in an environment where an UNKNOWN user owns the Application Support directory would fail
+(Ubuntu/Debian) Multiple service override files no longer fail installation.
+(Ubuntu/Debian) Respect autostart after upgrade for all versions 1.18.5 and above
+Watch From Start option was sometimes not presented when attempting to watch a recording in progress. (#10482)
+(Connections) Clients repeatedly early-terminating poll requests could lead to resource exhaustion (#11183)
+(DVR) Removed outdated hub "Starting Soon". (#11246)
+(Library) Don't include search results on home screen for libraries which don't have "include in dashboard" enabled.
+(Library) Don't try to fetch lyrics for unmatched albums.
+(Library) Guard against invalid future times sent for playback.
+(Library) Guard against invalid future times sent for ratings.
+(Library) Prevent some cases in which duplicate plays could be recorded.
+(Metadata) Movie background art with words was being preferred incorrectly.
+(Network) X-Forwarded-For would not be respected when sending ipv6 IPs
+
+2020.03.30 (1.19.1.2589-2de7f3266)
+- (DVR) Added What's On Now and What's On Later hubs (#11135).
+- (Sync) Support for syncing FLAC music without transcoding on iOS devices (requires Plex for iOS version 5.7 or greater) (#10933)
+- (Ubuntu/Debian) IPA / LDAP environments now supported for User and Group names
+- (Ubuntu/Debian) Improved detection when installing in a container environment (Docker, LXC, or other container methods)
+- snap packages are now built for armv7hf (armhf) and aarch64 (arm64)
+- (Library) Add a preference for smart shuffles.
+- (Library) When deleting items, try to maintain playlists (e.g. in the case of album upgrades).
+- (Library) When re-adding a show, compute more realistic date added based on play history.
+- (Library) When upgrading an album, maintain the date added.
+- (Debian/Ubuntu) Close potential privilege escalation vulnerability for a local, non-root computer account during install/upgrade (#11222)
+- (Debian/Ubuntu) Sysvinit service auto-restart during package upgrade could fail on older systems.
+- (Library) Locked similar artists field would still get overwritten by refreshes.
+- (Ubuntu/Debian) Avoid triggering udevadm bug when installing in a LXC
+- (Ubuntu/Debian) Be tolerant of non-POSIX environments which allow spaces in User / Group names
+- (Ubuntu/Debian) Do not falsely detect transcoding hardware during installation on systems which cannot support it
+- (Ubuntu/Debian) Installing in an environment where an UNKNOWN user owns the Application Support directory would fail
+- (Ubuntu/Debian) Multiple service override files no longer fail installation.
+- (Ubuntu/Debian) Respect autostart after upgrade for all versions 1.18.5 and above
+- Watch From Start option was sometimes not presented when attempting to watch a recording in progress. (#10482)
+- (Connections) Clients repeatedly early-terminating poll requests could lead to resource exhaustion (#11183)
+- (DVR) Removed outdated hub "Starting Soon". (#11246)
+(Library) Don't include search results on home screen for libraries which don't have "include in dashboard" enabled.
+- (Library) Don't try to fetch lyrics for unmatched albums.
+- (Library) Guard against invalid future times sent for playback.
+- (Library) Guard against invalid future times sent for ratings.
+- (Library) Prevent some cases in which duplicate plays could be recorded.
+- (Metadata) Movie background art with words was being preferred incorrectly.
+- (Network) X-Forwarded-For would not be respected when sending ipv6 IPs
+
+2020.03.30 (1.18.9.2578-513b381af)
+- (Live TV) Live playback could stutter and stall unexpectedly in certain regions
+- (Live TV) Tuning could fail the first time the feature is used in certain regions (#11307)
+
+2020.03.25 (1.18.9.2571-e106a8a91)
+- (Web) Updated to 4.22.3
+- Make Live TV available to free users.
+
+2020.03.10 (1.18.8.2527-740d4c206)
+
+
+2020.02.27 (1.18.8.2468-5d395aa9d)
+- (DVR) 'New Episodes Tonight' hub renamed to 'New Shows On Tonight' (#10818).
+- (DVR) 'Upcoming News' hub renamed to 'News On Later' (#10818).
+- (DVR) Added 'Movies On Now' Hub (#10816).
+- (DVR) Added 'News On Now' Hub (#10818).
+- (DVR) Added Kids On Later Hub (#11072)
+- (DVR) Added Movies On Later Hub (#11073).
+- (Library) Add custom filter fields for sharing Labels (#8711)
+- (Collections) When a collection was renamed, its tag kept the old name (#10446)
+- (DLNA) Don't start DLNA server after leaving Plex Home (#11061)
+- (DVR) Ensure there is no loss of existing metadata when the Enhanced Guide option is selected and some metadata is not available and add extra logging. (#10942)
+- (DVR) Pref to delete watched episodes `On next refresh` would result in not deleting episodes for 100 days (#10985)
+- (DVR) Preserve EPG metadata when assimilating all recordings except XMLTV Movies & Shows. (#10972)
+- (DVR) Server would incorrectly add On-Now and On-Later hubs to the home screen (#11204).
+- (Dashboard) Transcodes to a lossless audio codec would display bitrate of 10Gbps (#10341)
+- (Hubs) Invalidate user's cached hubs on account update. (#8176)
+- (Live TV) Fix for crash when stopping Live TV session. (#11172)
+- (Scanning) Speed up repeat scans of large music libraries (#11077)
+- (Windows) Increase timeout period for Windows Auto update to guard against premature launch on slower PCs (#10060)
+- Certain clients could make a request that would crash the server (#11154)
+
+2020.02.26 (1.18.8.2461-03ad9abb4)
+- (DVR) 'New Episodes Tonight' hub renamed to 'New Shows On Tonight' (#10818).
+- (DVR) 'Upcoming News' hub renamed to 'News On Later' (#10818).
+- (DVR) Added 'Movies On Now' Hub (#10816).
+- (DVR) Added 'News On Now' Hub (#10818).
+- (DVR) Added Kids On Later Hub (#11072)
+- (DVR) Added Movies On Later Hub (#11073).
+- (Library) Add custom filter fields for sharing Labels (#8711)
+- (Collections) When a collection was renamed, its tag kept the old name (#10446)
+- (DLNA) Don't start DLNA server after leaving Plex Home (#11061)
+- (DVR) Ensure there is no loss of existing metadata when the Enhanced Guide option is selected and some metadata is not available and add extra logging. (#10942)
+- (DVR) Pref to delete watched episodes `On next refresh` would result in not deleting episodes for 100 days (#10985)
+- (DVR) Preserve EPG metadata when assimilating all recordings except XMLTV Movies & Shows. (#10972)
+- (Dashboard) Transcodes to a lossless audio codec would display bitrate of 10Gbps (#10341)
+- (Hubs) Invalidate user's cached hubs on account update. (#8176)
+- (Live TV) Fix for crash when stopping Live TV session. (#11172)
+- (Scanning) Speed up repeat scans of large music libraries (#11077)
+- (Windows) Increase timeout period for Windows Auto update to guard against premature launch on slower PCs (#10060)
+- Certain clients could make a request that would crash the server (#11154)
+
+2020.02.24 (1.18.7.2457-77cb9455c)
+(DVR) Added "Kids On Now" hub (#10817).
+(Web) Updated to 4.22.2
+(DVR) Content may be presented out of order for Shows On Now, Kids On Now, and Sports On Now Hub (#11107).
+(DVR) Only require 100 MB of disk space per recording for the transcode session directory. (nvidia-shield-issues#236)
+(DVR) Server would fail to display all shows under "Shows On Now" section in Web client (#11014).
+(DVR) Server would fail to provide "Shows On Now" view for iOS (#11014).
+(DVR) Server would not display "On Right Now" and "Upcoming Sports", when XMLTV was the datasource (#10997).
+(DVR) Server would present very long running sports programs at front of "Sports On Now" Hub (#11004).
+(Hubs) Starting a playqueue from Recently Added movies could contain items which are not accessible or playable (#10669)
+(Library) Improve quality of shuffled music playback order in certain cases.
+(Library) Sort order of episodes without air date could be incorrect.
+(Stability) PMS could hang when using iTunes plugins (#11187)
+(Transcoder) Hardware decoding could produce corrupt video when burning subtitles on Apollo Lake-based processors. (#10753)
+(Transcoder) Hardware encoding on older Intel processors could produce very low-quality output in some cases. (#10863)
+(Transcoder) Transcoder request for session segment would hang if we killed the transcoder job and OS fails to complete the process kill (#10886)
+(Transcoder) Transcodes could fail in some cases due to thread scheduling conditions (#10831)
+Certain clients could make a request that would crash the server (#11154)
+
+2020.02.19 (1.18.7.2438-f342a5a43)
+(DVR) Added "Kids On Now" hub (#10817).
+(Web) Updated to 4.22.2
+(DVR) Content may be presented out of order for Shows On Now, Kids On Now, and Sports On Now Hub (#11107).
+(DVR) Only require 100 MB of disk space per recording for the transcode session directory. (nvidia-shield-issues#236)
+(DVR) Server would fail to display all shows under "Shows On Now" section in Web client (#11014).
+(DVR) Server would fail to provide "Shows On Now" view for iOS (#11014).
+(DVR) Server would not display "On Right Now" and "Upcoming Sports", when XMLTV was the datasource (#10997).
+(DVR) Server would present very long running sports programs at front of "Sports On Now" Hub (#11004).
+(Hubs) Starting a playqueue from Recently Added movies could contain items which are not accessible or playable (#10669)
+(Library) Improve quality of shuffled music playback order in certain cases.
+(Library) Sort order of episodes without air date could be incorrect.
+(Transcoder) Hardware decoding could produce corrupt video when burning subtitles on Apollo Lake-based processors. (#10753)
+(Transcoder) Hardware encoding on older Intel processors could produce very low-quality output in some cases. (#10863)
+(Transcoder) Transcoder request for session segment would hang if we killed the transcoder job and OS fails to complete the process kill (#10886)
+(Transcoder) Transcodes could fail in some cases due to thread scheduling conditions (#10831)
+Certain clients could make a request that would crash the server (#11154)
+
+2020.02.17 (1.18.7.2434-db2335ec5)
+(DVR) Added "Kids On Now" hub (#10817).
+(DVR) Content may be presented out of order for Shows On Now, Kids On Now, and Sports On Now Hub (#11107).
+(DVR) Only require 100 MB of disk space per recording for the transcode session directory. (nvidia-shield-issues#236)
+(DVR) Server would fail to display all shows under "Shows On Now" section in Web client (#11014).
+(DVR) Server would fail to provide "Shows On Now" view for iOS (#11014).
+(DVR) Server would not display "On Right Now" and "Upcoming Sports", when XMLTV was the datasource (#10997).
+(DVR) Server would present very long running sports programs at front of "Sports On Now" Hub (#11004).
+(Hubs) Starting a playqueue from Recently Added movies could contain items which are not accessible or playable (#10669)
+(Library) Improve quality of shuffled music playback order in certain cases.
+(Library) Sort order of episodes without air date could be incorrect.
+(Transcoder) Hardware decoding could produce corrupt video when burning subtitles on Apollo Lake-based processors. (#10753)
+(Transcoder) Hardware encoding on older Intel processors could produce very low-quality output in some cases. (#10863)
+(Transcoder) Transcoder request for session segment would hang if we killed the transcoder job and OS fails to complete the process kill (#10886)
+(Transcoder) Transcodes could fail in some cases due to thread scheduling conditions (#10831)
+Certain clients could make a request that would crash the server (#11154)
+
+2020.02.13 (1.18.7.2415-9930aef45)
+(DVR) Added "Kids On Now" hub (#10817).
+(DVR) Content may be presented out of order for Shows On Now, Kids On Now, and Sports On Now Hub (#11107).
+(DVR) Only require 100 MB of disk space per recording for the transcode session directory. (nvidia-shield-issues#236)
+(DVR) Server would fail to display all shows under "Shows On Now" section in Web client (#11014).
+(DVR) Server would fail to provide "Shows On Now" view for iOS (#11014).
+(DVR) Server would not display "On Right Now" and "Upcoming Sports", when XMLTV was the datasource (#10997).
+(DVR) Server would present very long running sports programs at front of "Sports On Now" Hub (#11004).
+(Hubs) Starting a playqueue from Recently Added movies could contain items which are not accessible or playable (#10669)
+(Library) Improve quality of shuffled music playback order in certain cases.
+(Library) Sort order of episodes without air date could be incorrect.
+(Transcoder) Hardware decoding could produce corrupt video when burning subtitles on Apollo Lake-based processors. (#10753)
+(Transcoder) Hardware encoding on older Intel processors could produce very low-quality output in some cases. (#10863)
+(Transcoder) Transcoder request for session segment would hang if we killed the transcoder job and OS fails to complete the process kill (#10886)
+(Transcoder) Transcodes could fail in some cases due to thread scheduling conditions (#10831)
+
 2020.02.04 (1.18.6.2368-97add474d)
 (Web) Updated to 4.20.2
 (Butler) Auto deletion of old update directories would fail on Windows. (#7759)

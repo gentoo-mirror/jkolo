@@ -1,4 +1,4 @@
-# Copyright 1999-2019 Gentoo Authors
+# Copyright 1999-2020 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
 EAPI="6"
@@ -107,7 +107,7 @@ HTTP_DAV_EXT_MODULE_URI="https://github.com/arut/nginx-dav-ext-module/archive/v$
 HTTP_DAV_EXT_MODULE_WD="${WORKDIR}/nginx-dav-ext-module-${HTTP_DAV_EXT_MODULE_PV}"
 
 # echo-nginx-module (https://github.com/openresty/echo-nginx-module, BSD license)
-HTTP_ECHO_MODULE_PV="0.61"
+HTTP_ECHO_MODULE_PV="0.62rc1"
 HTTP_ECHO_MODULE_P="ngx_http_echo-${HTTP_ECHO_MODULE_PV}"
 HTTP_ECHO_MODULE_URI="https://github.com/openresty/echo-nginx-module/archive/v${HTTP_ECHO_MODULE_PV}.tar.gz"
 HTTP_ECHO_MODULE_WD="${WORKDIR}/echo-nginx-module-${HTTP_ECHO_MODULE_PV}"
@@ -174,13 +174,13 @@ HTTP_CT_MODULE_URI="https://github.com/grahamedgecombe/nginx-ct/archive/v${HTTP_
 HTTP_CT_MODULE_WD="${WORKDIR}/nginx-ct-${HTTP_CT_MODULE_PV}"
 
 # geoip2 (https://github.com/leev/ngx_http_geoip2_module, BSD-2)
-GEOIP2_MODULE_PV="3.2"
+GEOIP2_MODULE_PV="3.3"
 GEOIP2_MODULE_P="ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
 GEOIP2_MODULE_URI="https://github.com/leev/ngx_http_geoip2_module/archive/${GEOIP2_MODULE_PV}.tar.gz"
 GEOIP2_MODULE_WD="${WORKDIR}/ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
 
 # njs-module (https://github.com/nginx/njs, as-is)
-NJS_MODULE_PV="0.3.7"
+NJS_MODULE_PV="0.3.9"
 NJS_MODULE_P="njs-${NJS_MODULE_PV}"
 NJS_MODULE_URI="https://github.com/nginx/njs/archive/${NJS_MODULE_PV}.tar.gz"
 NJS_MODULE_WD="${WORKDIR}/njs-${NJS_MODULE_PV}"
@@ -367,13 +367,14 @@ DEPEND="${CDEPEND}
 PDEPEND="vim-syntax? ( app-vim/nginx-syntax )"
 
 REQUIRED_USE="pcre-jit? ( pcre )
+	nginx_modules_http_fancyindex? ( nginx_modules_http_addition )
 	nginx_modules_http_grpc? ( http2 )
 	nginx_modules_http_lua? (
 		luajit
 		nginx_modules_http_rewrite
 	)
 	nginx_modules_http_naxsi? ( pcre )
-	nginx_modules_http_dav_ext? ( nginx_modules_http_dav )
+	nginx_modules_http_dav_ext? ( nginx_modules_http_dav nginx_modules_http_xslt )
 	nginx_modules_http_metrics? ( nginx_modules_http_stub_status )
 	nginx_modules_http_security? ( pcre )
 	nginx_modules_http_push_stream? ( ssl )"
@@ -771,7 +772,7 @@ src_compile() {
 src_install() {
 	emake DESTDIR="${D%/}" install
 
-	cp "${FILESDIR}"/nginx.conf-r2 "${ED}"etc/nginx/nginx.conf || die
+	cp "${FILESDIR}"/nginx.conf-r2 "${ED%/}"/etc/nginx/nginx.conf || die
 
 	newinitd "${FILESDIR}"/nginx.initd-r4 nginx
 	newconfd "${FILESDIR}"/nginx.confd nginx
@@ -783,7 +784,7 @@ src_install() {
 
 	# just keepdir. do not copy the default htdocs files (bug #449136)
 	keepdir /var/www/localhost
-	rm -rf "${D}"usr/html || die
+	rm -rf "${ED%/}"/usr/html || die
 
 	# set up a list of directories to keep
 	local keepdir_list="${NGINX_HOME_TMP}"/client
@@ -808,6 +809,9 @@ src_install() {
 	# logrotate
 	insinto /etc/logrotate.d
 	newins "${FILESDIR}"/nginx.logrotate-r1 nginx
+
+	# Don't create /run
+	rm -rf "${ED%/}"/run || die
 
 	if use luajit; then
 		pax-mark m "${ED%/}/usr/sbin/nginx"
@@ -1069,15 +1073,15 @@ pkg_postinst() {
 			ewarn "following directories to mitigate a security bug"
 			ewarn "(CVE-2013-0337, bug #458726):"
 			ewarn ""
-			ewarn "  ${EPREFIX%/}/var/log/nginx"
-			ewarn "  ${EPREFIX%/}${NGINX_HOME_TMP}/{,client,proxy,fastcgi,scgi,uwsgi}"
+			ewarn "  ${EPREFIX}/var/log/nginx"
+			ewarn "  ${EPREFIX}${NGINX_HOME_TMP}/{,client,proxy,fastcgi,scgi,uwsgi}"
 			ewarn ""
 			ewarn "Check if this is correct for your setup before restarting nginx!"
 			ewarn "This is a one-time change and will not happen on subsequent updates."
-			ewarn "Furthermore nginx' temp directories got moved to '${EPREFIX%/}${NGINX_HOME_TMP}'"
+			ewarn "Furthermore nginx' temp directories got moved to '${EPREFIX}${NGINX_HOME_TMP}'"
 			chmod o-rwx \
-				"${EPREFIX%/}"/var/log/nginx \
-				"${EPREFIX%/}"${NGINX_HOME_TMP}/{,client,proxy,fastcgi,scgi,uwsgi} || \
+				"${EPREFIX}"/var/log/nginx \
+				"${EPREFIX}"${NGINX_HOME_TMP}/{,client,proxy,fastcgi,scgi,uwsgi} || \
 				_has_to_show_permission_warning=1
 		fi
 
@@ -1086,15 +1090,15 @@ pkg_postinst() {
 			ewarn "The permissions on the following directory have been reset in"
 			ewarn "order to mitigate a security bug (CVE-2016-1247, bug #605008):"
 			ewarn ""
-			ewarn "  ${EPREFIX%/}/var/log/nginx"
+			ewarn "  ${EPREFIX}/var/log/nginx"
 			ewarn ""
 			ewarn "Check if this is correct for your setup before restarting nginx!"
 			ewarn "Also ensure that no other log directory used by any of your"
 			ewarn "vhost(s) is not writeable for nginx user. Any of your log files"
 			ewarn "used by nginx can be abused to escalate privileges!"
 			ewarn "This is a one-time change and will not happen on subsequent updates."
-			chown 0:nginx "${EPREFIX%/}"/var/log/nginx || _has_to_show_permission_warning=1
-			chmod 710 "${EPREFIX%/}"/var/log/nginx || _has_to_show_permission_warning=1
+			chown 0:nginx "${EPREFIX}"/var/log/nginx || _has_to_show_permission_warning=1
+			chmod 710 "${EPREFIX}"/var/log/nginx || _has_to_show_permission_warning=1
 		fi
 
 		if [[ ${_has_to_show_permission_warning} -eq 1 ]]; then
@@ -1119,7 +1123,7 @@ pkg_postinst() {
 	# unmerged a affected installation on purpose in the past leaving
 	# /var/log/nginx on their system due to keepdir/non-empty folder
 	# and are now installing the package again.
-	local _sanity_check_testfile=$(mktemp --dry-run "${EPREFIX%/}"/var/log/nginx/.CVE-2016-1247.XXXXXXXXX)
+	local _sanity_check_testfile=$(mktemp --dry-run "${EPREFIX}"/var/log/nginx/.CVE-2016-1247.XXXXXXXXX)
 	su -s /bin/sh -c "touch ${_sanity_check_testfile}" nginx >&/dev/null
 	if [ $? -eq 0 ] ; then
 		# Cleanup -- no reason to die here!
@@ -1132,7 +1136,7 @@ pkg_postinst() {
 		ewarn "Looks like your installation is vulnerable to CVE-2016-1247"
 		ewarn "(bug #605008) because nginx user is able to create files in"
 		ewarn ""
-		ewarn "  ${EPREFIX%/}/var/log/nginx"
+		ewarn "  ${EPREFIX}/var/log/nginx"
 		ewarn ""
 		ewarn "Also ensure that no other log directory used by any of your"
 		ewarn "vhost(s) is not writeable for nginx user. Any of your log files"
