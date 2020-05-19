@@ -1,3 +1,18 @@
+2020.05.12 (1.19.3.2793-36efde971)
+(Web) Updated to 4.30.2
+(DVR) Server would sometimes fail to consume EPG data from certain XMLTV data files. (#11368)
+(First Run) Music libraries added during setup wizard could fail to be created (#11432)
+(Playlists) Adding an item to a playlist from a remote server didn't work (#11305)
+(PostPlay) Post play could show the item that was just played (#11374)
+
+2020.05.05 (1.19.3.2764-ef515a800)
+(Web) Updated to 4.30.2
+(DVR) Postprocessing scripts must now be located inside APPDATA/Scripts. Old scripts will continue to work
+(DVR) Server would sometimes fail to consume EPG data from certain XMLTV data files. (#11368)
+(First Run) Music libraries added during setup wizard could fail to be created (#11432)
+(Playlists) Adding an item to a playlist from a remote server didn't work (#11305)
+(Security) Remove the Windows AppData path preference from the web app (#11355)
+
 2020.04.30 (1.19.3.2740-add6f438d)
 (Web) Updated to 4.30.2
 (DVR) Postprocessing scripts must now be located inside APPDATA/Scripts. Old scripts will continue to work
