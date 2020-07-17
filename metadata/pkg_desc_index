@@ -22,5 +22,5 @@ sci-libs/dlib 19.16-r1: Numerical and networking C++ library
 sys-auth/pam_u2f 1.0.3: Library for authenticating against PAM with a Yubikey
 sys-block/sed-opal-unlocker 0.0.20190123: Micro-utility for unlocking TCG-OPAL encrypted disks, utilizing CONFIG_BLK_SED_OPAL interface introduced in kernel 4.11.
 sys-fs/libldm 0.2.3: Tool for managing windows's LDM partitions
-www-servers/nginx 1.16.1-r1 1.17.10-r1 1.18.0: Robust, small and high performance http and reverse proxy server
+www-servers/nginx 1.18.0 1.19.1: Robust, small and high performance http and reverse proxy server
 www-servers/spreed-webrtc 0.29.2: WebRTC audio/video call and conferencing server and web client
