@@ -155,6 +155,12 @@ HTTP_AUTH_SPNEGO_MODULE_P="ngx_auth_spnego_module-${HTTP_AUTH_SPNEGO_MODULE_PV}"
 HTTP_AUTH_SPNEGO_MODULE_URI="https://github.com/jkolo/spnego-http-auth-nginx-module/archive/${HTTP_AUTH_SPNEGO_MODULE_PV}.tar.gz"
 HTTP_AUTH_SPNEGO_MODULE_WD="${WORKDIR}/spnego-http-auth-nginx-module-${HTTP_AUTH_SPNEGO_MODULE_PV}"
 
+# quiche
+HTTP_QUICHE_MODULE_PV="0.4.0"
+HTTP_QUICHE_MODULE_P="quiche-${HTTP_QUICHE_MODULE_PV}"
+HTTP_QUICHE_MODULE_URI="https://github.com/cloudflare/quiche/archive/${HTTP_QUICHE_MODULE_PV}.tar.gz"
+HTTP_QUICHE_MODULE_WD="${WORKDIR}/quiche-${HTTP_QUICHE_MODULE_PV}"
+
 # ajp-module
 HTTP_AJP_MODULE_PV="b6993cc5befd6b9d4d6aefc91c689c20aabacbd2"
 HTTP_AJP_MODULE_P="ngx_ajp_module-${HTTP_AJP_MODULE_PV}"
@@ -208,7 +214,7 @@ SRC_URI="https://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_mogilefs? ( ${HTTP_MOGILEFS_MODULE_URI} -> ${HTTP_MOGILEFS_MODULE_P}.tar.gz )
 	nginx_modules_http_naxsi? ( ${HTTP_NAXSI_MODULE_URI} -> ${HTTP_NAXSI_MODULE_P}.tar.gz )
 	nginx_modules_http_push_stream? ( ${HTTP_PUSH_STREAM_MODULE_URI} -> ${HTTP_PUSH_STREAM_MODULE_P}.tar.gz )
-	nginx_modules_http_security? ( ${HTTP_SECURITY_MODULE_URI} -> ${HTTP_SECURITY_MODULE_P}.tar.gz )
+        nginx_modules_http_security? ( ${HTTP_SECURITY_MODULE_URI} -> ${HTTP_SECURITY_MODULE_P}.tar.gz )
 	nginx_modules_http_slowfs_cache? ( ${HTTP_SLOWFS_CACHE_MODULE_URI} -> ${HTTP_SLOWFS_CACHE_MODULE_P}.tar.gz )
 	nginx_modules_http_sticky? ( ${HTTP_STICKY_MODULE_URI} -> ${HTTP_STICKY_MODULE_P}.tar.bz2 )
 	nginx_modules_http_upload_progress? ( ${HTTP_UPLOAD_PROGRESS_MODULE_URI} -> ${HTTP_UPLOAD_PROGRESS_MODULE_P}.tar.gz )
@@ -216,6 +222,7 @@ SRC_URI="https://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_vhost_traffic_status? ( ${HTTP_VHOST_TRAFFIC_STATUS_MODULE_URI} -> ${HTTP_VHOST_TRAFFIC_STATUS_MODULE_P}.tar.gz )
 	nginx_modules_stream_geoip2? ( ${GEOIP2_MODULE_URI} -> ${GEOIP2_MODULE_P}.tar.gz )
 	nginx_modules_stream_javascript? ( ${NJS_MODULE_URI} -> ${NJS_MODULE_P}.tar.gz )
+	http3? ( ${HTTP_QUICHE_MODULE_URI} -> ${HTTP_QUICHE_MODULE_P}.tar.gz )
 	rtmp? ( ${RTMP_MODULE_URI} -> ${RTMP_MODULE_P}.tar.gz )"
 
 LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+
@@ -270,7 +277,7 @@ NGINX_MODULES_3RD="
 	stream_javascript
 "
 
-IUSE="aio debug +http +http2 +http-cache +ipv6 libatomic libressl luajit +pcre
+IUSE="aio debug +http +http2 http3 +http-cache +ipv6 libatomic libressl luajit +pcre
 	pcre-jit rtmp selinux ssl threads userland_GNU vim-syntax"
 
 for mod in $NGINX_MODULES_STD; do
@@ -409,6 +416,10 @@ pkg_setup() {
 src_prepare() {
 	eapply "${FILESDIR}/${PN}-1.4.1-fix-perl-install-path.patch"
 	eapply "${FILESDIR}/${PN}-httpoxy-mitigation-r1.patch"
+        if use http3; then
+                epatch "${HTTP_QUICHE_MODULE_WD}/extras/nginx/nginx-1.16.patch"
+        fi
+
 
 	if use nginx_modules_http_auth_pam; then
 		cd "${HTTP_AUTH_PAM_MODULE_WD}" || die
@@ -495,6 +506,7 @@ src_configure() {
 	use aio       && myconf+=( --with-file-aio )
 	use debug     && myconf+=( --with-debug )
 	use http2     && myconf+=( --with-http_v2_module )
+        use http3     && myconf+=( --with-http_v3_module --with-quiche=${HTTP_QUICHE_MODULE_WD} --with-openssl=${HTTP_QUICHE_MODULE_WD}/deps/boringssl )
 	use libatomic && myconf+=( --with-libatomic )
 	use pcre      && myconf+=( --with-pcre )
 	use pcre-jit  && myconf+=( --with-pcre-jit )
