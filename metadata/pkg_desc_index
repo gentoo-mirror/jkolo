@@ -1,7 +1,5 @@
-app-crypt/certbot-dns-rfc2136 0.27.1: dns-rfc2136 plugin for certbot (Let's Encrypt Client)
 app-crypt/ct-submit 1.1.2: A program for submitting X.509 certificate chains to Certificate Transparency log servers.
 app-crypt/simple-tpm-pk11 0.04: Simple PKCS11 provider for TPM chips
-app-crypt/yubikey-piv-manager 1.4.2: The YubiKey PIV Manager enables you to configure a PIV-enabled YubiKey through a graphical user interface.
 app-shells/oh-my-zsh 9999: A ready-to-use zsh configuration with plugins
 dev-java/jdbc-mysql 5.1.26-r1: MySQL JDBC driver
 dev-libs/globalplatform 6.0.0: This is a library for providing access to OpenPlatform 2.0.1' and GlobalPlatform 2.1.1 conforming smart cards.
@@ -12,7 +10,6 @@ dev-util/gppcscconnectionplugin 1.1.0: gppcscconnectionplugin is something, not 
 dev-util/gpshell 1.4.4: GPShell is a script interpreter which talks to a smart card. It can establish a secure channel with a smart card, load, instantiate, delete, list applets on a smart card.
 dev-util/visual-paradigm 11.1.20140801 12.1.20150702: Visual Paradigm for UML
 kde-apps/kwalletcli 3.00: A command-line interface for the KDE Wallet
-media-tv/plex-media-server 1.19.3.2764 1.19.3.2793: A free media library that is intended for use with a plex client
 media-video/bashnapi 1.3.5: Napiprojekt.pl subtitle downloader in bash
 net-analyzer/ntopng 2.2: Network traffic analyzer with web interface
 net-fs/hubicfuse 3.0.1: Support for mounting HubiC drive in GNU/Linux
