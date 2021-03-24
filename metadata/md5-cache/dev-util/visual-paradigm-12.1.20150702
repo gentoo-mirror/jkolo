@@ -2,11 +2,12 @@ DEFINED_PHASES=compile install
 DESCRIPTION=Visual Paradigm for UML
 EAPI=4
 HOMEPAGE=http://www.visual-paradigm.com
+INHERIT=versionator eutils
 KEYWORDS=~amd64
 LICENSE=as-is
 RDEPEND=>=virtual/jre-1.5 x11-misc/xdg-utils sys-auth/polkit
 RESTRICT=mirror
 SLOT=0
 SRC_URI=http://eu1.visual-paradigm.com/visual-paradigm/vpce12.1/20150702/Visual_Paradigm_CE_12_1_20150702_Linux64_InstallFree.tar.gz http://eu2.visual-paradigm.com/visual-paradigm/vpce12.1/20150702/Visual_Paradigm_CE_12_1_20150702_Linux64_InstallFree.tar.gz http://eu3.visual-paradigm.com/visual-paradigm/vpce12.1/20150702/Visual_Paradigm_CE_12_1_20150702_Linux64_InstallFree.tar.gz http://eu4.visual-paradigm.com/visual-paradigm/vpce12.1/20150702/Visual_Paradigm_CE_12_1_20150702_Linux64_InstallFree.tar.gz http://usa5.visual-paradigm.com/visual-paradigm/vpce12.1/20150702/Visual_Paradigm_CE_12_1_20150702_Linux64_InstallFree.tar.gz http://usa6.visual-paradigm.com/visual-paradigm/vpce12.1/20150702/Visual_Paradigm_CE_12_1_20150702_Linux64_InstallFree.tar.gz
-_eclasses_=desktop	c0d27bf73aa08ca05b663dbd31fbef28	edos2unix	33e347e171066657f91f8b0c72ec8773	epatch	e8f1ec13660dc2f44b32775765d85e42	estack	055c42df72f76a4f45ec92b35e83cd56	eutils	2d5b3f4b315094768576b6799e4f926e	l10n	8cdd85e169b835d518bc2fd59f780d8e	ltprune	4f3f2db5ce3ccbeeacdf3f94954043aa	multilib	d410501a125f99ffb560b0c523cd3d1e	preserve-libs	ef207dc62baddfddfd39a164d9797648	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	vcs-clean	2a0f74a496fa2b1552c4f3398258b7bf	versionator	d3fb3ba33acc3bbbdc4d7970227c100d	wrapper	4251d4c84c25f59094fd557e0063a974
+_eclasses_=estack	055c42df72f76a4f45ec92b35e83cd56	versionator	d3fb3ba33acc3bbbdc4d7970227c100d	desktop	c0d27bf73aa08ca05b663dbd31fbef28	edos2unix	33e347e171066657f91f8b0c72ec8773	epatch	e8f1ec13660dc2f44b32775765d85e42	l10n	8cdd85e169b835d518bc2fd59f780d8e	toolchain-funcs	24921b57d6561d87cbef4916a296ada4	multilib	d410501a125f99ffb560b0c523cd3d1e	ltprune	4f3f2db5ce3ccbeeacdf3f94954043aa	preserve-libs	ef207dc62baddfddfd39a164d9797648	vcs-clean	2a0f74a496fa2b1552c4f3398258b7bf	wrapper	4251d4c84c25f59094fd557e0063a974	eutils	2d5b3f4b315094768576b6799e4f926e
 _md5_=e2a6a3f9ba3304b3a3ae81f70115bfd7
