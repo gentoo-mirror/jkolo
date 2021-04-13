@@ -1,7 +1,7 @@
-# Copyright 1999-2020 Gentoo Authors
+# Copyright 1999-2021 Gentoo Authors
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI="6"
+EAPI=7
 
 # Maintainer notes:
 # - http_rewrite-independent pcre-support makes sense for matching locations without an actual rewrite
@@ -63,6 +63,7 @@ HTTP_LUA_MODULE_PV="0.10.15"
 HTTP_LUA_MODULE_P="ngx_http_lua-${HTTP_LUA_MODULE_PV}"
 HTTP_LUA_MODULE_URI="https://github.com/openresty/lua-nginx-module/archive/v${HTTP_LUA_MODULE_PV}.tar.gz"
 HTTP_LUA_MODULE_WD="${WORKDIR}/lua-nginx-module-${HTTP_LUA_MODULE_PV}"
+LUA_COMPAT=( luajit )
 
 # http_auth_pam (https://github.com/stogh/ngx_http_auth_pam_module/, http://web.iti.upv.es/~sto/nginx/, BSD-2 license)
 HTTP_AUTH_PAM_MODULE_PV="1.5.2"
@@ -156,7 +157,7 @@ GEOIP2_MODULE_URI="https://github.com/leev/ngx_http_geoip2_module/archive/${GEOI
 GEOIP2_MODULE_WD="${WORKDIR}/ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
 
 # njs-module (https://github.com/nginx/njs, as-is)
-NJS_MODULE_PV="0.5.0"
+NJS_MODULE_PV="0.5.3"
 NJS_MODULE_P="njs-${NJS_MODULE_PV}"
 NJS_MODULE_URI="https://github.com/nginx/njs/archive/${NJS_MODULE_PV}.tar.gz"
 NJS_MODULE_WD="${WORKDIR}/njs-${NJS_MODULE_PV}"
@@ -165,7 +166,7 @@ NJS_MODULE_WD="${WORKDIR}/njs-${NJS_MODULE_PV}"
 SSL_DEPS_SKIP=1
 AUTOTOOLS_AUTO_DEPEND="no"
 
-inherit autotools ssl-cert toolchain-funcs perl-module flag-o-matic user systemd versionator multilib pax-utils
+inherit autotools lua-single ssl-cert toolchain-funcs perl-module flag-o-matic user systemd multilib pax-utils
 
 DESCRIPTION="Robust, small and high performance http and reverse proxy server"
 HOMEPAGE="https://nginx.org"
@@ -246,7 +247,7 @@ NGINX_MODULES_3RD="
 	stream_javascript
 "
 
-IUSE="aio debug +http +http2 +http-cache +ipv6 libatomic libressl luajit +pcre
+IUSE="aio debug +http +http2 +http-cache +ipv6 libatomic libressl +pcre
 	pcre-jit rtmp selinux ssl threads userland_GNU vim-syntax"
 
 for mod in $NGINX_MODULES_STD; do
@@ -310,7 +311,7 @@ CDEPEND="
 		)
 	)
 	nginx_modules_http_xslt? ( dev-libs/libxml2:= dev-libs/libxslt )
-	nginx_modules_http_lua? ( dev-lang/luajit:2= )
+	nginx_modules_http_lua? ( ${LUA_DEPS} )
 	nginx_modules_http_auth_pam? ( sys-libs/pam )
 	nginx_modules_http_metrics? ( dev-libs/yajl:= )
 	nginx_modules_http_dav_ext? ( dev-libs/libxml2 )
@@ -328,17 +329,17 @@ RDEPEND="${CDEPEND}
 	selinux? ( sec-policy/selinux-nginx )
 	!www-servers/nginx:0"
 DEPEND="${CDEPEND}
-	nginx_modules_http_brotli? ( virtual/pkgconfig )
-	nginx_modules_http_security? ( ${AUTOTOOLS_DEPEND} )
 	arm? ( dev-libs/libatomic_ops )
 	libatomic? ( dev-libs/libatomic_ops )"
+BDEPEND="nginx_modules_http_brotli? ( virtual/pkgconfig )
+	nginx_modules_http_security? ( ${AUTOTOOLS_DEPEND} )"
 PDEPEND="vim-syntax? ( app-vim/nginx-syntax )"
 
 REQUIRED_USE="pcre-jit? ( pcre )
 	nginx_modules_http_fancyindex? ( nginx_modules_http_addition )
 	nginx_modules_http_grpc? ( http2 )
 	nginx_modules_http_lua? (
-		luajit
+		${LUA_REQUIRED_USE}
 		nginx_modules_http_rewrite
 	)
 	nginx_modules_http_naxsi? ( pcre )
@@ -379,6 +380,8 @@ pkg_setup() {
 		eerror "Please disable either flag and try again."
 		die "Can't compile mogilefs with threads support"
 	fi
+
+	use nginx_modules_http_lua && lua-single_pkg_setup
 }
 
 src_prepare() {
@@ -406,9 +409,9 @@ src_prepare() {
 
 		eautoreconf
 
-		if use luajit ; then
+		if use nginx_modules_http_lua; then
 			sed -i \
-				-e 's|^\(LUA_PKGNAMES\)=.*|\1="luajit"|' \
+				-e "s|^\(LUA_PKGNAMES\)=.*|\1=\"${ELUA}\"|" \
 				configure || die
 		fi
 
@@ -511,8 +514,8 @@ src_configure() {
 
 	if use nginx_modules_http_lua; then
 		http_enabled=1
-		export LUAJIT_LIB=$(pkg-config --variable libdir luajit)
-		export LUAJIT_INC=$(pkg-config --variable includedir luajit)
+		export LUAJIT_LIB=$(dirname $(lua_get_shared_lib))
+		export LUAJIT_INC=$(lua_get_include_dir)
 		myconf+=( --add-module=${DEVEL_KIT_MODULE_WD} )
 		myconf+=( --add-module=${HTTP_LUA_MODULE_WD} )
 	fi
@@ -680,8 +683,8 @@ src_configure() {
 		--error-log-path="${EPREFIX}"/var/log/${PN}/error_log \
 		--pid-path="${EPREFIX}"/run/${PN}.pid \
 		--lock-path="${EPREFIX}"/run/lock/${PN}.lock \
-		--with-cc-opt="-I${EROOT}usr/include${WITHOUT_IPV6}" \
-		--with-ld-opt="-L${EROOT}usr/$(get_libdir)" \
+		--with-cc-opt="-I${ESYSROOT}/usr/include${WITHOUT_IPV6}" \
+		--with-ld-opt="-L${ESYSROOT}/usr/$(get_libdir)" \
 		--http-log-path="${EPREFIX}"/var/log/${PN}/access_log \
 		--http-client-body-temp-path="${EPREFIX}${NGINX_HOME_TMP}"/client \
 		--http-proxy-temp-path="${EPREFIX}${NGINX_HOME_TMP}"/proxy \
@@ -706,9 +709,9 @@ src_compile() {
 }
 
 src_install() {
-	emake DESTDIR="${D%/}" install
+	emake DESTDIR="${D}" install
 
-	cp "${FILESDIR}"/nginx.conf-r2 "${ED%/}"/etc/nginx/nginx.conf || die
+	cp "${FILESDIR}"/nginx.conf-r2 "${ED}"/etc/nginx/nginx.conf || die
 
 	newinitd "${FILESDIR}"/nginx.initd-r4 nginx
 	newconfd "${FILESDIR}"/nginx.confd nginx
@@ -720,7 +723,7 @@ src_install() {
 
 	# just keepdir. do not copy the default htdocs files (bug #449136)
 	keepdir /var/www/localhost
-	rm -rf "${ED%/}"/usr/html || die
+	rm -rf "${ED}"/usr/html || die
 
 	# set up a list of directories to keep
 	local keepdir_list="${NGINX_HOME_TMP}"/client
@@ -747,10 +750,10 @@ src_install() {
 	newins "${FILESDIR}"/nginx.logrotate-r1 nginx
 
 	# Don't create /run
-	rm -rf "${ED%/}"/run || die
+	rm -rf "${ED}"/run || die
 
-	if use luajit; then
-		pax-mark m "${ED%/}/usr/sbin/nginx"
+	if use lua_single_target_luajit; then
+		pax-mark m "${ED}/usr/sbin/nginx"
 	fi
 
 	if use nginx_modules_http_perl; then
@@ -838,9 +841,9 @@ src_install() {
 
 pkg_postinst() {
 	if use ssl; then
-		if [[ ! -f "${EROOT}"etc/ssl/${PN}/${PN}.key ]]; then
+		if [[ ! -f "${EROOT}"/etc/ssl/${PN}/${PN}.key ]]; then
 			install_cert /etc/ssl/${PN}/${PN}
-			use prefix || chown ${PN}:${PN} "${EROOT}"etc/ssl/${PN}/${PN}.{crt,csr,key,pem}
+			use prefix || chown ${PN}:${PN} "${EROOT}"/etc/ssl/${PN}/${PN}.{crt,csr,key,pem}
 		fi
 	fi
 
@@ -889,7 +892,7 @@ pkg_postinst() {
 			break
 		fi
 
-		local _replacing_version_branch=$(get_version_component_range 1-2 "${_replacing_version}")
+		local _replacing_version_branch=$(ver_cut 1-2 "${_replacing_version}")
 		debug-print "Updating an existing installation (v${_replacing_version}; branch '${_replacing_version_branch}') ..."
 
 		# Do we need to adjust permissions to fix CVE-2013-0337 (bug #458726, #469094)?
@@ -897,7 +900,7 @@ pkg_postinst() {
 		# do not need to distinguish between stable and mainline
 		local _need_to_fix_CVE2013_0337=1
 
-		if version_is_at_least "1.4.1-r2" "${_replacing_version}"; then
+		if ver_test ${_replacing_version} -ge 1.4.1-r2; then
 			# We are updating an installation which should already be fixed
 			_need_to_fix_CVE2013_0337=0
 			debug-print "Skipping CVE-2013-0337 ... existing installation should not be affected!"
@@ -908,7 +911,7 @@ pkg_postinst() {
 
 		# Do we need to inform about HTTPoxy mitigation?
 		# In repository since commit 8be44f76d4ac02cebcd1e0e6e6284bb72d054b0f
-		if ! version_is_at_least "1.10" "${_replacing_version_branch}"; then
+		if ver_test ${_replacing_version_branch} -lt 1.10; then
 			# Updating from <1.10
 			_has_to_show_httpoxy_mitigation_notice=1
 			debug-print "Need to inform about HTTPoxy mitigation!"
@@ -931,7 +934,7 @@ pkg_postinst() {
 					_fixed_in_pvr=
 			esac
 
-			if [[ -z "${_fixed_in_pvr}" ]] || version_is_at_least "${_fixed_in_pvr}" "${_replacing_version}"; then
+			if [[ -z "${_fixed_in_pvr}" ]] || ver_test ${_replacing_version} -ge ${_fixed_in_pvr}; then
 				# We are updating an installation where we already informed
 				# that we are mitigating HTTPoxy per default
 				_has_to_show_httpoxy_mitigation_notice=0
@@ -946,7 +949,7 @@ pkg_postinst() {
 		# All branches up to 1.11 are affected
 		local _need_to_fix_CVE2016_1247=1
 
-		if ! version_is_at_least "1.10" "${_replacing_version_branch}"; then
+		if ver_test ${_replacing_version_branch} -lt 1.10; then
 			# Updating from <1.10
 			_has_to_adjust_permissions=1
 			debug-print "Need to adjust permissions to fix CVE-2016-1247!"
@@ -969,7 +972,7 @@ pkg_postinst() {
 					_fixed_in_pvr=
 			esac
 
-			if [[ -z "${_fixed_in_pvr}" ]] || version_is_at_least "${_fixed_in_pvr}" "${_replacing_version}"; then
+			if [[ -z "${_fixed_in_pvr}" ]] || ver_test ${_replacing_version} -ge ${_fixed_in_pvr}; then
 				# We are updating an installation which should already be adjusted
 				# or which was never affected
 				_need_to_fix_CVE2016_1247=0
