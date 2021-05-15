@@ -1,6 +1,5 @@
 app-crypt/ct-submit 1.1.2: A program for submitting X.509 certificate chains to Certificate Transparency log servers.
 app-crypt/simple-tpm-pk11 0.04: Simple PKCS11 provider for TPM chips
-app-shells/oh-my-zsh 9999: A ready-to-use zsh configuration with plugins
 dev-java/jdbc-mysql 5.1.26-r1: MySQL JDBC driver
 dev-php/pdlib 1.0.2: PHP bindings for dlib
 dev-php/pecl-krb5 1.1.2-r1: krb5 extension
