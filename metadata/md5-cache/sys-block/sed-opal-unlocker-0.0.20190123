@@ -8,5 +8,5 @@ KEYWORDS=~amd64 ~x86
 LICENSE=GPL-3+
 SLOT=0
 SRC_URI=https://github.com/dex6/sed-opal-unlocker/archive/8ef88c017a63aa24823651f38ea442997a0dc419.tar.gz -> sed-opal-unlocker-0.0.20190123.tar.gz
-_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	4b66d835ec72e021e359bb81eacfe988	eapi7-ver	1a0a60ad07c8b32d2faba2d085dc0f24	linux-info	fac9fc514a517caeef5d45bf5a60411b
+_eclasses_=toolchain-funcs	9ea1c67b6f8315fdc2568abb674519aa	multilib	4b66d835ec72e021e359bb81eacfe988	eapi7-ver	1a0a60ad07c8b32d2faba2d085dc0f24	linux-info	c884c7720f3fea70f8326b23b5581abe
 _md5_=120fe02e3f4ce034d84cf63aba5c10a7
