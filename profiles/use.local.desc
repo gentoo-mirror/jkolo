@@ -5,10 +5,6 @@
 dev-java/jdbc-mysql:c3p0 - Enable c3p0 support
 dev-java/jdbc-mysql:log4j - Enable log4 support
 net-im/riot-web:websocket - Adds (experimental) websocket support
-sci-libs/dlib:cblas - Build with CBLAS virtual/cblas
-sci-libs/dlib:cuda - Enable support for CUDA for Deep Neural Networks (cuDNN) on GPU (experimental)
-sci-libs/dlib:mkl - Enable support for Intel FFT sci-libs/mkl
-sci-libs/dlib:python - Enable support for Python API bindings
 www-servers/nginx:aio - Enables file AIO support
 www-servers/nginx:http - Enable HTTP core support
 www-servers/nginx:http-cache - Enable HTTP cache support
