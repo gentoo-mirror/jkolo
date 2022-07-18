@@ -1,7 +1,5 @@
 app-containers/quadlet 0.2.4: Quadlet is an opinionated tool for easily running podman system containers under systemd in an optimal way.
 app-crypt/ct-submit 1.1.2: A program for submitting X.509 certificate chains to Certificate Transparency log servers.
-app-crypt/simple-tpm-pk11 0.04: Simple PKCS11 provider for TPM chips
-dev-java/jdbc-mysql 5.1.26-r1: MySQL JDBC driver
 dev-php/pdlib 1.0.2: PHP bindings for dlib
 dev-php/pecl-krb5 1.1.2-r1: krb5 extension
 dev-php/pecl-mcrypt 1.0.3: mcrypt for php 7.2 and newer
@@ -10,6 +8,5 @@ media-video/bashnapi 1.3.5: Napiprojekt.pl subtitle downloader in bash
 net-fs/hubicfuse 3.0.1: Support for mounting HubiC drive in GNU/Linux
 net-im/riot-web 0.16.4: A glossy Matrix collaboration client for the web
 sys-block/sed-opal-unlocker 0.0.20190123: Micro-utility for unlocking TCG-OPAL encrypted disks, utilizing CONFIG_BLK_SED_OPAL interface introduced in kernel 4.11.
-sys-fs/libldm 0.2.3: Tool for managing windows's LDM partitions
 www-servers/nginx 1.23.0: Robust, small and high performance http and reverse proxy server
 www-servers/spreed-webrtc 0.29.2: WebRTC audio/video call and conferencing server and web client
