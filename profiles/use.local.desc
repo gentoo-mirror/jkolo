@@ -2,8 +2,6 @@
 # Please add your descriptions to your package's metadata.xml ONLY.
 # * generated automatically using pmaint *
 
-dev-java/jdbc-mysql:c3p0 - Enable c3p0 support
-dev-java/jdbc-mysql:log4j - Enable log4 support
 net-im/riot-web:websocket - Adds (experimental) websocket support
 www-servers/nginx:aio - Enables file AIO support
 www-servers/nginx:http - Enable HTTP core support
