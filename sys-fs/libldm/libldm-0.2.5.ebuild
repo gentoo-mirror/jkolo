@@ -2,7 +2,7 @@
 # Distributed under the terms of the GNU General Public License v2
 # $Header: $
 
-EAPI=5
+EAPI=8
 
 DESCRIPTION="Tool for managing windows's LDM partitions"
 HOMEPAGE="https://github.com/mdbooth/libldm"
@@ -12,11 +12,15 @@ LICENSE="GPL-2"
 SLOT="0"
 KEYWORDS="~x86 ~amd64"
 RESTRICT="mirror"
-DEPEND="dev-util/gtk-doc"
+DEPEND="
+    dev-util/gtk-doc
+    dev-libs/json-glib
+"
 
 inherit autotools flag-o-matic
 
 src_prepare() {
+    default
     # Remove problematic LDFLAGS declaration
     sed -i -e 's/ -Werror//g' src/Makefile.am || die
     #filter-flags -Wall
