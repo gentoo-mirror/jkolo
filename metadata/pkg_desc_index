@@ -5,4 +5,4 @@ net-fs/hubicfuse 3.0.1: Support for mounting HubiC drive in GNU/Linux
 net-im/riot-web 0.16.4: A glossy Matrix collaboration client for the web
 sys-block/sed-opal-unlocker 0.0.20190123: Micro-utility for unlocking TCG-OPAL encrypted disks, utilizing CONFIG_BLK_SED_OPAL interface introduced in kernel 4.11.
 sys-fs/libldm 0.2.5: Tool for managing windows's LDM partitions
-www-servers/nginx 1.23.1: Robust, small and high performance http and reverse proxy server
+www-servers/nginx 1.25.1-r1: Robust, small and high performance http and reverse proxy server
