@@ -1,5 +1,5 @@
-app-containers/quadlet 0.2.4: Quadlet is an opinionated tool for easily running podman system containers under systemd in an optimal way.
 dev-php/pdlib 1.0.2: PHP bindings for dlib
+dev-php/pecl-krb5 1.1.5: krb5 extension
 kde-apps/kwalletcli 3.00: A command-line interface for the KDE Wallet
 net-fs/hubicfuse 3.0.1: Support for mounting HubiC drive in GNU/Linux
 net-im/riot-web 0.16.4: A glossy Matrix collaboration client for the web
