@@ -1,3 +1,4 @@
+app-crypt/ct-submit 1.1.2: A program for submitting X.509 certificate chains to Certificate Transparency log servers.
 dev-php/pdlib 1.1.0: PHP bindings for dlib
 dev-php/pecl-krb5 1.1.5: krb5 extension
 kde-apps/kwalletcli 3.00: A command-line interface for the KDE Wallet
