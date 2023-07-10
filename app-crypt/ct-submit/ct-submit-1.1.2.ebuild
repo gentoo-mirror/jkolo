@@ -1,7 +1,8 @@
 # Copyright 1999-2015 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 
-EAPI=5
+EAPI=7
+
 EGO_PN=github.com/grahamedgecombe/ct-submit
 
 if [[ ${PV} = *9999* ]]; then
@@ -11,6 +12,7 @@ else
 	KEYWORDS="~amd64"
 	inherit golang-vcs-snapshot
 fi
+
 inherit golang-build
 
 DESCRIPTION="A program for submitting X.509 certificate chains to Certificate Transparency log servers."
