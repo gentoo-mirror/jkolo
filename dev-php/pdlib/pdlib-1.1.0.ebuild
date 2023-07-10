@@ -1,7 +1,7 @@
-EAPI="7"
+EAPI="8"
 
 PHP_EXT_NAME="pdlib"
-USE_PHP="php7-4 php8-0 php8-1"
+USE_PHP="php7-4 php8-0 php8-1 php8-2"
 
 inherit php-ext-source-r3
 
