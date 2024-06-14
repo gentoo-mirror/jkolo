@@ -177,6 +177,12 @@ HTTP_CT_MODULE_P="nginx-ct-${HTTP_CT_MODULE_PV}"
 HTTP_CT_MODULE_URI="https://github.com/grahamedgecombe/nginx-ct/archive/v${HTTP_CT_MODULE_PV}.tar.gz"
 HTTP_CT_MODULE_WD="${WORKDIR}/nginx-ct-${HTTP_CT_MODULE_PV}"
 
+# nginx-vod-module (https://github.com/kaltura/nginx-vod-module, AGPL-3+)
+HTTP_VOD_MODULE_PV="1.33"
+HTTP_VOD_MODULE_P="nginx-vod-module-${HTTP_VOD_MODULE_PV}"
+HTTP_VOD_MODULE_URI="https://github.com/kaltura/nginx-vod-module/archive/${HTTP_VOD_MODULE_PV}.tar.gz"
+HTTP_VOD_MODULE_WD="${WORKDIR}/nginx-vod-module-${HTTP_VOD_MODULE_PV}"
+
 # geoip2 (https://github.com/leev/ngx_http_geoip2_module, BSD-2)
 GEOIP2_MODULE_PV="3.4"
 GEOIP2_MODULE_P="ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
@@ -184,13 +190,13 @@ GEOIP2_MODULE_URI="https://github.com/leev/ngx_http_geoip2_module/archive/${GEOI
 GEOIP2_MODULE_WD="${WORKDIR}/ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
 
 # njs-module (https://github.com/nginx/njs, as-is)
-NJS_MODULE_PV="0.8.2"
+NJS_MODULE_PV="0.8.4"
 NJS_MODULE_P="njs-${NJS_MODULE_PV}"
 NJS_MODULE_URI="https://github.com/nginx/njs/archive/${NJS_MODULE_PV}.tar.gz"
 NJS_MODULE_WD="${WORKDIR}/njs-${NJS_MODULE_PV}"
 
 # nginx-tests (http://hg.nginx.org/nginx-tests, BSD-2)
-NGINX_TESTS_REV="24482e311749"
+NGINX_TESTS_REV="0b5ec15c62ed"
 
 # We handle deps below ourselves
 SSL_DEPS_SKIP=1
@@ -230,6 +236,7 @@ SRC_URI="https://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_upload_progress? ( ${HTTP_UPLOAD_PROGRESS_MODULE_URI} -> ${HTTP_UPLOAD_PROGRESS_MODULE_P}.tar.gz )
 	nginx_modules_http_upstream_check? ( ${HTTP_UPSTREAM_CHECK_MODULE_URI} -> ${HTTP_UPSTREAM_CHECK_MODULE_P}.tar.gz )
 	nginx_modules_http_vhost_traffic_status? ( ${HTTP_VHOST_TRAFFIC_STATUS_MODULE_URI} -> ${HTTP_VHOST_TRAFFIC_STATUS_MODULE_P}.tar.gz )
+	nginx_modules_http_vod? ( ${HTTP_VOD_MODULE_URI} -> ${HTTP_VOD_MODULE_P}.tar.gz )
 	nginx_modules_stream_geoip2? ( ${GEOIP2_MODULE_URI} -> ${GEOIP2_MODULE_P}.tar.gz )
 	nginx_modules_stream_javascript? ( ${NJS_MODULE_URI} -> ${NJS_MODULE_P}.tar.gz )
 	http3? ( ${HTTP_QUICHE_MODULE_URI} -> ${HTTP_QUICHE_MODULE_P}.tar.gz )
@@ -283,6 +290,7 @@ NGINX_MODULES_3RD="
 	http_upload_progress
 	http_upstream_check
 	http_vhost_traffic_status
+	http_vod
 	stream_geoip2
 	stream_javascript
 "
@@ -354,6 +362,7 @@ CDEPEND="
 	nginx_modules_http_security? ( dev-libs/modsecurity )
 	nginx_modules_http_auth_spnego? ( virtual/krb5 )
 	nginx_modules_http_auth_ldap? ( net-nds/openldap:=[ssl?] )
+	nginx_modules_http_vod? ( media-video/ffmpeg:0= )
 	nginx_modules_stream_geoip? ( dev-libs/geoip )
 	nginx_modules_stream_geoip2? ( dev-libs/libmaxminddb:= )"
 RDEPEND="${CDEPEND}
@@ -397,7 +406,8 @@ REQUIRED_USE="pcre-jit? ( pcre )
 	nginx_modules_http_dav_ext? ( nginx_modules_http_dav nginx_modules_http_xslt )
 	nginx_modules_http_metrics? ( nginx_modules_http_stub_status )
 	nginx_modules_http_security? ( pcre )
-	nginx_modules_http_push_stream? ( ssl )"
+	nginx_modules_http_push_stream? ( ssl )
+	nginx_modules_http_vod? ( threads )"
 
 pkg_setup() {
 	NGINX_HOME="/var/lib/nginx"
@@ -677,6 +687,12 @@ src_configure() {
 		http_enabled=1
 	fi
 
+	if use nginx_modules_http_vod; then
+		http_enabled=1
+		export HTTP_POSTPONE=no
+		myconf+=( --add-module=${HTTP_VOD_MODULE_WD} )
+	fi
+
 	if [ $http_enabled ]; then
 		use http-cache || myconf+=( --without-http-cache )
 		use ssl && myconf+=( --with-http_ssl_module )
@@ -917,6 +933,11 @@ src_install() {
 	if use nginx_modules_http_ct; then
 		docinto ${HTTP_CT_MODULE_P}
 		dodoc "${HTTP_CT_MODULE_WD}"/{README.markdown,LICENSE,CHANGELOG.markdown}
+	fi
+
+	if use nginx_modules_http_vod; then
+		docinto ${HTTP_VOD_MODULE_P}
+		dodoc "${HTTP_VOD_MODULE_WD}"/{CHANGELOG,README}.md
 	fi
 }
 
