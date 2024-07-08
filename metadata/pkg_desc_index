@@ -2,6 +2,5 @@ app-crypt/ct-submit 1.1.2: A program for submitting X.509 certificate chains to 
 dev-php/pdlib 1.1.0: PHP bindings for dlib
 dev-php/pecl-krb5 1.1.5: krb5 extension
 net-fs/hubicfuse 3.0.1: Support for mounting HubiC drive in GNU/Linux
-sys-block/sed-opal-unlocker 0.0.20190123: Micro-utility for unlocking TCG-OPAL encrypted disks, utilizing CONFIG_BLK_SED_OPAL interface introduced in kernel 4.11.
 sys-fs/libldm 0.2.5: Tool for managing windows's LDM partitions
 www-servers/nginx 1.27.0: Robust, small and high performance http and reverse proxy server
