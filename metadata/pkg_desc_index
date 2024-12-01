@@ -2,4 +2,4 @@ app-crypt/ct-submit 1.1.2: A program for submitting X.509 certificate chains to 
 dev-php/pdlib 1.1.0: PHP bindings for dlib
 dev-php/pecl-krb5 1.1.5: krb5 extension
 sys-fs/libldm 0.2.5: Tool for managing windows's LDM partitions
-www-servers/nginx 1.27.2: Robust, small and high performance http and reverse proxy server
+www-servers/nginx 1.27.3: Robust, small and high performance http and reverse proxy server
