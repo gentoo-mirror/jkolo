@@ -41,10 +41,10 @@ HTTP_HEADERS_MORE_MODULE_P="ngx_http_headers_more-${HTTP_HEADERS_MORE_MODULE_PV}
 HTTP_HEADERS_MORE_MODULE_URI="https://github.com/openresty/headers-more-nginx-module/archive/v${HTTP_HEADERS_MORE_MODULE_PV}.tar.gz"
 HTTP_HEADERS_MORE_MODULE_WD="${WORKDIR}/headers-more-nginx-module-${HTTP_HEADERS_MORE_MODULE_PV}"
 
-# http_cache_purge (http://labs.frickle.com/nginx_ngx_cache_purge/, https://github.com/FRiCKLE/ngx_cache_purge, BSD-2 license)
-HTTP_CACHE_PURGE_MODULE_PV="2.3"
+# http_cache_purge (https://github.com/nginx-modules/ngx_cache_purge, BSD-2 license)
+HTTP_CACHE_PURGE_MODULE_PV="2.5.3"
 HTTP_CACHE_PURGE_MODULE_P="ngx_http_cache_purge-${HTTP_CACHE_PURGE_MODULE_PV}"
-HTTP_CACHE_PURGE_MODULE_URI="http://labs.frickle.com/files/ngx_cache_purge-${HTTP_CACHE_PURGE_MODULE_PV}.tar.gz"
+HTTP_CACHE_PURGE_MODULE_URI="https://github.com/nginx-modules/ngx_cache_purge/archive/refs/tags/${HTTP_CACHE_PURGE_MODULE_PV}.tar.gz"
 HTTP_CACHE_PURGE_MODULE_WD="${WORKDIR}/ngx_cache_purge-${HTTP_CACHE_PURGE_MODULE_PV}"
 
 # http_slowfs_cache (http://labs.frickle.com/nginx_ngx_slowfs_cache/, BSD-2 license)
@@ -153,6 +153,30 @@ HTTP_LDAP_MODULE_P="nginx-auth-ldap-${HTTP_LDAP_MODULE_PV}"
 HTTP_LDAP_MODULE_URI="https://github.com/kvspb/nginx-auth-ldap/archive/${HTTP_LDAP_MODULE_PV}.tar.gz"
 HTTP_LDAP_MODULE_WD="${WORKDIR}/nginx-auth-ldap-${HTTP_LDAP_MODULE_PV}"
 
+# spnego-http-auth-nginx-module (https://github.com/stnoonan/spnego-http-auth-nginx-module)
+HTTP_AUTH_SPNEGO_MODULE_PV="0ea80a9f53b2830803eee0ef6becd2a10cd3f5fe"
+HTTP_AUTH_SPNEGO_MODULE_P="ngx_auth_spnego_module-${HTTP_AUTH_SPNEGO_MODULE_PV}"
+HTTP_AUTH_SPNEGO_MODULE_URI="https://github.com/jkolo/spnego-http-auth-nginx-module/archive/${HTTP_AUTH_SPNEGO_MODULE_PV}.tar.gz"
+HTTP_AUTH_SPNEGO_MODULE_WD="${WORKDIR}/spnego-http-auth-nginx-module-${HTTP_AUTH_SPNEGO_MODULE_PV}"
+
+# quiche
+HTTP_QUICHE_MODULE_PV="0.4.0"
+HTTP_QUICHE_MODULE_P="quiche-${HTTP_QUICHE_MODULE_PV}"
+HTTP_QUICHE_MODULE_URI="https://github.com/cloudflare/quiche/archive/${HTTP_QUICHE_MODULE_PV}.tar.gz"
+HTTP_QUICHE_MODULE_WD="${WORKDIR}/quiche-${HTTP_QUICHE_MODULE_PV}"
+
+# ajp-module
+HTTP_AJP_MODULE_PV="b6993cc5befd6b9d4d6aefc91c689c20aabacbd2"
+HTTP_AJP_MODULE_P="ngx_ajp_module-${HTTP_AJP_MODULE_PV}"
+HTTP_AJP_MODULE_URI="https://github.com/sklochkov/nginx_ajp_module/archive/${HTTP_AJP_MODULE_PV}.tar.gz"
+HTTP_AJP_MODULE_WD="${WORKDIR}/nginx_ajp_module-${HTTP_AJP_MODULE_PV}"
+
+# ct-module
+HTTP_CT_MODULE_PV="1.3.2"
+HTTP_CT_MODULE_P="nginx-ct-${HTTP_CT_MODULE_PV}"
+HTTP_CT_MODULE_URI="https://github.com/grahamedgecombe/nginx-ct/archive/v${HTTP_CT_MODULE_PV}.tar.gz"
+HTTP_CT_MODULE_WD="${WORKDIR}/nginx-ct-${HTTP_CT_MODULE_PV}"
+
 # nginx-vod-module (https://github.com/kaltura/nginx-vod-module, AGPL-3+)
 HTTP_VOD_MODULE_PV="1.33"
 HTTP_VOD_MODULE_P="nginx-vod-module-${HTTP_VOD_MODULE_PV}"
@@ -166,7 +190,7 @@ GEOIP2_MODULE_URI="https://github.com/leev/ngx_http_geoip2_module/archive/${GEOI
 GEOIP2_MODULE_WD="${WORKDIR}/ngx_http_geoip2_module-${GEOIP2_MODULE_PV}"
 
 # njs-module (https://github.com/nginx/njs, as-is)
-NJS_MODULE_PV="0.8.6"
+NJS_MODULE_PV="0.8.7"
 NJS_MODULE_P="njs-${NJS_MODULE_PV}"
 NJS_MODULE_URI="https://github.com/nginx/njs/archive/${NJS_MODULE_PV}.tar.gz"
 NJS_MODULE_WD="${WORKDIR}/njs-${NJS_MODULE_PV}"
@@ -184,10 +208,13 @@ DESCRIPTION="Robust, small and high performance http and reverse proxy server"
 HOMEPAGE="https://nginx.org"
 SRC_URI="https://nginx.org/download/${P}.tar.gz
 	${DEVEL_KIT_MODULE_URI} -> ${DEVEL_KIT_MODULE_P}.tar.gz
+	nginx_modules_http_ajp? ( ${HTTP_AJP_MODULE_URI} -> ${HTTP_AJP_MODULE_P}.tar.gz )
 	nginx_modules_http_auth_ldap? ( ${HTTP_LDAP_MODULE_URI} -> ${HTTP_LDAP_MODULE_P}.tar.gz )
 	nginx_modules_http_auth_pam? ( ${HTTP_AUTH_PAM_MODULE_URI} -> ${HTTP_AUTH_PAM_MODULE_P}.tar.gz )
+	nginx_modules_http_auth_spnego? ( ${HTTP_AUTH_SPNEGO_MODULE_URI} -> ${HTTP_AUTH_SPNEGO_MODULE_P}.tar.gz )
 	nginx_modules_http_brotli? ( ${HTTP_BROTLI_MODULE_URI} -> ${HTTP_BROTLI_MODULE_P}.tar.gz )
 	nginx_modules_http_cache_purge? ( ${HTTP_CACHE_PURGE_MODULE_URI} -> ${HTTP_CACHE_PURGE_MODULE_P}.tar.gz )
+	nginx_modules_http_ct? ( ${HTTP_CT_MODULE_URI} -> ${HTTP_CT_MODULE_P}.tar.gz )
 	nginx_modules_http_dav_ext? ( ${HTTP_DAV_EXT_MODULE_URI} -> ${HTTP_DAV_EXT_MODULE_P}.tar.gz )
 	nginx_modules_http_echo? ( ${HTTP_ECHO_MODULE_URI} -> ${HTTP_ECHO_MODULE_P}.tar.gz )
 	nginx_modules_http_fancyindex? ( ${HTTP_FANCYINDEX_MODULE_URI} -> ${HTTP_FANCYINDEX_MODULE_P}.tar.gz )
@@ -212,8 +239,9 @@ SRC_URI="https://nginx.org/download/${P}.tar.gz
 	nginx_modules_http_vod? ( ${HTTP_VOD_MODULE_URI} -> ${HTTP_VOD_MODULE_P}.tar.gz )
 	nginx_modules_stream_geoip2? ( ${GEOIP2_MODULE_URI} -> ${GEOIP2_MODULE_P}.tar.gz )
 	nginx_modules_stream_javascript? ( ${NJS_MODULE_URI} -> ${NJS_MODULE_P}.tar.gz )
+	http3? ( ${HTTP_QUICHE_MODULE_URI} -> ${HTTP_QUICHE_MODULE_P}.tar.gz )
 	rtmp? ( ${RTMP_MODULE_URI} -> ${RTMP_MODULE_P}.tar.gz )
-	test? ( https://hg.nginx.org/nginx-tests/archive/${NGINX_TESTS_REV}.tar.gz -> nginx-tests-${NGINX_TESTS_REV}.tar.gz )"
+        test? ( https://hg.nginx.org/nginx-tests/archive/${NGINX_TESTS_REV}.tar.gz -> nginx-tests-${NGINX_TESTS_REV}.tar.gz )"
 
 LICENSE="BSD-2 BSD SSLeay MIT GPL-2 GPL-2+
 	nginx_modules_http_security? ( Apache-2.0 )
@@ -235,10 +263,13 @@ NGINX_MODULES_STREAM_STD="access geo limit_conn map return split_clients
 NGINX_MODULES_STREAM_OPT="geoip realip ssl_preread"
 NGINX_MODULES_MAIL="imap pop3 smtp"
 NGINX_MODULES_3RD="
+	http_ajp
 	http_auth_ldap
 	http_auth_pam
+	http_auth_spnego
 	http_brotli
 	http_cache_purge
+	http_ct
 	http_dav_ext
 	http_echo
 	http_fancyindex
@@ -328,7 +359,8 @@ CDEPEND="
 	nginx_modules_http_auth_pam? ( sys-libs/pam )
 	nginx_modules_http_metrics? ( dev-libs/yajl:= )
 	nginx_modules_http_dav_ext? ( dev-libs/libxml2 )
-	nginx_modules_http_security? ( dev-libs/modsecurity )
+	nginx_modules_http_security? ( dev-libs/modsecurity:= )
+	nginx_modules_http_auth_spnego? ( virtual/krb5 )
 	nginx_modules_http_auth_ldap? ( net-nds/openldap:=[ssl?] )
 	nginx_modules_http_vod? ( media-video/ffmpeg:0= )
 	nginx_modules_stream_geoip? ( dev-libs/geoip )
@@ -411,6 +443,10 @@ pkg_setup() {
 src_prepare() {
 	eapply "${FILESDIR}/${PN}-1.4.1-fix-perl-install-path.patch"
 	eapply "${FILESDIR}/${PN}-httpoxy-mitigation-r1.patch"
+        if use http3; then
+                epatch "${HTTP_QUICHE_MODULE_WD}/extras/nginx/nginx-1.16.patch"
+        fi
+
 
 	if use nginx_modules_http_auth_ldap; then
 		cd "${HTTP_LDAP_MODULE_WD}" || die
@@ -447,11 +483,11 @@ src_prepare() {
 		eapply -p0 "${FILESDIR}"/http_upstream_check-nginx-1.11.5+.patch
 	fi
 
-	if use nginx_modules_http_cache_purge; then
-		cd "${HTTP_CACHE_PURGE_MODULE_WD}" || die
-		eapply "${FILESDIR}"/http_cache_purge-1.11.6+.patch
-		cd "${S}" || die
-	fi
+	if use nginx_modules_http_auth_spnego && has_version app-crypt/heimdal; then
+		pushd ${HTTP_AUTH_SPNEGO_MODULE_WD}
+		epatch "${FILESDIR}/spnego-http-auth-ld.patch"
+		popd
+ 	fi
 
 	if use nginx_modules_http_upload_progress; then
 		cd "${HTTP_UPLOAD_PROGRESS_MODULE_WD}" || die
@@ -488,8 +524,8 @@ src_configure() {
 	use aio       && myconf+=( --with-file-aio )
 	use debug     && myconf+=( --with-debug )
 	use http2     && myconf+=( --with-http_v2_module )
-	use http3     && myconf+=( --with-http_v3_module )
-	use ktls      && myconf+=( --with-openssl-opt=enable-ktls )
+        use http3     && myconf+=( --with-http_v3_module )
+        use ktls      && myconf+=( --with-openssl-opt=enable-ktls )
 	use libatomic && myconf+=( --with-libatomic )
 	use pcre      && myconf+=( --with-pcre --without-pcre2 )
 	use pcre-jit  && myconf+=( --with-pcre-jit )
@@ -614,6 +650,21 @@ src_configure() {
 		myconf+=( --add-module=${HTTP_LDAP_MODULE_WD} )
 	fi
 
+	if use nginx_modules_http_auth_spnego ; then
+		http_enabled=1
+		myconf+=( --add-module=${HTTP_AUTH_SPNEGO_MODULE_WD} )
+	fi
+
+	if use nginx_modules_http_ajp ; then
+		http_enabled=1
+		myconf+=( --add-module=${HTTP_AJP_MODULE_WD} )
+	fi
+
+	if use nginx_modules_http_ct ; then
+		http_enabled=1
+		myconf+=( --add-module=${HTTP_CT_MODULE_WD} )
+	fi
+
 	if use nginx_modules_http_vhost_traffic_status; then
 		http_enabled=1
 		myconf+=( --add-module=${HTTP_VHOST_TRAFFIC_STATUS_MODULE_WD} )
@@ -710,7 +761,7 @@ src_configure() {
 		--prefix="${EPREFIX}"/usr \
 		--conf-path="${EPREFIX}"/etc/${PN}/${PN}.conf \
 		--error-log-path="${EPREFIX}"/var/log/${PN}/error_log \
-		--pid-path="${EPREFIX}"/run/${PN}.pid \
+		--pid-path="${EPREFIX}"/run/${PN}/${PN}.pid \
 		--lock-path="${EPREFIX}"/run/lock/${PN}.lock \
 		--with-cc-opt="-I${ESYSROOT}/usr/include" \
 		--with-ld-opt="-L${ESYSROOT}/usr/$(get_libdir)" \
@@ -792,7 +843,7 @@ src_install() {
 
 	if use nginx_modules_http_cache_purge; then
 		docinto ${HTTP_CACHE_PURGE_MODULE_P}
-		dodoc "${HTTP_CACHE_PURGE_MODULE_WD}"/{CHANGES,README.md,TODO.md}
+		dodoc "${HTTP_CACHE_PURGE_MODULE_WD}"/{CHANGES,README.md}
 	fi
 
 	if use nginx_modules_http_slowfs_cache; then
@@ -866,6 +917,21 @@ src_install() {
 	if use nginx_modules_http_auth_ldap; then
 		docinto ${HTTP_LDAP_MODULE_P}
 		dodoc "${HTTP_LDAP_MODULE_WD}"/example.conf
+	fi
+
+	if use nginx_modules_http_auth_spnego; then
+		docinto ${HTTP_AUTH_SPNEGO_MODULE_P}
+		dodoc "${HTTP_AUTH_SPNEGO_MODULE_WD}"/README.md
+	fi
+
+	if use nginx_modules_http_ajp; then
+		docinto ${HTTP_AJP_MODULE_P}
+		dodoc "${HTTP_AJP_MODULE_WD}"/{README.markdown,README,README.wiki}
+	fi
+
+	if use nginx_modules_http_ct; then
+		docinto ${HTTP_CT_MODULE_P}
+		dodoc "${HTTP_CT_MODULE_WD}"/{README.markdown,LICENSE,CHANGELOG.markdown}
 	fi
 
 	if use nginx_modules_http_vod; then
