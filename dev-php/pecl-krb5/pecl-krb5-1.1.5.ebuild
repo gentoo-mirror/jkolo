@@ -1,7 +1,7 @@
 EAPI=8
 
 PHP_EXT_NAME="krb5"
-USE_PHP="php7-4 php8-0 php8-1 php8-2"
+USE_PHP="php8-1 php8-2 php8-3"
 
 inherit php-ext-pecl-r3
 
